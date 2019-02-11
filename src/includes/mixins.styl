@@ -1,0 +1,333 @@
+
+
+
+
+// FUNCTIONS  *******
+
+
+
+
+// MIXINS *********
+
+
+
+
+// screen()
+// 	obj = {}
+// 	firstArg = true
+// 	for val, key in arguments
+// 		if !firstArg
+// 			check = val[0]
+			
+// 			str = {}
+// 			for value, i in val
+// 				count = i - 1
+// 				str[count] = value
+					
+// 			// obj[check] = str
+// 			obj['check'] = val[0]
+// 		if firstArg
+// 			firstArg = false
+
+		
+// 	@media (max-width arguments[0])
+// 		{obj}
+
+img-center()
+	position absolute
+	top -100%
+	bottom -100%
+	left -100%
+	right -100%
+	min-width 100%
+	margin auto
+	width auto
+
+
+
+flex-center(direction = false)
+	display flex
+	align-items center
+	justify-content center
+	if direction
+		flex-direction direction
+
+
+
+flex-box(type = false, direction = false)
+	if type == 'center'
+		display flex
+		align-items center
+		justify-content center
+	if type == 'left' or !type
+		display flex
+		align-items left
+		justify-content left
+	if type == 'right'
+		display flex
+		align-items right
+		justify-content right
+	if direction
+		flex-direction direction
+
+
+// очистка отступов
+clean()
+	padding 0
+	margin 0
+	border none
+	outline none
+
+// быстрое указание размеров
+size(width = 0, height = width, hard = false)
+	width width
+	height height
+	if hard
+		min-width width
+		max-width width
+		width width
+		height height
+		min-height height
+		max-height height
+
+
+// быстрый доступ к диапазонам размеров
+width(min-w, max-w = false)
+	if max-w
+		min-width min-w
+		max-width max-w
+	else
+		width min-w
+
+
+height(min-h, max-h = false)
+	if max-h
+		min-height min-h
+		max-height max-h
+	else
+		height min-h
+
+
+position(type)
+	if type == 'fix'
+		type = fixed
+	if type == 'rel'
+		type = relative
+	if type == 'abs'
+		type = absolute
+	position type
+
+// быстрое назначение координат
+xy(x = 0, y = x, type = absolute)
+	if x == 'fixed' or x == 'relative' or x == 'fix' or x == 'rel'
+		type = x
+		x = 0
+	if x == 'center' and y == 'center'
+		x = 50%
+		y = 50%
+		transform translate(-50%, -50%)
+	position type
+	left x
+	top y
+-xy(x = 0, y = x, type = absolute)
+	if x == 'fixed' or x == 'relative' or x == 'fix' or x == 'rel'
+		type = x
+		x = 0
+	if x == 'center' and y == 'center'
+		x = 50%
+		y = 50%
+		transform translate(-50%, -50%)
+	position type
+	right x
+	top y
+x-y(x = 0, y = x, type = absolute)
+	if x == 'fixed' or x == 'relative' or x == 'fix' or x == 'rel'
+		type = x
+		x = 0
+	if x == 'center' and y == 'center'
+		x = 50%
+		y = 50%
+		transform translate(-50%, -50%)
+	position type
+	left x
+	bottom y
+-x-y(x = 0, y = x, type = absolute)
+	if x == 'fixed' or x == 'relative' or x == 'fix' or x == 'rel'
+		type = x
+		x = 0
+	if x == 'center' and y == 'center'
+		x = 50%
+		y = 50%
+		transform translate(-50%, -50%)
+	position type
+	right x
+	bottom y
+
+
+// для тестов
+test(bg = blue)
+	background rgba(bg, .3)
+	
+
+
+
+
+// NOT WORK *****
+
+
+
+// // строгое указание размеров
+// width-hard(width)
+// 	width width
+// 	max-width width
+// 	min-width width
+// height-hard(height)
+// 	height height
+// 	max-height height
+// 	min-height height
+
+
+
+
+
+va()
+	&:before
+		content " "
+		display inline-block
+		vertical-align middle
+		width 1px
+		height 100%
+		margin-left -1px
+
+clearfix()
+	&:after
+		content " "
+		display table
+		clear both
+
+// font(size,name = 'inherit', color = '#000', weight = 300, height = '1em')
+// 	font-size size
+// 	font-family name
+// 	weight weight
+// 	color color
+// 	line-height height
+
+// bg(filename, arguments=false)
+// 	if !arguments
+// 		arguments = center center
+// 	background url(filename) no-repeat arguments
+
+// back-img(path)
+// 	background-image url("/local/frontend/assets/images/" +path)
+
+// support-for-ie ?= true
+
+// vendor(prop, args)
+// 	-webkit-{prop} args
+// 	   -moz-{prop} args
+// 	    -ms-{prop} args
+// 	     -o-{prop} args
+// 	        {prop} args
+
+// border-radius()
+// 	vendor('border-radius', arguments)
+
+// filter()
+// 	vendor('filter', arguments)
+
+// box-shadow()
+// 	vendor('box-shadow', arguments)
+
+// transition()
+// 	vendor('transition', arguments)
+
+// transform()
+// 	vendor('transform', arguments)
+
+// transform-origin()
+// 	vendor('transform-origin', arguments)
+
+// user-select()
+// 	vendor('user-select', arguments)
+	
+// background-size()
+// 	vendor('background-size', arguments)
+
+// animation()
+// 	vendor('animation', arguments)
+
+// borderbox()
+// 	-moz-box-sizing border-box
+// 	box-sizing border-box
+
+// background-fixed()
+// 	background-attachment fixed
+// 	background-size cover
+
+// background-linear-gradient(startPoint, startColor, startInterval, endColor, endInterval)
+// 	background-color startColor
+// 	background-image -webkit-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+// 	background-image -moz-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+// 	background-image -ms-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+// 	background-image -o-linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+// 	background-image linear-gradient(startPoint, startColor startInterval, endColor endInterval)
+
+// opacity(n)
+// 	opacity n
+// 	if support-for-ie
+// 		filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+
+// rgb(r,g,b)
+// 	s('rgb(%s, %s, %s)', r, g, b)
+
+
+// //background-rgba(#000000,'000000',0.5)
+// background-rgba(color,colorms,a)
+// 	if support-for-ie
+// 		background transparent
+// 		filter unquote('progid:DXImageTransform.Microsoft.gradient(startColorstr=#' + round(a * 100) + replace('#','',colorms) + ',endColorstr=#' + round(a * 100) + replace('#','',colorms)  + ')')
+// 	background rgba(color,a)
+
+// import-font(originalname, newname)
+
+// 	@font-face
+// 		font-family newname
+// 		src url(originalname +'.eot')
+// 		src url(originalname +'.eot?#iefix') format('embedded-opentype'), url(originalname +'.svg') format('svg'), url(originalname +'.woff') format('woff'), url(originalname +'.ttf') format('truetype')
+// 		font-weight normal
+// 		font-style normal
+
+// sizepx(w = false,h = false)
+// 	if w
+// 		width (w)px
+// 	if h
+// 		height (h)px
+
+// block(w = false,h = false)
+// 	display block
+// 	sizepx(w,h)
+
+// block-center(w = false,h = false)
+// 	block(w,h)
+// 	margin-left auto
+// 	margin-right auto
+
+// block-inline(w = false,h = false)
+// 	display -moz-inline-stack
+// 	display inline-block
+// 	vertical-align top
+// 	zoom 1
+// 	*display inline
+// 	sizepx(w,h)
+
+// block-left(w = false,h = false)
+// 	float left
+// 	block-inline(w,h)
+
+// block-right(w = false,h = false)
+// 	float right
+// 	block-inline(w,h)
+	
+
+
+

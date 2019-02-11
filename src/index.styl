@@ -1,0 +1,100 @@
+@import './includes/mixins.styl'
+
+html
+	font-family Arial
+	font-size 1px
+
+a
+	color inherit
+	text-decoration none
+	
+main
+	font-size 17rem
+	
+button
+	font-size inherit
+
+$color1 = #000
+$color2 = lightness($color1, 80%)
+$color3 = lightness($color1, 70%)
+
+.none
+	display none !important
+
+.bold
+	font-weight 900
+.table
+	display table
+	border-collapse collapse
+	user-select none
+	.tr
+		display table-row
+		cursor pointer
+		&.select
+			background $color2
+		&:hover
+			background $color2
+		&:first-child
+			background $color3
+		.td
+			display table-cell
+			padding 10px
+			border 1px solid $color1
+.current-city
+	padding-top 20px
+.user-auth, .back
+	flex-center()
+	background $color3
+	size(250px, 40px)
+	-xy(10px)
+	cursor pointer
+
+.user
+	size(300px, auto)
+	display flex
+	flex-direction column
+	border 2px solid $color3
+	align-items center
+	padding 20px
+	>*
+		flex 0 
+		width 100%
+		margin 15px 0
+	.title
+		white-space nowrap
+		user-select none
+		cursor pointer
+		text-align center
+		display flex
+		flex-direction column
+		font-size 15rem
+		color $color2
+		.select
+			display inline-block
+		.bold
+			font-size 21rem
+			color $color1
+			text-decoration initial
+		&.inverse
+			.select:first-child
+				order 1
+				
+	.field
+		display flex
+		justify-content space-between
+		align-items center
+		user-select none
+		input
+			padding 5px 10px
+			font-size 18rem
+			outline none
+	.but
+		background $color2
+		width 70%
+		box-sizing border-box
+		user-select none
+		padding 10px
+		cursor pointer
+		text-align center
+		&:hover
+			background $color3
