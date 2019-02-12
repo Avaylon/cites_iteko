@@ -8,7 +8,7 @@ class Row extends React.Component {
 	customClass() {
 		let className = 'tr'
 
-		if (this.props.val[0] == store.getState().page.currCity) {
+		if (this.props.val[0] == store.getState().cities.currCity) {
 			className = "tr select"
 		}
 		
@@ -16,11 +16,16 @@ class Row extends React.Component {
 	}
 
 	render () {
-		return (
+
+		return this.props.title ?
+			<div className="tr">
+				{this.props.val.map((currValue, index) => <Col key={Utils.hash3(index)} val={currValue} />)}
+			</div>
+			:
 			<div onClick={this.props.getID} data-id={this.props.val[0] } className={this.customClass()}>
 				{this.props.val.map((currValue, index) => <Col key={Utils.hash3(index)} val={currValue} />)}
 			</div>
-		)
+
 	}
 }
 

@@ -11,9 +11,22 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.get('/city:id', function (req, res) {
+	res.send('HI!')
+});
 
+app.get('/city', function (req, res) {
 
+	var	cities = [
+		[1, 'Москва','3467','Россия','--'],
+		[2, 'Сочи','3443','Россия','--'],
+		[3, 'Пекин','1212','Китай','--'],
+		[4, 'Питер','4396','Россия','--'],
+		[5, 'Париж','4964','Франция','--'],
+	]
 
+	res.send( JSON.stringify(cities)  )
+});
 app.post('/registr', function (req, res) {
 	res.send('Done!')
 });

@@ -3,7 +3,7 @@ export function randomNum(min, max) {
 }
 
 export function hash3 (num) {
-	return `${num}${randomNum(100, 999)}`*1;
+	return `${num}${randomNum(1000, 9999)}`*1;
 }
 
 export function api (url, options) {

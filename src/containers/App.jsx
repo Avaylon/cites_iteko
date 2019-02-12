@@ -16,8 +16,8 @@ class App extends React.Component {
 
 		return (
 			<main>
-				<Cities rows={this.props.page} getID={this.props.getCityID} />
-				<Detail id={this.props.page.currCity} />
+				<Cities user={this.props.user} rows={this.props.cities} getID={this.props.getCityID} getCities={this.props.getCities} />
+				<Detail id={this.props.cities.currCity} />
 				<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
 				<UserAuth  />
 				<Back />
@@ -30,14 +30,34 @@ class App extends React.Component {
 
 export default connect( 
 	store => { return {
-		user: store.user, page: store.page } 
+		user: store.user, cities: store.cities } 
 	},
-	dispatch => { return ({ 
+	dispatch => { return ({
+		getCities: event => {
+
+			Utils.api('/city', {method: 'GET'} ).then( res => {
+				if (res.status != 200) return false;
+				return res.json();
+
+			}).then( res => {
+
+				let region = store.getState().user.region;
+
+				if (region) {
+					for (let i = res.length - 1; i >= 0; i--) {
+						res[i][3] == region ? res[i].push('✓') : res[i].push(false);
+					}
+				}
+
+				dispatch( {type: 'GET_CITY_LIST', payload: res });
+
+			});
+		},
 		getCityID: event => {
 
 			const elem = event.target.parentNode;
 			const id = elem.getAttribute('data-id')*1;
-			const old_id = store.getState().page.currCity;
+			const old_id = store.getState().cities.currCity;
 
 			if ( old_id == id ) return false;
 

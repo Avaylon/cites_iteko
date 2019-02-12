@@ -3,17 +3,36 @@ import Row from './Row.jsx'
 import * as Utils from '../../utils/utils.js'
 
 class Table extends React.Component {
-	
 
 
-	render() {
 
-		return (
-			<div className="table">
-				<div className="tr"><div className="td">id</div><div className="td">Город</div><div className="td">Координаты</div><div className="td">Страна</div><div className="td">Домашний регион</div><div className="td">Описание</div></div>
-				{this.props.rows.cities.map((currValue, index) => <Row key={Utils.hash3(index)} getID={this.props.getID} val={currValue} />)}
-			</div>
-		)
+	headerTitles() {
+		const headerTitles = [
+			'id',
+			'Город',
+			'Координаты',
+			'Страна',
+			'Описание',
+		]
+
+		if (this.props.user.region) {
+			headerTitles.push( 'Домашний регион' )
+		}
+
+		return headerTitles
+	}
+
+
+	render() {	
+
+		return !!this.props.rows.cities ?
+				<div className="table">
+					<Row key={Utils.hash3(0)} title={true} val={this.headerTitles()} /> 
+					{this.props.rows.cities.map((currValue, index) => <Row key={Utils.hash3(index)} title={false} getID={this.props.getID} val={currValue} /> )}
+				</div>
+				: <div></div>
+
+
 	}
 }
 
