@@ -11,8 +11,38 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.get('/city:id', function (req, res) {
-	res.send('HI!')
+app.get('/city/:uid', function (req, res) {
+
+
+	var id = req.url.substr(-1)
+
+	var arr = [ 
+		{
+			title: 'Москва',
+			description: 'Столица'
+		},
+		{
+			title: 'Сочи',
+			description: 'Солнечный город'
+		},
+		{
+			title: 'Пекин',
+			description: 'Столица Китая'
+		},
+		{
+			title: 'Питер',
+			description: 'Культурная столица'
+		},
+		{
+			title: 'Париж',
+			description: 'Столица франции'
+		}
+	]
+
+
+	res.send(
+		arr[--id]
+	)
 });
 
 app.get('/city', function (req, res) {
@@ -33,7 +63,7 @@ app.post('/registr', function (req, res) {
 app.post('/auth', function (req, res) {
 
 	if (req.body.login == 'name' && req.body.password == 'merve') {
-		res.status(200).send( JSON.stringify({region: 'Россия'}) )
+		res.status(200).send( JSON.stringify({region: 'Россия', id: 30}) )
 	}
 	else {
 		res.status(401).send('User not found')

@@ -5,8 +5,29 @@ import * as Utils from '../../utils/utils.js'
 class Table extends React.Component {
 
 
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			data: this.props.rows.cities,
+			filter: false
+		}
+	}
+
+	componentWillReceiveProps = (props) =>  {
+
+		this.setState({data: props.rows.cities})
+
+	}
+
+	filterCities = (event) => {
+
+		this.setState({filter: event.target.checked})
+	}
+
 
 	headerTitles() {
+
 		const headerTitles = [
 			'id',
 			'Город',
@@ -15,22 +36,26 @@ class Table extends React.Component {
 			'Описание',
 		]
 
-		if (this.props.user.region) {
-			headerTitles.push( 'Домашний регион' )
-		}
-
 		return headerTitles
 	}
 
+	regionClass() {
+		return this.props.user.region ? 'region-check' : 'region-check none'
+	}
+
+
 
 	render() {	
+		return !!this.state.data ?
+				<div className="table-main"> 
+					<div className="table">
+						<Row key={Utils.hash3(0)} title={true} val={this.headerTitles()} /> 
+						{this.state.data.map((currValue, index) => <Row rows={this.props.rows} key={Utils.hash3(index)} title={false} getID={this.props.getID} val={currValue} /> )}
+					</div>
 
-		return !!this.props.rows.cities ?
-				<div className="table">
-					<Row key={Utils.hash3(0)} title={true} val={this.headerTitles()} /> 
-					{this.props.rows.cities.map((currValue, index) => <Row key={Utils.hash3(index)} title={false} getID={this.props.getID} val={currValue} /> )}
+					<div className={this.regionClass()}><label> Домашний регион <input onChange={this.filterCities} type="checkbox" />  </label></div>
 				</div>
-				: <div></div>
+				: <div> Загрузка... </div>
 
 
 	}

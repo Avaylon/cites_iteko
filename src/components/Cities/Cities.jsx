@@ -14,17 +14,16 @@ export class Cities extends React.Component {
 
 	componentWillReceiveProps = (props) =>  {
 
-		// NEED FIX!!!
-		// this.props.getCities()
+		if (this.props.user.region != props.user.region) {
+			this.props.getCities()
+		}
 
 
 	}
 
 
 	template = () => (
-		<div>
-			<Table user={this.props.user} getID={this.props.getID} getCities={this.props.getCities} rows={this.props.rows} />
-		</div>
+		<Table user={this.props.user} getID={this.props.getID} getCities={this.props.getCities} rows={this.props.rows} />
 	)
 
 	render() {

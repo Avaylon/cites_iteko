@@ -1,26 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Router, Route, Link } from 'react-router-dom'
-import { store } from '../../store/configureStore.jsx'
 
 
 export class UserAuth extends React.Component {
 
-	customClass() {
 
-		let className = ''
 
-		className = location.pathname != '/auth' ? "user-auth" : "user-auth none";
-		className = !store.getState().user.name ? "user-auth" : "user-auth none";
+	customLink() {
 
-		return className
+		return location.pathname == '/' ? {link: '/auth', text: 'Авторизация'} : {link: '/', text: 'Назад'}
 	}
 
 	template = () => (
-			<Link to='/auth'>
-				<div className={this.customClass()}>Авторизация</div>
+			this.props.user.id ? 
+			<div className="user-logged" >
+				<div className="name"><span>{this.props.user.name}</span></div>
+				<div className="region">Ваш регион: <span>{this.props.user.region}</span></div>
+				<div className="exit" onClick={this.props.logout}>Выйти</div>
+			</div>
+			: 
+			<Link to={this.customLink().link}>
+				<div className="user-auth">{this.customLink().text}</div>
 			</Link>
-
 	)
 
 	render() {

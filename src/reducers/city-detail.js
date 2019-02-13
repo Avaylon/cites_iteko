@@ -1,4 +1,9 @@
-export function detailReducer(state, action) {
+export function detailReducer(state = {}, action) {
 
-	return {}
+	if (action.type == 'GET_CITY_DETAIL') {
+		state = { ...action.payload }
+
+	}
+
+	return state
 }

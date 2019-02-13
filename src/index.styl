@@ -3,6 +3,10 @@
 html
 	font-family Arial
 	font-size 1px
+html,body
+	clean()
+body
+	margin 10px
 
 a
 	color inherit
@@ -23,10 +27,19 @@ $color3 = lightness($color1, 70%)
 
 .bold
 	font-weight 900
+
+.table-main
+	min-height 250px
+	max-height 400px
+	display inline-block
+	overflow-y auto
+	overflow-x hidden
 .table
 	display table
 	border-collapse collapse
 	user-select none
+	height 100px
+	overflow scroll
 	.tr
 		display table-row
 		cursor pointer
@@ -40,14 +53,51 @@ $color3 = lightness($color1, 70%)
 			display table-cell
 			padding 10px
 			border 1px solid $color1
+.region-check
+	user-select none
+	margin-top 10px
+	label
+		cursor pointer
+.current-city-main
+	display block
 .current-city
-	padding-top 20px
+	margin-top 20px
+	border 1px solid $color1
+	min-width 300px
+	display inline-block
+	padding 10px
+	.title
+		font-size 25rem
+		margin-bottom 15px
+		
 .user-auth, .back
 	flex-center()
 	background $color3
 	size(250px, 40px)
 	-xy(10px)
 	cursor pointer
+
+
+.user-logged
+	-xy()
+	border 1px solid $color3
+	margin 10px
+	padding 20px
+	text-align center
+	span:first-letter
+		text-transform uppercase
+	.name
+		font-size 20rem
+		margin-bottom 5px
+	.region
+		font-size 15rem
+	.exit
+		font-size 13rem
+		margin-top 10px
+		text-decoration underline
+		cursor pointer
+		
+
 
 .user
 	size(300px, auto)

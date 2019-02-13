@@ -6,7 +6,7 @@ import { store } from './store/configureStore.jsx'
 import {routerMiddleware, routerReducer, syncHistoryWithStore} from 'react-router-redux';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import * as Utils from './utils/utils.js'
-import App from './containers/App.jsx'
+import App from './components/App.jsx'
 
 
 ReactDOM.render(

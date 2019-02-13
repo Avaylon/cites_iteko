@@ -1,6 +1,5 @@
 import React from 'react'
 import Col from './Col.jsx'
-import { store } from '../../store/configureStore.jsx'
 import * as Utils from '../../utils/utils.js'
 
 class Row extends React.Component {
@@ -8,7 +7,7 @@ class Row extends React.Component {
 	customClass() {
 		let className = 'tr'
 
-		if (this.props.val[0] == store.getState().cities.currCity) {
+		if (this.props.val[0] == this.props.rows.currCity) {
 			className = "tr select"
 		}
 		

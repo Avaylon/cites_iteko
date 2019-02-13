@@ -1,10 +1,4 @@
-const initialState = {
-
-}
-
-
-
-export function citiesReducer(state = initialState , action) {
+export function citiesReducer(state = {} , action) {
 
 
 	if (action.type == 'GET_CITY_LIST') {
