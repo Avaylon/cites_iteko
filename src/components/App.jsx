@@ -87,7 +87,7 @@ export default connect(
 			if (!data.login || !data.password) return false;
 
 			Utils.api('/auth', {method: 'POST', body: JSON.stringify({login: data.login, password: data.password }) }).then( res => {
-				if (res.status != 200) return false;
+				if (res.status < 200 || res.status > 299  ) return false;
 				return res.json();
 
 			}).then( res => {
@@ -106,16 +106,18 @@ export default connect(
 			if (!data.login || !data.password || !data.region ) return false;
 
 			Utils.api('/registr', {method: 'POST', body: JSON.stringify(data) }).then( res => {				
-				if (res.status != 200) return false;
+				if (res.status < 200 || res.status > 299  ) return false;
 
-				return res.text();
+
+
+				return res.json();
 			}).then( res => {
 
 				localStorage.setItem('user_name', data.login);
 				localStorage.setItem('user_region', data.region);
-				localStorage.setItem('user_id', data.id);
+				localStorage.setItem('user_id', res.id);
 
-				const userData = {name: data.login, region: data.region, id: data.id }
+				const userData = {name: data.login, region: data.region, id: res.id }
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 

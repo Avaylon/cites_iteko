@@ -58,7 +58,7 @@ app.get('/city', function (req, res) {
 	res.send( JSON.stringify(cities)  )
 });
 app.post('/registr', function (req, res) {
-	res.send('Done!')
+	res.status(201).send( JSON.stringify({id: 40}) )
 });
 app.post('/auth', function (req, res) {
 
