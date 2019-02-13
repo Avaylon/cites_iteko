@@ -58,12 +58,21 @@ app.get('/city', function (req, res) {
 	res.send( JSON.stringify(cities)  )
 });
 app.post('/registr', function (req, res) {
-	res.status(201).send( JSON.stringify({id: 40}) )
+	res.status(201).send( JSON.stringify({id: 40, token: 123}) )
+});
+
+app.post('/auth_token', function (req, res) {
+	res.status(200).send( JSON.stringify({
+		id: 30,
+		name: 'name',
+		region: 'Россия'
+	}) )
+
 });
 app.post('/auth', function (req, res) {
 
 	if (req.body.login == 'name' && req.body.password == 'merve') {
-		res.status(200).send( JSON.stringify({region: 'Россия', id: 30}) )
+		res.status(200).send( JSON.stringify({region: 'Россия', id: 30, token: 123}) )
 	}
 	else {
 		res.status(401).send('User not found')

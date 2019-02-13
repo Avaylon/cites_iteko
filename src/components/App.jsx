@@ -1,16 +1,27 @@
 import * as Utils from '../utils/utils.js'
 import React from 'react'
+import { Router, Route, browserHistory } from 'react-router'
+import { store } from '../store/configureStore.jsx'
 import { connect } from 'react-redux'
 import { User } from './User/User.jsx'
 import { Cities } from './Cities/Cities.jsx'
 import { Detail } from './Detail/Detail.jsx'
 import { UserAuth } from './User-auth/User-auth.jsx'
-import { store } from '../store/configureStore.jsx'
-import { Router, Route, browserHistory } from 'react-router'
 
 
 
 class App extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+
+		if ( !!localStorage.getItem('user_token')  ) {
+			this.props.auth_token()
+		}
+
+	}
+
 
 	render() {
 		return (
@@ -32,9 +43,8 @@ export default connect(
 	),
 	dispatch => ({
 		logout: event => {
-			localStorage.removeItem('user_name');
-			localStorage.removeItem('user_id');
-			localStorage.removeItem('user_region');
+
+			localStorage.removeItem('user_token');
 
 			dispatch( {type: 'CLEAR_USER', payload: '' } );
 		},
@@ -46,22 +56,19 @@ export default connect(
 
 			}).then( res => {
 
-
 				dispatch( {type: 'GET_CITY_LIST', payload: res });
-
 			});
 		},
 		getDetail: event => {
+
 			let id = store.getState().cities.currCity;
-			Utils.api(`/city/${id }`, {method: 'GET'} ).then( res => {
+			Utils.api(`/city/${id}`, {method: 'GET'} ).then( res => {
 				if (res.status != 200) return false;
 				return res.json();
 
 			}).then( res => {
 
 				dispatch( {type: 'GET_CITY_DETAIL', payload: res });
-
-
 			});
 
 		},
@@ -74,9 +81,25 @@ export default connect(
 			if ( old_id == id ) return false;
 
 			dispatch( {type: 'GET_CITY_INFO', payload: id });
+		},
+		auth_token: () => {
+			
+			let token = localStorage.getItem('user_token')*1;
 
+			Utils.api('add', {headers: {"X-Auth-Token": token} })
+
+
+			Utils.api('/auth_token', {method: 'POST', body: JSON.stringify({}) }).then( res => {
+				if (res.status < 200 || res.status > 299  ) return false;
+
+				return res.json();
+			}).then( res => {
+				dispatch( {type: 'SET_USER', payload: res });
+			});
+			
 		},
 		auth: (event, data) => {
+
 			event.preventDefault();
 
 			if (!data.login || !data.password) return false;
@@ -87,32 +110,31 @@ export default connect(
 
 			}).then( res => {
 
-				localStorage.setItem('user_name', data.login);
-				localStorage.setItem('user_region', res.region);
-				localStorage.setItem('user_id', res.id);
 
-				const userData = {name: data.login, region: res.region, id: res.id }
+				Utils.api('add', {headers: {"X-Auth-Token": res.token } })
+				localStorage.setItem('user_token', res.token);
+
+
+				const userData = {name: data.login, region: res.region, id: res.id, token: res.token }
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 		},
 		registr: (event, data) => {
+			
 			event.preventDefault();
 
 			if (!data.login || !data.password || !data.region ) return false;
 
 			Utils.api('/registr', {method: 'POST', body: JSON.stringify(data) }).then( res => {				
 				if (res.status < 200 || res.status > 299  ) return false;
-
-
-
 				return res.json();
+
 			}).then( res => {
 
-				localStorage.setItem('user_name', data.login);
-				localStorage.setItem('user_region', data.region);
-				localStorage.setItem('user_id', res.id);
+				Utils.api('add', {headers: {"X-Auth-Token": res.token} })
+				localStorage.setItem('user_token', res.token);
 
-				const userData = {name: data.login, region: data.region, id: res.id }
+				const userData = {name: data.login, region: data.region, id: res.id, token: res.token }
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 
