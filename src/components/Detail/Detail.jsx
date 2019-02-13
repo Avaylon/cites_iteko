@@ -21,15 +21,15 @@ export class Detail extends React.Component {
 		this.props.id ?
 			<div className="current-city-main">		
 				<div className="current-city">
-					<div className="title"> Карточка города </div>
-					<div>Выбранный город: { this.props.detail.title } </div>
+					<div className="title"> Город </div>
+					<div>Название: { this.props.detail.title } </div>
 					<div>Описание: { this.props.detail.description } </div>
 				</div>
 			</div>
 		:
 			<div className="current-city-main">		
 				<div className="current-city">
-					<div className="title"> Карточка города </div>
+					<div className="title"> Город </div>
 					Город не выбран
 				</div>
 			</div>

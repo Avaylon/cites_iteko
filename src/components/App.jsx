@@ -67,16 +67,11 @@ export default connect(
 		},
 		getCityID: event => {
 
-
-
 			const elem = event.target.parentNode;
 			const id = elem.getAttribute('data-id')*1;
 			const old_id = store.getState().cities.currCity;
 
 			if ( old_id == id ) return false;
-
-
-
 
 			dispatch( {type: 'GET_CITY_INFO', payload: id });
 
