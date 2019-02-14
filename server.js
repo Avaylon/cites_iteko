@@ -65,11 +65,11 @@ app.get('/city/:uid', function (req, res) {
 app.get('/city', function (req, res) {
 
 	var	cities = [
-		[1, 'Москва','3467','Россия','--'],
-		[2, 'Сочи','3443','Россия','--'],
-		[3, 'Пекин','1212','Китай','--'],
-		[4, 'Питер','4396','Россия','--'],
-		[5, 'Париж','4964','Франция','--'],
+		{id: 1, city: 'Москва', coords: 3467, region: 'Россия', description: '--' },
+		{id: 2, city: 'Сочи', coords: 3443, region: 'Россия', description: '--' },
+		{id: 3, city: 'Пекин', coords: 1212, region: 'Китай', description: '--' },
+		{id: 4, city: 'Питер', coords: 4396, region: 'Россия', description: '--' },
+		{id: 5, city: 'Париж', coords: 4964, region: 'Франция', description: '--' },
 	]
 
 	res.send( JSON.stringify(cities)  )

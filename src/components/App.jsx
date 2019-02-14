@@ -25,6 +25,8 @@ class App extends React.Component {
 
 	render() {
 
+
+
 		return (
 			<main>
 				<Cities user={this.props.user} cities={this.props.cities} currCity={this.props.currCity} getID={this.props.getCityID} getCities={this.props.getCities} />
@@ -81,7 +83,9 @@ export default connect(
 
 			const elem = event.target.parentNode;
 			const id = elem.getAttribute('data-id')*1;
-			const old_id = store.getState().currCity;
+			const old_id = store.getState().currCity.id;
+
+
 
 			if ( old_id == id ) return false;
 

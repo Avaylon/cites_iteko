@@ -6,6 +6,16 @@ export function hash3 (num) {
 	return `${num}${randomNum(1000, 9999)}`*1;
 }
 
+export function ObjToArr (obj) {
+
+	const arr = []
+
+	for (let key in obj) {
+		arr.push(obj[key])
+	}
+
+	return arr
+}
 
 // добавление возможности замены токена
 const api = (function () {

@@ -10,14 +10,20 @@ export class Cities extends React.Component {
 		this.props.getCities();
 
 		this.state = {
-			cities: !!this.props.cities.length ? [ ...this.props.cities ] : null
+			cities: !!this.props.cities.length ? [ ...this.props.cities ] : null,
+			filter: false
 		}
 
 	}
 
 	componentWillReceiveProps = (props) => {
 
-		this.setState({ cities: [ ...props.cities ] });
+		this.setState({ cities: [ ...props.cities.filter( (row) => { 
+
+ 				if (!this.state.filter) return true
+ 				if (row.region == this.props.user.region ) return true
+
+		}) ] });
 
 		if (this.props.user.region != props.user.region) {
 			this.props.getCities();
@@ -25,20 +31,23 @@ export class Cities extends React.Component {
 
 	}
 
- 	filterCities = (event) => {
- 		let checkbox = event.target.checked
- 		let citiesFiltred = this.props.cities.filter( (row) => {
+ 	filterCities = async (event) => {
 
- 				if (!checkbox) return true
-
-
- 				if (row[3] == this.props.user.region ) return true
-
-			})
+ 		if (event) {
+ 			let checkbox = event.target.checked
+ 			await this.setState({ filter: checkbox }); 
+ 		}
 
 
-		this.setState({ cities: citiesFiltred });
-		return true 
+		this.setState({ cities: this.props.cities.filter( (row) => {
+
+
+
+ 				if (!this.state.filter) return true
+
+ 				if (row.region == this.props.user.region ) return true
+
+			}) });
 
 
 	}
