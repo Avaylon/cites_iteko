@@ -10,12 +10,12 @@ export function hash3 (num) {
 // добавление возможности замены токена
 const api = (function () {
 
-	let more_options = {}
+	let permanent_options = {}
 
 	return function (url, options) {
 
 		if (url === 'add') {
-			more_options = {...more_options, ...options}
+			permanent_options = {...permanent_options, ...options}
 
 			return false;
 		}
@@ -30,8 +30,8 @@ const api = (function () {
 		}
 
 		// to do: be normal
-		for (let key in more_options) {
-			let value = more_options[key]
+		for (let key in permanent_options) {
+			let value = permanent_options[key]
 
 			if (!!options[key]) {
 				for (let key2 in value) {
@@ -45,10 +45,8 @@ const api = (function () {
 			options[key] = value	
 		}
 
-
-
-
-		return fetch(`api${url}`, {...options, ...more_options } )
+		return fetch(`api${url}`, options )
+	
 	}
 })()
 

@@ -11,6 +11,23 @@ app.use(function(req, res, next) {
 	next();
 });
 
+
+app.post('/auth', function (req, res) {
+
+	console.log(req.body)
+	console.log(req)
+
+	if (req.body.login == 'name' && req.body.password == 'merve') {
+		res.status(200).send( JSON.stringify({region: 'Россия', id: 30, token: 123}) )
+	}
+	else {
+		res.status(401).send('User not found')
+	}
+
+	
+
+});
+
 app.get('/city/:uid', function (req, res) {
 
 
@@ -66,21 +83,10 @@ app.post('/auth_token', function (req, res) {
 		id: 30,
 		name: 'name',
 		region: 'Россия'
-	}) )
+	}))
 
 });
-app.post('/auth', function (req, res) {
 
-	if (req.body.login == 'name' && req.body.password == 'merve') {
-		res.status(200).send( JSON.stringify({region: 'Россия', id: 30, token: 123}) )
-	}
-	else {
-		res.status(401).send('User not found')
-	}
-
-	
-
-});
 app.listen(3000, function () {
 
   console.log('Example app listening on port 3000!');

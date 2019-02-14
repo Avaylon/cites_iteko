@@ -24,10 +24,11 @@ class App extends React.Component {
 
 
 	render() {
+
 		return (
 			<main>
-				<Cities user={this.props.user} rows={this.props.cities} getID={this.props.getCityID} getCities={this.props.getCities} />
-				<Detail detail={this.props.detail} getDetail={this.props.getDetail} id={this.props.cities.currCity} />
+				<Cities user={this.props.user} cities={this.props.cities} currCity={this.props.currCity} getID={this.props.getCityID} getCities={this.props.getCities} />
+				<Detail detail={this.props.detail} getDetail={this.props.getDetail} id={this.props.currCity} />
 				<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
 				<UserAuth logout={this.props.logout} user={this.props.user} />
 			</main>
@@ -39,7 +40,7 @@ class App extends React.Component {
 
 export default connect( 
 	store => (
-		{ user: store.user, cities: store.cities, detail: store.detail } 
+		{ currCity: store.currCity, user: store.user, cities: store.cities, detail: store.detail } 
 	),
 	dispatch => ({
 		logout: event => {
@@ -50,25 +51,29 @@ export default connect(
 		},
 		getCities: event => {
 
-			Utils.api('/city', {method: 'GET'} ).then( res => {
-				if (res.status != 200) return false;
-				return res.json();
+			Utils.api('/city', {method: 'GET'} ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+				
 
-			}).then( res => {
+				const json = await res.json();
 
-				dispatch( {type: 'GET_CITY_LIST', payload: res });
+
+
+				dispatch( {type: 'GET_CITY_LIST', payload: json });
 			});
 		},
 		getDetail: event => {
 
-			let id = store.getState().cities.currCity;
-			Utils.api(`/city/${id}`, {method: 'GET'} ).then( res => {
-				if (res.status != 200) return false;
-				return res.json();
+			let id = store.getState().currCity.id;
 
-			}).then( res => {
+			Utils.api(`/city/${id}`, {method: 'GET'} ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+				
 
-				dispatch( {type: 'GET_CITY_DETAIL', payload: res });
+				const json = await res.json();
+
+
+				dispatch( {type: 'GET_CITY_DETAIL', payload: json });
 			});
 
 		},
@@ -76,9 +81,10 @@ export default connect(
 
 			const elem = event.target.parentNode;
 			const id = elem.getAttribute('data-id')*1;
-			const old_id = store.getState().cities.currCity;
+			const old_id = store.getState().currCity;
 
 			if ( old_id == id ) return false;
+
 
 			dispatch( {type: 'GET_CITY_INFO', payload: id });
 		},
@@ -89,12 +95,13 @@ export default connect(
 			Utils.api('add', {headers: {"X-Auth-Token": token} })
 
 
-			Utils.api('/auth_token', {method: 'POST', body: JSON.stringify({}) }).then( res => {
-				if (res.status < 200 || res.status > 299  ) return false;
+			Utils.api('/auth_token', {method: 'POST', body: JSON.stringify({}) }).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
 
-				return res.json();
-			}).then( res => {
-				dispatch( {type: 'SET_USER', payload: res });
+				
+
+				const json = await res.json();
+				dispatch( {type: 'SET_USER', payload: json });
 			});
 			
 		},
@@ -104,18 +111,19 @@ export default connect(
 
 			if (!data.login || !data.password) return false;
 
-			Utils.api('/auth', {method: 'POST', body: JSON.stringify({login: data.login, password: data.password }) }).then( res => {
-				if (res.status < 200 || res.status > 299  ) return false;
-				return res.json();
 
-			}).then( res => {
+			Utils.api('/auth', {method: 'POST', body: JSON.stringify({login: data.login, password: data.password }) }).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+				
 
-
-				Utils.api('add', {headers: {"X-Auth-Token": res.token } })
-				localStorage.setItem('user_token', res.token);
+				const json = await res.json();
 
 
-				const userData = {name: data.login, region: res.region, id: res.id, token: res.token }
+				Utils.api('add', {headers: {"X-Auth-Token": json.token } })
+				localStorage.setItem('user_token', json.token);
+
+
+				const userData = {name: data.login, region: json.region, id: json.id, token: json.token }
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 		},
@@ -125,16 +133,16 @@ export default connect(
 
 			if (!data.login || !data.password || !data.region ) return false;
 
-			Utils.api('/registr', {method: 'POST', body: JSON.stringify(data) }).then( res => {				
-				if (res.status < 200 || res.status > 299  ) return false;
-				return res.json();
+			Utils.api('/registr', {method: 'POST', body: JSON.stringify(data) }).then( async res => {				
+				if (res.status < 200 || res.status > 299) return false;
+				
 
-			}).then( res => {
+				const json = await res.json();
 
-				Utils.api('add', {headers: {"X-Auth-Token": res.token} })
-				localStorage.setItem('user_token', res.token);
+				Utils.api('add', {headers: {"X-Auth-Token": json.token} })
+				localStorage.setItem('user_token', json.token);
 
-				const userData = {name: data.login, region: data.region, id: res.id, token: res.token }
+				const userData = {name: data.login, region: data.region, id: json.id, token: json.token }
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 
