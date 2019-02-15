@@ -7,26 +7,35 @@ import { Route } from 'react-router'
 export class Cities extends React.Component {
 	constructor(props) {
 		super(props);
-		this.props.getCities();
+
+
+		this.props.init();
 
 		this.state = {
-			cities: !!this.props.cities.length ? [ ...this.props.cities ] : null,
-			filter: false
+			cities: !!this.props.data.length ? [ ...this.props.data ] : null,
+			filter: false,
+			headers: [
+				'id',
+				'Город'
+			]
 		}
 
 	}
 
 	componentWillReceiveProps = (props) => {
 
-		this.setState({ cities: [ ...props.cities.filter( (row) => { 
 
- 				if (!this.state.filter) return true
- 				if (row.region == this.props.user.region ) return true
+		this.setState({ cities: [ ...props.data.filter( (row) => {
 
-		}) ] });
+
+ 				if (!this.state.filter) return true;
+ 				if (row.region == this.props.user.region ) return true;
+
+			}) ] 
+		});
 
 		if (this.props.user.region != props.user.region) {
-			this.props.getCities();
+			this.props.init();
 		}
 
 	}
@@ -38,17 +47,13 @@ export class Cities extends React.Component {
  			await this.setState({ filter: checkbox }); 
  		}
 
+		this.setState({ cities: this.props.data.filter( (row) => {
 
-		this.setState({ cities: this.props.cities.filter( (row) => {
+ 				if (!this.state.filter) return true;
+ 				if (row.region == this.props.user.region ) return true;
 
-
-
- 				if (!this.state.filter) return true
-
- 				if (row.region == this.props.user.region ) return true
-
-			}) });
-
+			})
+		});
 
 	}
 
@@ -59,13 +64,14 @@ export class Cities extends React.Component {
 
 
 	template = () => (
-		<div className="table-main">
-			<Table user={this.props.user} getID={this.props.getID} getCities={this.props.getCities} currCity={this.props.currCity} cities={this.state.cities} />
-			<div className={this.regionClass()}><label> Домашний регион <input onChange={this.filterCities} type="checkbox" />  </label></div>
+		<div className="cities">
+			<Table headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
+			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox" />  </label></div>
 		</div>
 	)
 
 	render() {
+
 
 
 		return (

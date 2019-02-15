@@ -14,9 +14,6 @@ app.use(function(req, res, next) {
 
 app.post('/auth', function (req, res) {
 
-	console.log(req.body)
-	console.log(req)
-
 	if (req.body.login == 'name' && req.body.password == 'merve') {
 		res.status(200).send( JSON.stringify({region: 'Россия', id: 30, token: 123}) )
 	}
@@ -62,14 +59,32 @@ app.get('/city/:uid', function (req, res) {
 	)
 });
 
+app.get('/city/:uid/attribute', function (req, res) {
+
+	var attrs = {
+		id: 1,
+		population: 134934,
+		climate: 35,
+		coords: 3232,
+		economye: 99999,
+		view: '/img/city.jpg'
+	} 
+
+
+	res.send(  JSON.stringify(attrs) )
+});
+
+
+
+
 app.get('/city', function (req, res) {
 
 	var	cities = [
-		{id: 1, city: 'Москва', coords: 3467, region: 'Россия', description: '--' },
-		{id: 2, city: 'Сочи', coords: 3443, region: 'Россия', description: '--' },
-		{id: 3, city: 'Пекин', coords: 1212, region: 'Китай', description: '--' },
-		{id: 4, city: 'Питер', coords: 4396, region: 'Россия', description: '--' },
-		{id: 5, city: 'Париж', coords: 4964, region: 'Франция', description: '--' },
+		{id: 1, city: 'Москва', region: 'Россия' },
+		{id: 2, city: 'Сочи', region: 'Россия' },
+		{id: 3, city: 'Пекин', region: 'Китай' },
+		{id: 4, city: 'Питер', region: 'Россия' },
+		{id: 5, city: 'Париж', region: 'Франция' },
 	]
 
 	res.send( JSON.stringify(cities)  )

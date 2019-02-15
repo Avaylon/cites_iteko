@@ -8,7 +8,7 @@ export class Detail extends React.Component {
 	componentWillReceiveProps = (props) =>  {
 
 
-		if (this.props.id != props.id) {
+		if (this.props.currCity.id != props.currCity.id) {
 			this.props.getDetail()
 		}
 
@@ -18,19 +18,18 @@ export class Detail extends React.Component {
 
 	template = () => (
 
-		this.props.id ?
+		this.props.currCity.id ?
 			<div className="current-city-main">		
 				<div className="current-city">
-					<div className="title"> Город </div>
-					<div>Название: { this.props.detail.title } </div>
+					<div className="title"> { this.props.detail.title }  </div>
 					<div>Описание: { this.props.detail.description } </div>
 				</div>
 			</div>
 		:
 			<div className="current-city-main">		
 				<div className="current-city">
-					<div className="title"> Город </div>
-					Город не выбран
+					<div className="title"> Город не выбран </div>
+					
 				</div>
 			</div>
 	)

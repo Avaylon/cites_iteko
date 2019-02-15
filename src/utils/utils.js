@@ -17,6 +17,15 @@ export function ObjToArr (obj) {
 	return arr
 }
 
+export function arr (obj) {
+
+	const arr = []
+
+	arr.push( {...obj} )
+
+	return arr
+
+}
 // добавление возможности замены токена
 const api = (function () {
 

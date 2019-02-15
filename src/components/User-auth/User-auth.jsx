@@ -16,7 +16,7 @@ export class UserAuth extends React.Component {
 			this.props.user.id ? 
 			<div className="user-logged" >
 				<div className="name"><span>{this.props.user.name}</span></div>
-				<div className="region">Ваш регион: <span>{this.props.user.region}</span></div>
+				<div className="region">Домашний регион: <span>{this.props.user.region}</span></div>
 				<div className="exit" onClick={this.props.logout}>Выйти</div>
 			</div>
 			: 
