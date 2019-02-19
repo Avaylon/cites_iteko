@@ -44,13 +44,34 @@ export default connect(
 		{ currCity: store.currCity, user: store.user, cities: store.cities, detail: store.detail, attrs: store.attrs } 
 	),
 	dispatch => ({
-		removeCity: event => {
+		removeCity: (event, data) => {
+
+
+			Utils.api(`/city/${data.id}`, {method: 'DELETE', body: JSON.stringify(data) } ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+				
+				const json = await res.json();
+
+				dispatch( {type: 'DELETE_CITY', payload: json });
+			});
+
 
 		},
 		addCity: event => {
 
 		},
-		editCity: event => {
+		editCity: (event, data) => {
+
+			Utils.api(`/city/${data.id}`, {method: 'PUT', body: JSON.stringify(data) } ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+				
+				const json = await res.json();
+
+
+				dispatch( {type: 'EDIT_CITY', payload: json });
+			});
+
+			
 
 		},
 		removeAttr: event => {
@@ -120,6 +141,7 @@ export default connect(
 				if (res.status < 200 || res.status > 299) return false;
 
 				const json = await res.json();
+
 				dispatch( {type: 'SET_USER', payload: json });
 			});
 			
@@ -138,7 +160,8 @@ export default connect(
 				Utils.api('add', {headers: {"X-Auth-Token": json.token } })
 				localStorage.setItem('user_token', json.token);
 
-				const userData = {name: data.login, region: json.region, id: json.id, token: json.token }
+				const userData = {name: data.login, region: json.region, id: json.id, token: json.token, role: json.role }
+
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 		},
@@ -156,7 +179,7 @@ export default connect(
 				Utils.api('add', {headers: {"X-Auth-Token": json.token} })
 				localStorage.setItem('user_token', json.token);
 
-				const userData = {name: data.login, region: data.region, id: json.id, token: json.token }
+				const userData = {name: data.login, region: data.region, id: json.id, token: json.token, role: json.role }
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
 

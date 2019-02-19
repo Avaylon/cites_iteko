@@ -76,11 +76,61 @@ button
 		box-sizing border-box
 		border 2px solid $color12
 
+	
+	.tables
+		position rel
+		.controls
+			test()
+			xy(100%, 0)
+			size(100%)
+			.control
+				height 60px
+				box-sizing border-box
+				padding 10px
+				position rel
+				background none
+				transition background .3s
+				&.on
+					left -100%
+					background $color1
+				&.delete
+					background #E32636
+				input
+					clean()
+					background none
+					display block
+					color $color2
+				.city-field
+					font-size 16rem
+				.region-field
+					font-size 10rem
+				.icons
+					-xy(0 , 50%)
+					margin-top -10px
+					margin-right 10px
+					display flex
+					&.active
+						right 100%
+					.icon 
+						size(15px)
+						cursor pointer
+						&.focus
+							i, svg
+								fill $color2
+								stroke $color2
+						&:first-child
+							margin-right 10px
+						i, svg
+							size(100%)
+							fill $color1
+							stroke $color1
+
 	.add-city
 		size(100%, 20px)
 		position rel
 		user-select none
 		text-align right
+		margin-bottom 120px
 		.add-fields
 			display flex
 			justify-content space-between
@@ -107,7 +157,7 @@ button
 				padding-right 1px
 				margin-top 10px
 		.add-cross
-			size(20px, 20px)
+			size(15px)
 			margin 10px
 			cursor pointer
 			transition transform .3s

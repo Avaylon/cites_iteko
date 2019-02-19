@@ -2,7 +2,7 @@ import React from 'react'
 import Table from '../Table/Table.jsx'
 import { Route } from 'react-router'
 import { NewCity } from './NewCity.jsx'
-import InlineSVG from 'svg-inline-react';
+import { EditCity } from './EditCity.jsx'
 
 export class Cities extends React.Component {
 	constructor(props) {
@@ -11,27 +11,13 @@ export class Cities extends React.Component {
 		this.props.init();
 
 		this.state = {
-			cities: !!this.props.data.length ? [ ...this.props.data ] : null,
+			cities: !!this.props.data.length ? [ ...this.props.data ] : [],
 			filter: false,
 			headers: [
 				'id',
 				'Город'
-			],
-			// i don't know what i do
-			customCol: [
-				{
-					position: 2,
-					event: { type: 'click', callback: this.props.edit },
-					elem: <div className="edit">edit</div>
-				},
-				{
-					position: 2,
-					event: { type: 'click', callback: this.props.remove },
-					elem: <div className="edit">remove</div>
-				}
 			]
 		}
-
 	}
 
 	componentWillReceiveProps = (props) => {
@@ -78,8 +64,11 @@ export class Cities extends React.Component {
 	template = () => (
 		<div className="cities">
 			<div className="table-wrapp">
-				<Table customCol={this.state.customCol} headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
-				<NewCity data="this.props.data" /> 
+				<div className="tables">
+					<Table headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
+					{ this.props.user.role == 'admin' ? <EditCity remove={this.props.remove} edit={this.props.edit} focus={this.props.currCity.id} data={ this.state.cities} /> : ''  }
+				</div>
+				{ this.props.user.role == 'admin' ? <NewCity data={this.props.data} /> : '' } 
 			</div>
 			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox" /> <div className="input-checkbox"></div> </label></div>
 		</div>

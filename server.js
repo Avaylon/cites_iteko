@@ -25,6 +25,64 @@ app.post('/auth', function (req, res) {
 
 });
 
+var	cities = [
+	{id: 1, city: 'Москва', region: 'Россия' },
+	{id: 2, city: 'Сочи', region: 'Россия' },
+	{id: 3, city: 'Пекин', region: 'Китай' },
+	{id: 4, city: 'Нью-Йорк', region: 'США' },
+	{id: 5, city: 'Вашингтон', region: 'США' },
+	{id: 6, city: 'Кливленд', region: 'США' },
+	{id: 7, city: 'Питер', region: 'Россия' },
+	{id: 8, city: 'Париж', region: 'Франция' },
+]
+
+
+
+app.put('/city/:uid', function (req, res) {
+
+
+
+	for (var i = cities.length - 1; i >= 0; i--) {
+
+
+		if (cities[i].id === req.body.id) {
+
+
+			cities[i].city = req.body.city ? req.body.city : cities[i].city
+			cities[i].region = req.body.region ? req.body.region : cities[i].region
+			break;
+
+		}
+		
+	}
+
+
+
+
+	res.send( JSON.stringify( cities )  )
+});
+
+app.delete('/city/:uid', function (req, res) {
+
+	var id = false;
+
+
+
+	for (var i = cities.length - 1; i >= 0; i--) {
+
+		if (cities[i].id === req.body.id) {
+			id = i
+			console.log('hey')
+			break;
+		}
+
+	}
+
+	cities.splice(id, 1)
+
+	res.send( JSON.stringify( cities)  )
+});
+
 app.get('/city/:uid', function (req, res) {
 
 
@@ -42,6 +100,18 @@ app.get('/city/:uid', function (req, res) {
 		{
 			title: 'Пекин',
 			description: 'Столица Китая'
+		},
+		{
+			title: 'Питер',
+			description: 'Культурная столица'
+		},
+		{
+			title: 'Питер',
+			description: 'Культурная столица'
+		},
+		{
+			title: 'Питер',
+			description: 'Культурная столица'
 		},
 		{
 			title: 'Питер',
@@ -79,13 +149,6 @@ app.get('/city/:uid/attribute', function (req, res) {
 
 app.get('/city', function (req, res) {
 
-	var	cities = [
-		{id: 1, city: 'Москва', region: 'Россия' },
-		{id: 2, city: 'Сочи', region: 'Россия' },
-		{id: 3, city: 'Пекин', region: 'Китай' },
-		{id: 4, city: 'Питер', region: 'Россия' },
-		{id: 5, city: 'Париж', region: 'Франция' },
-	]
 
 	res.send( JSON.stringify(cities)  )
 });
@@ -97,7 +160,8 @@ app.post('/auth_token', function (req, res) {
 	res.status(200).send( JSON.stringify({
 		id: 30,
 		name: 'admin',
-		region: 'Россия'
+		role: 'admin',
+		region: 'Россия',
 	}))
 
 });

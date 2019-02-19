@@ -26,9 +26,9 @@ export function arr (obj) {
 	return arr
 
 }
-// добавление возможности замены токена
 const api = (function () {
 
+	// возможность добавлять новые опции при каждом новом вызове
 	let permanent_options = {}
 
 	return function (url, options) {
