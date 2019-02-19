@@ -1,13 +1,12 @@
 import React from 'react'
 import Table from '../Table/Table.jsx'
 import { Route } from 'react-router'
-
-
+import { NewCity } from './NewCity.jsx'
+import InlineSVG from 'svg-inline-react';
 
 export class Cities extends React.Component {
 	constructor(props) {
 		super(props);
-
 
 		this.props.init();
 
@@ -17,13 +16,25 @@ export class Cities extends React.Component {
 			headers: [
 				'id',
 				'Город'
+			],
+			// i don't know what i do
+			customCol: [
+				{
+					position: 2,
+					event: { type: 'click', callback: this.props.edit },
+					elem: <div className="edit">edit</div>
+				},
+				{
+					position: 2,
+					event: { type: 'click', callback: this.props.remove },
+					elem: <div className="edit">remove</div>
+				}
 			]
 		}
 
 	}
 
 	componentWillReceiveProps = (props) => {
-
 
 		this.setState({ cities: [ ...props.data.filter( (row) => {
 
@@ -63,10 +74,14 @@ export class Cities extends React.Component {
 	}
 
 
+
 	template = () => (
 		<div className="cities">
-			<Table headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
-			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox" />  </label></div>
+			<div className="table-wrapp">
+				<Table customCol={this.state.customCol} headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
+				<NewCity data="this.props.data" /> 
+			</div>
+			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox" /> <div className="input-checkbox"></div> </label></div>
 		</div>
 	)
 
@@ -75,7 +90,7 @@ export class Cities extends React.Component {
 
 
 		return (
-			<Route exact path="/" component={this.template}></Route>
+			<Route path="/" component={this.template}></Route>
 		)
 	}
 }

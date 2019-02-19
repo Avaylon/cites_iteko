@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Router, Route, browserHistory, Redirect } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import * as Utils from '../../utils/utils.js'
@@ -57,6 +58,8 @@ export class User extends React.Component {
 	template = () => {
 
 		return !this.props.user.name ?
+			<div className="user-wrapp">
+			<Link to="/"><div className="user-bg"></div> </Link>
 			<form className="user" onSubmit={this.send} >
 				<div className={this.titleClass()} onClick={this.reStatus}> <span className={this.selectTitleClass()}>Авторизация</span><span className={this.selectTitleClass(true)}>Регистрация</span>  </div>
 				<div className="field">
@@ -73,6 +76,7 @@ export class User extends React.Component {
 				</div>
 				<button className="but">{this.state.butText[!this.state.needAuth*1]}</button>
 			</form>
+			</div>
 		: <Redirect to="/" />
 	}
 

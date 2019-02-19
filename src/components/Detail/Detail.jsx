@@ -39,7 +39,7 @@ export class Detail extends React.Component {
 
 
 		return (
-			<Route component={this.template} exact path="/">
+			<Route component={this.template} path="/">
 			</Route>
 		)
 	}

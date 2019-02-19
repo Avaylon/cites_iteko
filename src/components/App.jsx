@@ -28,7 +28,7 @@ class App extends React.Component {
 		return (
 			<main className="main">
 				<Attrs user={this.props.user} data={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } init={this.props.getAttrs} />
-				<Cities user={this.props.user} data={this.props.cities} currCity={this.props.currCity} focus={this.props.getCityID} init={this.props.getCities} />
+				<Cities add={this.props.addCity} remove={this.props.removeCity} edit={this.props.editCity} user={this.props.user} data={this.props.cities} currCity={this.props.currCity} focus={this.props.getCityID} init={this.props.getCities} />
 				<Detail detail={this.props.detail} getDetail={this.props.getDetail} currCity={this.props.currCity} />
 				<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
 				<UserAuth logout={this.props.logout} user={this.props.user} />
@@ -44,6 +44,26 @@ export default connect(
 		{ currCity: store.currCity, user: store.user, cities: store.cities, detail: store.detail, attrs: store.attrs } 
 	),
 	dispatch => ({
+		removeCity: event => {
+
+		},
+		addCity: event => {
+
+		},
+		editCity: event => {
+
+		},
+		removeAttr: event => {
+
+		},
+		addAttr: event => {
+
+
+		},
+		editAttr: event => {
+
+		},
+
 		logout: event => {
 
 			localStorage.removeItem('user_token');

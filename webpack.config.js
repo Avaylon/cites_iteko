@@ -156,6 +156,13 @@ module_ava = {
 				]
 			},
 
+			{
+			 	test: /\.svg-js$/,
+				use: [
+					'raw-loader'
+				]
+			},
+
 
 
 		]
