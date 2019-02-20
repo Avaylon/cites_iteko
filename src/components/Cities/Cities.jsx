@@ -68,7 +68,7 @@ export class Cities extends React.Component {
 					<Table headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
 					{ this.props.user.role == 'admin' ? <EditCity remove={this.props.remove} edit={this.props.edit} focus={this.props.currCity.id} data={ this.state.cities} /> : ''  }
 				</div>
-				{ this.props.user.role == 'admin' ? <NewCity data={this.props.data} /> : '' } 
+				{ this.props.user.role == 'admin' ? <NewCity add={this.props.add} data={this.props.data} /> : '' } 
 			</div>
 			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox" /> <div className="input-checkbox"></div> </label></div>
 		</div>

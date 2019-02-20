@@ -57,7 +57,15 @@ export default connect(
 
 
 		},
-		addCity: event => {
+		addCity: (event, data) => {
+
+			Utils.api("/city/", {method: 'POST', body: JSON.stringify(data) } ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+				
+				const json = await res.json();
+
+				dispatch( {type: 'ADD_CITY', payload: json });
+			});
 
 		},
 		editCity: (event, data) => {
@@ -98,6 +106,8 @@ export default connect(
 				if (res.status < 200 || res.status > 299) return false;
 				
 				const json = await res.json();
+
+				
 				dispatch( {type: 'GET_ATTRS_LIST', payload: json });
 			});
 		},

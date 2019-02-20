@@ -137,13 +137,31 @@ app.get('/city/:uid/attribute', function (req, res) {
 		climate: 35,
 		coords: 3232,
 		economye: 99999,
-		view: '/img/city.jpg'
+		view: '/img/city.jpg',
+		optional: {
+			comments: 'merve',
+			date: 1993
+		}
 	} 
 
 
 	res.send(  JSON.stringify(attrs) )
 });
 
+
+var id_city = 1000
+
+app.post('/city', function (req, res) {
+
+	
+
+	id_city++
+
+
+	cities.push( { id: id_city, city: req.body.name, region: req.body.region  } )
+
+	res.send( JSON.stringify(cities)  )
+});
 
 
 
@@ -168,5 +186,5 @@ app.post('/auth_token', function (req, res) {
 
 app.listen(3000, function () {
 
-  console.log('Example app listening on port 3000!');
+  console.log('Done');
 });
