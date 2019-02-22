@@ -5,7 +5,7 @@ import { detailReducer } from './city-detail.js'
 import { attrsReducer } from './attrs.js'
 import { userReducer } from './user.js'
 import { currentReducer } from './currentReducer.js'
-import { routerMiddleware, routerReducer, syncHistoryWithStore } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 
 
 
@@ -15,11 +15,11 @@ const reducers = {
 	user: userReducer,
 	attrs: attrsReducer,
 	detail: detailReducer
-}
+};
 
 
 
 export const rootReducer = combineReducers({
 	...reducers,
 	routing: routerReducer
-})
+});

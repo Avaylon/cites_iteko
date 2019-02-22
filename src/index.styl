@@ -104,8 +104,8 @@ button
 				.city-field
 					font-size 16rem
 				.region-field
-					font-size 10rem
-					margin-top 1px
+					font-size 9rem
+					margin-top 2px
 				.icons
 					-xy(0 , 50%)
 					margin-top -10px
@@ -197,7 +197,11 @@ button
 				background $color14
 				color #fff
 	.attrs
+		margin 10px
+		box-sizing border-box
+		border 1px solid $color12
 		.table
+			size(100%)
 			.th, .tr
 				flex-direction row
 				border-bottom 0
@@ -289,7 +293,7 @@ button
 		display block
 	.current-city
 		// border 1px solid $color1
-		size(100%)
+		size(100%, auto)
 		min-width 300px
 		display inline-block
 		padding 10px
@@ -359,7 +363,6 @@ button
 			cursor pointer
 			text-align center
 			display flex
-			font-size 15rem
 			color $color2
 			height 80px
 			width calc(100% +40px)

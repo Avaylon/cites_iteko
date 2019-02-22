@@ -7,13 +7,13 @@ export class UserAuth extends React.Component {
 
 
 
-	customLink() {
+	static customLink() {
 
-		return location.pathname == '/' ? {link: '/auth', text: 'Войти'} : {link: '/', text: 'Назад'}
+		return location.pathname === '/' ? {link: '/auth', text: 'Войти'} : {link: '/', text: 'Назад'}
 	}
 
-	customClass() {
-		return location.pathname == '/' ? 'user-auth-link' : 'user-auth-link none'
+	static customClass() {
+		return location.pathname === '/' ? 'user-auth-link' : 'user-auth-link none'
 	}
 
 	template = () => (
@@ -24,8 +24,8 @@ export class UserAuth extends React.Component {
 				<div className="exit" onClick={this.props.logout}>Выйти</div>
 			</div>
 			: 
-			<Link className={this.customClass()} to={this.customLink().link}>
-				<div className="user-auth">{this.customLink().text}</div>
+			<Link className={UserAuth.customClass()} to={UserAuth.customLink().link}>
+				<div className="user-auth">{UserAuth.customLink().text}</div>
 			</Link>
 	)
 

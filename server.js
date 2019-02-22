@@ -71,8 +71,7 @@ app.delete('/city/:uid', function (req, res) {
 	for (var i = cities.length - 1; i >= 0; i--) {
 
 		if (cities[i].id === req.body.id) {
-			id = i
-			console.log('hey')
+			id = i;
 			break;
 		}
 
@@ -163,7 +162,11 @@ app.post('/city', function (req, res) {
 	res.send( JSON.stringify(cities)  )
 });
 
+app.get('/regions', function (req, res) {
 
+
+	res.send( JSON.stringify( ['Россия', 'Китай', 'Франция', 'США'] ))
+});
 
 app.get('/city', function (req, res) {
 

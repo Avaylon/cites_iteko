@@ -1,29 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Router, Route, browserHistory } from 'react-router'
-
+import { Route, browserHistory } from 'react-router'
+import { Attrs } from '../Attrs/Attrs.jsx'
 
 export class Detail extends React.Component {
-
-	componentWillReceiveProps = (props) =>  {
-
-
-		if (this.props.currCity.id != props.currCity.id) {
-			this.props.getDetail()
-		}
-
-
-	}
-
 
 	template = () => (
 
 		this.props.currCity.id ?
-			<div className="current-city-main">		
+			<div className="current-city-main">
 				<div className="current-city">
-					<div className="title"> { this.props.detail.title }  </div>
-					<div>Описание: { this.props.detail.description } </div>
+					<div className="title"> { this.props.currCity.city }  </div>
+					<div> Регион: { this.props.currCity.region } </div>
 				</div>
+				<Attrs user={this.props.user} data={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } init={this.props.getAttrs} />
 			</div>
 		:
 			<div className="current-city-main">		
@@ -32,10 +21,9 @@ export class Detail extends React.Component {
 					
 				</div>
 			</div>
-	)
+	);
 
 	render() {
-
 
 
 		return (
