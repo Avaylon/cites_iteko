@@ -98,9 +98,9 @@ button
 					background none
 					display block
 					color $color2
-				.city-field
+				.name-field
 					font-size 16rem
-				.region-field
+				.value-field
 					font-size 9rem
 					margin-top 2px
 				.icons
@@ -221,11 +221,9 @@ button
 			position relative
 			.table
 				height auto
-				flex-direction row
 				border 0
 				.th, .tr
 					flex 1
-					flex-direction column
 					height auto
 					background none
 					color inherit
@@ -235,66 +233,70 @@ button
 				width 100%
 				display flex
 				flex-direction column
-				border 1px solid $color12
 				border 0
 				xy(0)
 				pointer-events none
 				background none
+				user-select none
 				&.active
 					pointer-events auto
 				.control
 					display flex
 					width 100%
-					.control-field
-						&.edit, &.delete
-							input, textarea
-								color $color2
-							.icons .icon
+					position rel
+					min-height 40px
+					box-sizing border-box
+					flex 1
+					background #fff
+					textarea
+						resize none
+					input, textarea
+						outline none
+						border none
+						padding 10px
+						font-size 17rem
+						flex 1
+						background inherit
+					.icons
+						-xy(0 , 50%)
+						margin-top -10px
+						margin-right 10px
+						display flex
+						opacity 0
+						&.active
+							pointer-events auto
+							opacity 1
+						.icon
+							size(15px)
+							cursor pointer
+							&.focus
 								i, svg
 									fill $color2
 									stroke $color2
-						&.edit
-							background $color1
-							input, textarea
-								background $color1
-						&.delete
-							background #E32636
-							input, textarea
-								background #E32636
-					.key, .value
-						flex 1
-						position rel
-						textarea
-							resize none
-
+							&:first-child
+								margin-right 10px
+							i, svg
+								size(100%)
+								fill $color1
+								stroke $color1
+					&.on, &.delete
+						pointer-events auto
 						input, textarea
-							outline none
-							border none
-							font-size inherit
-							padding 10px
-							//background none
+							color #fff
 						.icons
-							-xy(0 , 50%)
-							margin-top -10px
-							margin-right 10px
-							display flex
-							opacity 0
 							&.active
-								pointer-events auto
+								pointer-events none
+								opacity 0
+							&.inactive
 								opacity 1
 							.icon
-								size(15px)
-								cursor pointer
-								&.focus
-									i, svg
-										fill $color2
-										stroke $color2
-								&:first-child
-									margin-right 10px
 								i, svg
-									size(100%)
-									fill $color1
-									stroke $color1
+									fill #fff
+									stroke #fff
+					&.on
+						background $color1
+					&.delete
+						background #E32636
 
 		.table
 			size(100%)

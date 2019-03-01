@@ -24,23 +24,27 @@ export class Detail extends React.Component {
 		}
 	};
 
-	template = () => (
-		this.props.currCity.id ?
-			<div className="current-city-main">
-				<div className="current-city">
-					<div className="title"> { this.props.currCity.city }  </div>
-					<div> Регион: { this.props.currCity.region } </div>
+	template = () => {
+		const {add, remove, edit, user, attrs, currCity, region} = this.props;
+		const {headers} = this.state;
+
+		return (
+			this.props.currCity.id ?
+				<div className="current-city-main">
+					<div className="current-city">
+						<div className="title"> { currCity.city }  </div>
+						<div> Регион: { currCity.region } </div>
+					</div>
+					<Attrs add={add} remove={remove} edit={edit} headers={headers} user={user} data={attrs} currCity={currCity} focus={ () => {} } />
 				</div>
-				<Attrs headers={this.state.headers} user={this.props.user} data={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } />
-			</div>
-		:
-			<div className="current-city-main">		
-				<div className="current-city">
-					<div className="title"> Город не выбран </div>
-					
+			:
+				<div className="current-city-main">
+					<div className="current-city">
+						<div className="title"> Город не выбран </div>
+
+					</div>
 				</div>
-			</div>
-	);
+	)};
 
 	render() {
 

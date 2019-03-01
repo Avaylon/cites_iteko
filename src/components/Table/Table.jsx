@@ -33,13 +33,7 @@ class Table extends React.Component {
 				{
 					list.map(
 						(currValue, index) => (
-							index === 0 ?
-								[
-									<Row attr={''} select={select} key={hash3(index)} title={true} focus={focus} val={Object.keys(currValue)}/>,
-									<Row attr={attrs[index]} select={select} key={hash3(index)} title={false} focus={focus} val={Object.values(currValue)}/>,
-								]
-							:
-								<Row attr={attrs[index]} select={select} key={hash3(index)} title={false} focus={focus} val={Object.values(currValue)}/>
+							<Row attr={attrs[index]} select={select} key={hash3(index)} title={false} focus={focus} val={Object.values(currValue)}/>
 						)
 					)
 				}

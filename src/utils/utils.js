@@ -16,8 +16,16 @@ export function arr (obj) {
 
 }
 
-export function without (obj, elem) {
+export function renameKeys ({...obj}, names) {
 
+	for (let key in obj) {
+		if (!!names[key]) {
+			obj[ names[key] ] = obj[key];
+			delete obj[key]
+		}
+	}
+
+	return obj
 
 }
 

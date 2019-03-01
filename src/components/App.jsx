@@ -22,10 +22,11 @@ class App extends React.Component {
 
 	}
 
+
 	render = () => (
 		<main className="main">
 			<Cities add={this.props.addCity} remove={this.props.removeCity} edit={this.props.editCity} user={this.props.user} data={this.props.cities} currCity={this.props.currCity} focus={this.props.getCity} />
-			<Detail detail={this.props.detail} getDetail={this.props.getDetail} user={this.props.user} attrs={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } getAttrs={this.props.getAttrs} />
+			<Detail add={this.props.addAttr} remove={this.props.removeAttr} edit={this.props.editAttr} detail={this.props.detail} getDetail={this.props.getDetail} user={this.props.user} attrs={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } getAttrs={this.props.getAttrs} />
 			<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
 			<UserAuth logout={this.props.logout} user={this.props.user} />
 		</main>
@@ -62,7 +63,9 @@ export default connect(
 		},
 		editCity: (event, data) => {
 
-			api(`/city/${data.id}`, {method: 'PUT', body: JSON.stringify(data) } ).then( async res => {
+
+
+			api(`/city/${data.id}`, {method: 'PUT', body: JSON.stringify({ id: data.id, city: data.name, region: data.value }) } ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 				
 				const json = await res.json();

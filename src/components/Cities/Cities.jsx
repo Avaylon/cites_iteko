@@ -2,7 +2,8 @@ import React from 'react'
 import Table from '../Table/Table.jsx'
 import { Route } from 'react-router'
 import { NewCity } from './NewCity.jsx'
-import { EditCity } from './EditCity.jsx'
+import { EditTable } from '../Table/EditTable.jsx'
+import { renameKeys } from '../../utils/utils.js'
 
 export class Cities extends React.Component {
 	constructor(props) {
@@ -53,20 +54,24 @@ export class Cities extends React.Component {
 		const {user, currCity, data, focus, remove, edit, add} = this.props;
 
 		return (
-		<div className="cities">
-			<div className="table-wrapp">
-				<div className="tables">
-					<Table user={user} focus={focus} select={currCity} data={cities}/>
-					{user.role === 'admin' ? <EditCity remove={remove} edit={edit} focus={currCity.id} data={cities}/> : ''}
+			<div className="cities">
+				<div className="table-wrapp">
+					<div className="tables">
+						<Table user={user} focus={focus} select={currCity} data={cities}/>
+						{
+							user.role === 'admin' ?
+								<EditTable remove={remove} edit={edit} focus={currCity.id} data={cities.map( (currValue) => ( renameKeys(currValue, {city: 'name', region: 'value'} ) ) )}/>
+							: 	false
+						}
+					</div>
+					{user.role === 'admin' ? <NewCity add={add} data={data}/> : ''}
 				</div>
-				{user.role === 'admin' ? <NewCity add={add} data={data}/> : ''}
+				<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities}
+																							type="checkbox"/>
+					<div className="input-checkbox"/>
+				</label></div>
 			</div>
-			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities}
-																						type="checkbox"/>
-				<div className="input-checkbox"/>
-			</label></div>
-		</div>
-		)};
+			)};
 
 	render() {
 

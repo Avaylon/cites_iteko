@@ -135,17 +135,17 @@ app.get('/city/:uid/attribute', function (req, res) {
 		{id: 1, name: 'Координаты', value: 3232},
 		{id: 2, name: 'Население', value: 13932},
 		{id: 3, name: 'Описание', value: 'merve'},
-	]
-
-
-	var attrs = {
-		id: 1,
-		population: 134934,
-		climate: 35,
-		coords: 3232,
-		economye: 99999,
-		view: '/img/city.jpg',
-	}
+	];
+	//
+	//
+	// var attrs = {
+	// 	id: 1,
+	// 	population: 134934,
+	// 	climate: 35,
+	// 	coords: 3232,
+	// 	economye: 99999,
+	// 	view: '/img/city.jpg',
+	// }
 
 
 
