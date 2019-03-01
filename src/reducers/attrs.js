@@ -8,7 +8,9 @@ export function attrsReducer(state = [] , action) {
 		state = [ ...action.payload ]
 	}
 
-
+	if (action.type === 'ADD_ATTRS') {
+		state = [ ...action.payload ]
+	}
 
 	return state
 }

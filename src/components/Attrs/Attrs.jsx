@@ -2,6 +2,7 @@ import React from 'react'
 import Table from '../Table/Table.jsx'
 import { Route } from 'react-router'
 import { EditTable } from '../Table/EditTable.jsx'
+import { NewAttrs } from "./NewAttrs.jsx";
 
 export class Attrs extends React.Component {
 	
@@ -14,15 +15,6 @@ export class Attrs extends React.Component {
 		};
 	}
 
-	// tablePart = data => {
-	// 	const attrs = [ {...data} ];
-	// 	const optionalAttrs =  { ...attrs[0].optional } ;
-	//
-	// 	delete attrs[0].optional;
-	//
-	// 	return { required: attrs, optional: { values: [ optionalAttrs ], headers: Object.keys(optionalAttrs) } }
-	// };
-
 
 	componentWillReceiveProps = (props) => {
 
@@ -31,27 +23,25 @@ export class Attrs extends React.Component {
 
 	template = () => {
 
-		const {user, focus, currCity, edit, remove} = this.props;
+		const {add, user, focus, currCity, edit, remove} = this.props;
 		const {attrs} = this.state;
 
 		return (
 			<div className="attrs">
-				<div className="required">
-					{/*<Table headerTitles={this.state.headers} user={user} focus={focus} currCity={currCity} data={attrs} />*/}
-				</div>
 				<div className="optional">
 					<Table user={user} focus={focus} select={currCity} data={attrs} />
-					{user.role === 'admin' ? <EditTable user={user} currCity={currCity} remove={remove} edit={edit} focus={() => {}} data={attrs}/> : ''}
+					{user.role === 'admin' ? <EditTable user={user} currCity={currCity} remove={remove} edit={edit} focus={() => {}} data={attrs}/> : false}
+
+					{user.role === 'admin' ? <NewAttrs  add={add} data={attrs} /> : false}
 				</div>
 			</div>
 		)};
 
 	render() {
-
-
 		return (
 			<Route path="/" component={this.template}/>
 		)
 	}
 }
+
 

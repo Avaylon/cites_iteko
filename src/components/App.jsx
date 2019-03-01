@@ -78,23 +78,34 @@ export default connect(
 			});
 		},
 		removeAttr: (event, data) => {
-
 			api(`/attributes/${data.id}/`, {method: 'DELETE', body: JSON.stringify({ id: data.id, name: data.name, value: data.value }) } ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 
 				const json = await res.json();
-
-				console.log( json )
-
 				dispatch( {type: 'DELETE_ATTRS', payload: json });
 			});
 		},
 		addAttr: (event, data) => {
-			console.log('add')
+
+			console.log( data )
+			api("/attributes/", {method: 'POST', body: JSON.stringify(data) } ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+
+				const json = await res.json();
+
+				dispatch( {type: 'ADD_ATTRS', payload: json });
+			});
 
 		},
 		editAttr: (event, data) => {
-			console.log('edit')
+
+			api(`/attributes/${data.id}/`, {method: 'PUT', body: JSON.stringify({ id: data.id, name: data.name, value: data.value }) } ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+
+				const json = await res.json();
+
+				dispatch( {type: 'EDIT_ATTRS', payload: json });
+			});
 
 		},
 		logout: (event, data) => {

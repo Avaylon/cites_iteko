@@ -82,22 +82,34 @@ app.put('/attributes/:uid', function (req, res) {
 		if (attrs[i].id === req.body.id) {
 
 
-			attrs[i].city = req.body.city ? req.body.city : attrs[i].city
-			attrs[i].region = req.body.region ? req.body.region : attrs[i].region
+			attrs[i].name = req.body.name ? req.body.name: attrs[i].name
+			attrs[i].value = req.body.value ? req.body.value : attrs[i].value
 			break;
 
 		}
 
 	}
 
-
-
+	console.log( req.body.name )
 
 	res.send( JSON.stringify( attrs )  )
 });
 
 
+app.get('/attributes/', function (req, res) {
 
+
+
+
+	var attrs = [
+		{name: 'насление', required: true},
+		{name: 'коодинаты', required: false},
+	]
+
+
+	res.send( JSON.stringify( attrs )  )
+
+})
 
 app.delete('/attributes/:uid', function (req, res) {
 
@@ -216,7 +228,7 @@ app.post('/attributes', function (req, res) {
 	id_attr++
 
 
-	attr.push( { id: id_city, name: req.body.name, value: req.body.region  } )
+	attrs.push( { id: id_attr, name: req.body.name, value: req.body.value  } )
 
 	res.send( JSON.stringify(attrs)  )
 });

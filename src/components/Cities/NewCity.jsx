@@ -29,11 +29,6 @@ export class NewCity extends React.Component {
 		this.setState({showFields: show})
 	};
 
-	ability = () => {
-		return this.state.showFields ? 'add-city' : 'add-city'
-		
-	};
-
 	add = (event) => {
 
 		const data = { name: this.state.cityName, region: this.state.cityRegion };
@@ -54,7 +49,7 @@ export class NewCity extends React.Component {
 
 	render() {
 		return (
-			<div className={this.ability()}>
+			<div className="add-city">
 				<div className={this.crossClass()} onClick={this.checkFields}> 
 					<InlineSVG src={require('../../includes/cross.svg-js')} />
 				</div>

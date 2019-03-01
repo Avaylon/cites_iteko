@@ -1,7 +1,7 @@
 import React from 'react'
 import InlineSVG from 'svg-inline-react';
 import { hash3 } from '../../utils/utils.js'
-
+import TextArea from 'react-textarea-autosize'
 
 export class EditTable extends React.Component {
 
@@ -88,6 +88,9 @@ export class EditTable extends React.Component {
 					<div key={hash3(index)} data-id={currValue.id} onClick={this.modify} className={this.controlClass(currValue.id)}>
 						<input className="name-field"  onChange={this.fieldName} defaultValue={currValue.name} />
 						<input className="value-field"  onChange={this.fieldValue} defaultValue={currValue.value} />
+
+						{/*<TextArea defaultValue={currValue[1]} inputRef={tag => ('')} />*/}
+
 
 						<div className="icons active">
 							<div onClick={this.beforeModify} data-event="edit" className={`icon edit ${this.focusClass(currValue.id)}`}>

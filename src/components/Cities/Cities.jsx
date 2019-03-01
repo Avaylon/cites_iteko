@@ -66,9 +66,8 @@ export class Cities extends React.Component {
 					</div>
 					{user.role === 'admin' ? <NewCity add={add} data={data}/> : ''}
 				</div>
-				<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities}
-																							type="checkbox"/>
-					<div className="input-checkbox"/>
+				<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox"/>
+				<div className="input-checkbox"/>
 				</label></div>
 			</div>
 			)};
