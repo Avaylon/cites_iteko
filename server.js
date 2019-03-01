@@ -37,6 +37,15 @@ var	cities = [
 ]
 
 
+var attrs = [
+	{id: 1, name: 'Координаты', value: 3232},
+	{id: 2, name: 'Население', value: 13932},
+	{id: 3, name: 'Описание', value: 'merve'},
+ 	{id: 4, name: 'Метро', value: false},
+	{id: 5, name: 'Город-миллионник', value: false},
+	{id: 6, name: 'Портовый', value: true },
+];
+
 
 app.put('/city/:uid', function (req, res) {
 
@@ -60,6 +69,54 @@ app.put('/city/:uid', function (req, res) {
 
 
 	res.send( JSON.stringify( cities )  )
+});
+
+
+app.put('/attributes/:uid', function (req, res) {
+
+
+
+	for (var i = attrs.length - 1; i >= 0; i--) {
+
+
+		if (attrs[i].id === req.body.id) {
+
+
+			attrs[i].city = req.body.city ? req.body.city : attrs[i].city
+			attrs[i].region = req.body.region ? req.body.region : attrs[i].region
+			break;
+
+		}
+
+	}
+
+
+
+
+	res.send( JSON.stringify( attrs )  )
+});
+
+
+
+
+app.delete('/attributes/:uid', function (req, res) {
+
+	var id = false;
+
+
+
+	for (var i = attrs.length - 1; i >= 0; i--) {
+
+		if (attrs[i].id === req.body.id) {
+			id = i;
+			break;
+		}
+
+	}
+
+	attrs.splice(id, 1)
+
+	res.send( JSON.stringify( attrs)  )
 });
 
 app.delete('/city/:uid', function (req, res) {
@@ -128,14 +185,10 @@ app.get('/city/:uid', function (req, res) {
 	)
 });
 
-app.get('/city/:uid/attribute', function (req, res) {
+app.get('/city/attributes/:uid/', function (req, res) {
 
 
-	var attrs = [
-		{id: 1, name: 'Координаты', value: 3232},
-		{id: 2, name: 'Население', value: 13932},
-		{id: 3, name: 'Описание', value: 'merve'},
-	];
+
 	//
 	//
 	// var attrs = {
@@ -154,6 +207,19 @@ app.get('/city/:uid/attribute', function (req, res) {
 
 
 var id_city = 1000
+var id_attr = 1000
+
+app.post('/attributes', function (req, res) {
+
+
+
+	id_attr++
+
+
+	attr.push( { id: id_city, name: req.body.name, value: req.body.region  } )
+
+	res.send( JSON.stringify(attrs)  )
+});
 
 app.post('/city', function (req, res) {
 

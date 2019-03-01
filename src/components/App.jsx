@@ -23,14 +23,23 @@ class App extends React.Component {
 	}
 
 
-	render = () => (
-		<main className="main">
-			<Cities add={this.props.addCity} remove={this.props.removeCity} edit={this.props.editCity} user={this.props.user} data={this.props.cities} currCity={this.props.currCity} focus={this.props.getCity} />
-			<Detail add={this.props.addAttr} remove={this.props.removeAttr} edit={this.props.editAttr} detail={this.props.detail} getDetail={this.props.getDetail} user={this.props.user} attrs={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } getAttrs={this.props.getAttrs} />
-			<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
-			<UserAuth logout={this.props.logout} user={this.props.user} />
-		</main>
-	)
+	render = () => {
+
+		const {
+			addCity, removeCity, editCity, cities, user, currCity,
+			getCity, getAttrs, addAttr, removeAttr, editAttr,
+			detail, getDetail, attrs, auth, registr, logout
+		} = this.props;
+
+		return (
+			<main className="main">
+				<Cities add={addCity} remove={removeCity} edit={editCity} user={user} data={cities} currCity={currCity} focus={getCity} />
+				<Detail add={addAttr} remove={removeAttr} edit={editAttr} detail={detail} getDetail={getDetail} user={user} attrs={attrs} currCity={currCity} focus={ () => {} } getAttrs={getAttrs} />
+				<User send_auth={auth} send_registr={registr} user={user} />
+				<UserAuth logout={logout} user={user} />
+			</main>
+		)
+	}
 }
 
 export default connect(
@@ -39,7 +48,6 @@ export default connect(
 	),
 	dispatch => ({
 		removeCity: (event, data) => {
-
 			api(`/city/${data.id}`, {method: 'DELETE', body: JSON.stringify(data) } ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 				
@@ -51,7 +59,6 @@ export default connect(
 
 		},
 		addCity: (event, data) => {
-
 			api("/city/", {method: 'POST', body: JSON.stringify(data) } ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 				
@@ -62,9 +69,6 @@ export default connect(
 
 		},
 		editCity: (event, data) => {
-
-
-
 			api(`/city/${data.id}`, {method: 'PUT', body: JSON.stringify({ id: data.id, city: data.name, region: data.value }) } ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 				
@@ -73,28 +77,34 @@ export default connect(
 				dispatch( {type: 'EDIT_CITY', payload: json });
 			});
 		},
-		removeAttr: event => {
+		removeAttr: (event, data) => {
 
+			api(`/attributes/${data.id}/`, {method: 'DELETE', body: JSON.stringify({ id: data.id, name: data.name, value: data.value }) } ).then( async res => {
+				if (res.status < 200 || res.status > 299) return false;
+
+				const json = await res.json();
+
+				console.log( json )
+
+				dispatch( {type: 'DELETE_ATTRS', payload: json });
+			});
+		},
+		addAttr: (event, data) => {
+			console.log('add')
 
 		},
-		addAttr: event => {
-
-
-		},
-		editAttr: event => {
-
+		editAttr: (event, data) => {
+			console.log('edit')
 
 		},
-		logout: event => {
-
+		logout: (event, data) => {
 			localStorage.removeItem('user_token');
 			dispatch( {type: 'CLEAR_USER', payload: '' } );
 		},
 		getAttrs: event => {
-
 			const id = store.getState().currCity.id;
 
-			api(`/city/${id}/attribute`, {method: 'GET'} ).then( async res => {
+			api(`/city/attributes/${id}`, {method: 'GET'} ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 				
 				const json = await res.json();
@@ -104,7 +114,6 @@ export default connect(
 			});
 		},
 		getCities: event => {
-
 			api('/city', {method: 'GET'} ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
 				
@@ -113,7 +122,6 @@ export default connect(
 			});
 		},
 		getDetail: event => {
-
 			const id = store.getState().currCity.id;
 
 			api(`/city/${id}`, {method: 'GET'} ).then( async res => {
@@ -131,7 +139,6 @@ export default connect(
 
 		},
 		getCity: event => {
-
 			const elem = event.currentTarget;
 			const id = elem.getAttribute('data-id')*1;
 			const old_id = store.getState().currCity.id;
@@ -145,7 +152,6 @@ export default connect(
 			dispatch( {type: 'GET_CITY_INFO', payload: {...currCity[0], id: id} });
 		},
 		auth_token: () => {
-			
 			const token = localStorage.getItem('user_token')*1;
 
 			api('add', {headers: {"X-Auth-Token": token} });
@@ -159,7 +165,6 @@ export default connect(
 			
 		},
 		auth: (event, data) => {
-
 			event.preventDefault();
 
 			if (!data.login || !data.password) return false;
@@ -178,7 +183,6 @@ export default connect(
 			});
 		},
 		registr: (event, data) => {
-			
 			event.preventDefault();
 
 			if (!data.login || !data.password || !data.region ) return false;
