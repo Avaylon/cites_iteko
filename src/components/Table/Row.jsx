@@ -4,23 +4,31 @@ import { hash3 } from '../../utils/utils.js'
 
 class Row extends React.Component {
 
-	customClass() {
-		return this.props.val[0] === this.props.currCity.id ? 'tr select' : 'tr'
+	selectClass() {
+		return this.props.attr === this.props.select.id ? 'tr select' : 'tr'
 	}
 
-	render () {
 
-		return this.props.title ?
-			<div className="th">
-				{this.props.val.map((currValue, index) => <Col key={hash3(index)} index={index} val={currValue}  />)}
-			</div>
+	render () {
+		const {val, title, attr, focus} = this.props;
+
+		return (
+			title ?
+				<div className="th">
+					{val.map((currValue, index) => <Col key={hash3(index)} index={index} val={currValue}  />)}
+				</div>
 			:
-			<div onClick={this.props.focus} data-id={this.props.val[0] } className={this.customClass()}>
-				{this.props.val.map((currValue, index) => <Col key={hash3(index)} index={index} val={currValue} />)}
-			</div>
+				<div onClick={focus} data-id={ attr} className={this.selectClass()}>
+					{val.map((currValue, index) => <Col key={hash3(index)} index={index} val={currValue} />)}
+				</div>
+		)
 
 	}
 }
 
 
 export default Row;
+
+
+
+{/*<div onClick={this.props.focus} data-id={this.props.val[0] } className={this.customClass()}>*/}

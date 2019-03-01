@@ -14,7 +14,6 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-
 		if ( !!localStorage.getItem('user_token')  ) {
 			this.props.auth_token()
 		}
@@ -23,28 +22,22 @@ class App extends React.Component {
 
 	}
 
-	render() {
-
-		return (
-			<main className="main">
-				<Cities add={this.props.addCity} remove={this.props.removeCity} edit={this.props.editCity} user={this.props.user} data={this.props.cities} currCity={this.props.currCity} focus={this.props.getCity} />
-				<Detail detail={this.props.detail} getDetail={this.props.getDetail} user={this.props.user} attrs={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } getAttrs={this.props.getAttrs} />
-				<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
-				<UserAuth logout={this.props.logout} user={this.props.user} />
-			</main>
-		)
-	}
+	render = () => (
+		<main className="main">
+			<Cities add={this.props.addCity} remove={this.props.removeCity} edit={this.props.editCity} user={this.props.user} data={this.props.cities} currCity={this.props.currCity} focus={this.props.getCity} />
+			<Detail detail={this.props.detail} getDetail={this.props.getDetail} user={this.props.user} attrs={this.props.attrs} currCity={this.props.currCity} focus={ () => {} } getAttrs={this.props.getAttrs} />
+			<User send_auth={this.props.auth} send_registr={this.props.registr} user={this.props.user} />
+			<UserAuth logout={this.props.logout} user={this.props.user} />
+		</main>
+	)
 }
 
-
-
-export default connect( 
+export default connect(
 	store => (
-		{ currCity: store.currCity, user: store.user, cities: store.cities, detail: store.detail, attrs: store.attrs } 
+		{ currCity: store.currCity, user: store.user, cities: store.cities, detail: store.detail, attrs: store.attrs }
 	),
 	dispatch => ({
 		removeCity: (event, data) => {
-
 
 			api(`/city/${data.id}`, {method: 'DELETE', body: JSON.stringify(data) } ).then( async res => {
 				if (res.status < 200 || res.status > 299) return false;
@@ -76,9 +69,6 @@ export default connect(
 
 				dispatch( {type: 'EDIT_CITY', payload: json });
 			});
-
-			
-
 		},
 		removeAttr: event => {
 
@@ -205,5 +195,3 @@ export default connect(
 		} 
 	})
 )(App)
-
-

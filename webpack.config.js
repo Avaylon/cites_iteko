@@ -56,7 +56,7 @@ module_ava = {
 		// new Babel({}),
 	    // ["transform-react-jsx"],
 		new HtmlWebpackPlugin({
-			// chunks: [''],
+			// chunks: ['main', 'perve'],
 			template: './src/index.pug',
 			// inject: 'head',
 			environment: 'FURME',

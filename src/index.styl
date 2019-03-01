@@ -10,9 +10,6 @@ $color14 = lightness($color1, 55%)
 $color2 = #fff
 
 
-
-
-
 html
 	font-family Arial
 	font-size 1px
@@ -195,13 +192,113 @@ button
 				flex 1
 			&:first-child
 				background $color14
-				color #fff
+				//color #fff
 	.attrs
 		margin 10px
 		box-sizing border-box
-		border 1px solid $color12
+		.required
+			.table
+				border 0
+				height auto
+				display grid
+				grid-template-areas 'one two'
+				padding-bottom 15px
+				.th, .tr
+					background none
+					display block
+					height auto
+					color darken($color1, 50%)
+
+					.td
+						border 0
+						padding-left 2px
+						&:nth-child(even)
+							grid-area one
+						&:nth-child(odd)
+							grid-area two
+
+		.optional
+			position relative
+			.table
+				height auto
+				flex-direction row
+				border 0
+				.th, .tr
+					flex 1
+					flex-direction column
+					height auto
+					background none
+					color inherit
+					.td
+						border 0
+			.controls
+				width 100%
+				display flex
+				flex-direction column
+				border 1px solid $color12
+				border 0
+				xy(0)
+				pointer-events none
+				background none
+				&.active
+					pointer-events auto
+				.control
+					display flex
+					width 100%
+					.control-field
+						&.edit, &.delete
+							input, textarea
+								color $color2
+							.icons .icon
+								i, svg
+									fill $color2
+									stroke $color2
+						&.edit
+							background $color1
+							input, textarea
+								background $color1
+						&.delete
+							background #E32636
+							input, textarea
+								background #E32636
+					.key, .value
+						flex 1
+						position rel
+						textarea
+							resize none
+
+						input, textarea
+							outline none
+							border none
+							font-size inherit
+							padding 10px
+							//background none
+						.icons
+							-xy(0 , 50%)
+							margin-top -10px
+							margin-right 10px
+							display flex
+							opacity 0
+							&.active
+								pointer-events auto
+								opacity 1
+							.icon
+								size(15px)
+								cursor pointer
+								&.focus
+									i, svg
+										fill $color2
+										stroke $color2
+								&:first-child
+									margin-right 10px
+								i, svg
+									size(100%)
+									fill $color1
+									stroke $color1
+
 		.table
 			size(100%)
+			border 1px solid $color12
 			.th, .tr
 				flex-direction row
 				border-bottom 0
@@ -209,11 +306,9 @@ button
 					border 1px solid $color12
 					border-right 0
 					padding 10px
-				
+
 			.tr
 				padding 0
-				.td:first-child
-					display none
 				.td:nth-child(2)
 					border-left 0
 			.th
@@ -223,7 +318,7 @@ button
 					border-top 0
 					&:first-child
 						border-left 0
-				
+
 			
 	.cities
 		justify-content flex-start
@@ -246,8 +341,6 @@ button
 			.tr
 				background $color11
 			.td
-				&.td:first-child
-					display none
 				&:last-child
 					font-size 10rem
 				
@@ -291,12 +384,14 @@ button
 				
 	.current-city-main
 		display block
+		overflow auto
 	.current-city
 		// border 1px solid $color1
 		size(100%, auto)
 		min-width 300px
 		display inline-block
 		padding 10px
+		box-sizing border-box
 		.title
 			font-size 25rem
 			margin-bottom 15px

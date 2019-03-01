@@ -11,22 +11,18 @@ export class Cities extends React.Component {
 		this.state = {
 			cities: [ ],
 			filter: false,
-			headers: [
-				'id',
-				'Город'
-			]
 		}
 
 	}
 
 	componentWillReceiveProps = (props) => {
 
-		this.setState({ cities: [ ...props.data.filter( (row) => {
+		this.setState({ cities: props.data.filter( (row) => {
 
  				if (!this.state.filter) return true;
  				if (row.region === this.props.user.region ) return true;
 
-			}) ] 
+			})
 		});
 
 	};
@@ -51,18 +47,26 @@ export class Cities extends React.Component {
 		return this.props.user.region ? 'region-check' : 'region-check none'
 	}
 
-	template = () => (
+	template = () => {
+
+		const { cities } = this.state;
+		const {user, currCity, data, focus, remove, edit, add} = this.props;
+
+		return (
 		<div className="cities">
 			<div className="table-wrapp">
 				<div className="tables">
-					<Table headerTitles={this.state.headers} user={this.props.user} focus={this.props.focus} currCity={this.props.currCity} data={this.state.cities} />
-					{ this.props.user.role === 'admin' ? <EditCity remove={this.props.remove} edit={this.props.edit} focus={this.props.currCity.id} data={ this.state.cities} /> : ''  }
+					<Table user={user} focus={focus} select={currCity} data={cities}/>
+					{user.role === 'admin' ? <EditCity remove={remove} edit={edit} focus={currCity.id} data={cities}/> : ''}
 				</div>
-				{ this.props.user.role === 'admin' ? <NewCity add={this.props.add} data={this.props.data} /> : '' }
+				{user.role === 'admin' ? <NewCity add={add} data={data}/> : ''}
 			</div>
-			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities} type="checkbox" /> <div className="input-checkbox"/> </label></div>
+			<div className={this.regionClass()}><label> <span>Свой регион</span> <input onChange={this.filterCities}
+																						type="checkbox"/>
+				<div className="input-checkbox"/>
+			</label></div>
 		</div>
-	);
+		)};
 
 	render() {
 

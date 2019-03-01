@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 
 app.post('/auth', function (req, res) {
 
-	if (req.body.login == 'admin' && req.body.password == 'merve') {
+	if (req.body.login === 'admin' && req.body.password === 'merve') {
 		res.status(200).send( JSON.stringify({region: 'Россия', id: 30, token: 123, role: 'admin'}) )
 	}
 	else {
@@ -130,6 +130,14 @@ app.get('/city/:uid', function (req, res) {
 
 app.get('/city/:uid/attribute', function (req, res) {
 
+
+	var attrs = [
+		{id: 1, name: 'Координаты', value: 3232},
+		{id: 2, name: 'Население', value: 13932},
+		{id: 3, name: 'Описание', value: 'merve'},
+	]
+
+
 	var attrs = {
 		id: 1,
 		population: 134934,
@@ -137,11 +145,8 @@ app.get('/city/:uid/attribute', function (req, res) {
 		coords: 3232,
 		economye: 99999,
 		view: '/img/city.jpg',
-		optional: {
-			comments: 'merve',
-			date: 1993
-		}
-	} 
+	}
+
 
 
 	res.send(  JSON.stringify(attrs) )

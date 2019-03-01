@@ -6,35 +6,30 @@ export function hash3 (num) {
 	return `${num}${randomNum(1000, 9999)}`*1;
 }
 
-export function ObjToArr (obj) {
-
-	const arr = []
-
-	for (let key in obj) {
-		arr.push(obj[key])
-	}
-
-	return arr
-}
-
 export function arr (obj) {
 
-	const arr = []
+	const arr = [];
 
-	arr.push( {...obj} )
+	arr.push( {...obj} );
 
 	return arr
 
 }
+
+export function without (obj, elem) {
+
+
+}
+
 const api = (function () {
 
 	// возможность добавлять новые опции при каждом новом вызове
-	let permanent_options = {}
+	let permanent_options = {};
 
 	return function (url, options) {
 
 		if (url === 'add') {
-			permanent_options = {...permanent_options, ...options}
+			permanent_options = {...permanent_options, ...options};
 
 			return false;
 		}
@@ -46,16 +41,18 @@ const api = (function () {
 		options.headers = {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
-		}
+		};
 
 		// to do: be normal
+
+
+
 		for (let key in permanent_options) {
-			let value = permanent_options[key]
+			let value = permanent_options[key];
 
 			if (!!options[key]) {
 				for (let key2 in value) {
-					let value2 = value[key2]
-					options[key][key2] = value2
+					options[key][key2] = value[key2]
 
 				}
 				continue;
@@ -67,7 +64,7 @@ const api = (function () {
 		return fetch(`api${url}`, options )
 	
 	}
-})()
+})();
 
 
 export {api}

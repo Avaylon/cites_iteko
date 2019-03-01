@@ -21,18 +21,15 @@ export class EditCity extends React.Component {
 	}
 
 	focusClass = (index) => {
-
 		return index === this.props.focus ? 'focus' : ''
 	};
 
 	componentWillReceiveProps = (props) => {
-
 		this.setState({data: props.data})
 
 	};
 
 	modify = (event) => {
-
 		const id = event.currentTarget.getAttribute('data-id')*1;
 
 		if (this.state.lastID === id ) return false;
@@ -46,13 +43,11 @@ export class EditCity extends React.Component {
 	};
 
 	close = () => {
-
 		this.setState({currControl: false, lastID: false, field_city: false, field_region: false})
 
 	};
 
 	edit = async (event) => {
-
 		if (this.state.currEvent === 'edit') {
 			await this.props.edit(event, {id: this.state.lastID, city: this.state.field_city, region: this.state.field_region })
 		}
@@ -65,17 +60,14 @@ export class EditCity extends React.Component {
 	};
 
 	fieldCity  = (event) => {
-
 		this.state.field_city = event.target.value
 	};
 	fieldRegion  = (event) => {
-
 		this.state.field_region = event.target.value
 
 	};
 
 	controlClass(index) {
-
 		let name = 'control';
 
 		if (index === this.state.currControl) {
@@ -86,7 +78,6 @@ export class EditCity extends React.Component {
 
 	}
 	render () {
-
 		return (
 			<div className="controls">
 				{ this.state.data.map((currValue, index) =>
