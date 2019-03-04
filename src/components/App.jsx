@@ -156,6 +156,9 @@ export default connect(
 
 			if ( old_id === id ) return false;
 
+
+
+
 			const currCity = store.getState().cities.filter( (el, i, arr) => {
 				return el.id === id
 			});

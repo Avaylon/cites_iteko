@@ -30,20 +30,20 @@ export class Detail extends React.Component {
 
 		return (
 			this.props.currCity.id ?
-				<div className="current-city-main">
+				<section className="current-city-main">
 					<div className="current-city">
 						<div className="title"> { currCity.city }  </div>
 						<div> Регион: { currCity.region } </div>
 					</div>
 					<Attrs add={add} remove={remove} edit={edit} headers={headers} user={user} data={attrs} currCity={currCity} focus={ () => {} } />
-				</div>
+				</section>
 			:
-				<div className="current-city-main">
+				<section className="current-city-main">
 					<div className="current-city">
-						<div className="title"> Город не выбран </div>
+						<div className="title-min"> Необходимо выбрать город </div>
 
 					</div>
-				</div>
+				</section>
 	)};
 
 	render() {

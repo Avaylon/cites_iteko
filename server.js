@@ -34,6 +34,8 @@ var	cities = [
 	{id: 6, city: 'Кливленд', region: 'США' },
 	{id: 7, city: 'Питер', region: 'Россия' },
 	{id: 8, city: 'Париж', region: 'Франция' },
+	{id: 9, city: 'Амстердам', region: 'Амстердам' },
+	{id: 10, city: 'Гонконг', region: 'Китай' },
 ]
 
 
@@ -55,8 +57,6 @@ app.put('/city/:uid', function (req, res) {
 
 
 		if (cities[i].id === req.body.id) {
-
-
 			cities[i].city = req.body.city ? req.body.city : cities[i].city
 			cities[i].region = req.body.region ? req.body.region : cities[i].region
 			break;

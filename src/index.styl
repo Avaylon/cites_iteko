@@ -15,7 +15,7 @@ html
 	font-size 1px
 html,body
 	clean()
-	color darken($color1, 50%)
+	color darken($color1, 40%)
 	font-family Arial
 body
 	margin 10px
@@ -29,10 +29,11 @@ main
 button
 	font-size inherit
 
+.logo
+	width 120px
 
 .add-cross
 	size(15px)
-	margin 10px
 	cursor pointer
 	transition transform .3s
 	transform rotate(0deg)
@@ -67,10 +68,10 @@ button
 	font-weight 900
 .main
 	display grid
-	grid-template-columns repeat(3, 1fr)
-	grid-template-rows 51px 200px 200px
+	grid-template-columns 270px 1fr
+	height calc(100vh - 20px)
+	grid-template-rows 50px 1fr
 	grid-column-gap 15px
-	//grid-row-gap 15px
 	grid-template-areas  "cities user user " "cities detail detail" "cities detail detail"
 	.cities
 		grid-area cities
@@ -81,9 +82,19 @@ button
 
 	.current-city-main
 		grid-area detail
-	.user-logged, .user, .user-auth-link
+	.header
 		grid-area user
-		border 0
+		border-bottom 0
+		display flex
+		justify-content space-between
+		background $color1
+		.city-card
+			background $color2
+			box-sizing border-box
+			padding 15px
+			white-space nowrap
+		.user-auth-link
+			height 100%
 	>*
 		box-sizing border-box
 		border 2px solid $color12
@@ -137,36 +148,7 @@ button
 							fill $color1
 							stroke $color1
 
-	.add-city
-		size(100%, 20px)
-		position rel
-		user-select none
-		text-align right
-		.add-fields
-			display flex
-			justify-content space-between
-			flex-wrap wrap
-			width 100%
-			padding 10px
-			box-sizing border-box
-			.field
-				flex 1
-				&:first-child
-					margin-right 10px
-			span, input
-				display block
-			span
-				margin-bottom 5px
-			input
-				outline none
-				padding 5px 0
-				font-size 15rem
-				border 1px solid $color12
-				width 100%
-			.but
-				width 100%
-				padding-right 1px
-				margin-top 10px
+
 
 	.table
 		border-collapse collapse
@@ -192,7 +174,7 @@ button
 				background $color14
 				//color #fff
 	.attrs
-		margin 10px
+		margin 15px
 		box-sizing border-box
 		.required
 			.table
@@ -223,6 +205,7 @@ button
 				.th, .tr
 					flex 1
 					height auto
+					min-height 60px
 					background none
 					color inherit
 					.td
@@ -236,22 +219,24 @@ button
 				pointer-events none
 				background none
 				user-select none
+
+				height auto
 				&.active
 					pointer-events auto
 				.control
 					display flex
 					width 100%
 					position rel
-					min-height 40px
+					min-height 60px
 					box-sizing border-box
 					flex 1
-					background #fff
+					//background #fff
 					textarea
 						resize none
 					input, textarea
 						outline none
 						border none
-						padding 10px
+						//padding 10px
 						font-size 17rem
 						flex 1
 						background inherit
@@ -330,7 +315,7 @@ button
 				.td
 					border 1px solid $color12
 					border-right 0
-					padding 10px
+					//padding 10px
 
 			.tr
 				padding 0
@@ -349,7 +334,7 @@ button
 		justify-content flex-start
 		position rel
 		.table-wrapp
-			height calc(415px - 53px)
+			//height calc(415px - 53px)
 			overflow-y auto
 			order 2
 			&::-webkit-scrollbar 
@@ -381,10 +366,14 @@ button
 		width 100%
 		background $color2
 		order 1
-
+		display flex
+		min-height 50px
+		.region
+			color $color1
 		label
 			display flex
 			cursor pointer
+			flex 1
 			align-items center
 			.input-checkbox
 				size(18px)
@@ -396,7 +385,6 @@ button
 				border 0
 			span
 				order 2
-				margin-top 1px
 			input
 				order 1
 				display none
@@ -408,31 +396,70 @@ button
 				background $color12
 				pointer-events none
 				opacity 0
-				
+
+		.add-city
+			user-select none
+			text-align right
+			.add-fields
+				display flex
+				justify-content space-between
+				flex-wrap wrap
+				width 100%
+				background-color $color2
+				padding 10px 10px 15px
+				height auto
+				flex-direction column
+				box-sizing border-box
+				border-bottom 1px solid $color12
+				xy(0, 100%)
+				.field
+					flex 1
+					height 50px
+					justify-content space-between
+				span, input
+					display block
+				input
+					outline none
+					padding 5px 0
+					width 75%
+					order 2
+					font-size 15rem
+					border 1px solid $color12
+					padding-left 7px
+				.but
+					width 100%
+					padding-right 1px
+					margin-top 10px
 	.current-city-main
 		display block
 		overflow auto
+		border-top 0
 	.current-city
-		// border 1px solid $color1
 		size(100%, auto)
 		min-width 300px
 		display inline-block
-		padding 10px
+		padding 15px
+		padding-top 25px
 		box-sizing border-box
 		.title
 			font-size 25rem
 			margin-bottom 15px
+		.title-min
+			font-size 18rem
+			color $color12
 	
 
 	.user-wrapp
 		border 0
 	.user-auth
-		flex-center()
-		background $color14
+		display flex
+		align-items center
+		justify-content flex-end
 		size(250px, 40px)
 		cursor pointer
 		color $color2
-
+		box-sizing border-box
+		padding 15px
 
 	.user-logged
 		padding 0 10px
@@ -441,12 +468,15 @@ button
 		display flex
 		align-items center
 		justify-content: space-between
-		border-bottom 0
+		size(100%)
+		box-sizing border-box
+		border 0
 		span
 			display block
 		.name
 			order 3
 			user-select none
+			color $color2
 		.region
 			font-size 15rem
 			order 1
@@ -470,7 +500,7 @@ button
 				padding-top 1px
 				text-transform lowercase
 				&:hover
-					color $color1
+					color $color11
 
 	.user-auth-link
 		border 0
@@ -478,6 +508,7 @@ button
 		display flex
 		align-items center
 		justify-content flex-end
+		max-width 75px
 	.user-bg
 		xy(fixed)
 		size(100%)

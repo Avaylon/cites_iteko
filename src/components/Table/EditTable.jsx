@@ -77,6 +77,11 @@ export class EditTable extends React.Component {
 		return name
 
 	}
+
+	selectClass() {
+		return this.props.attr === this.props.select.id ? 'tr select' : 'tr'
+	}
+
 	render () {
 
 

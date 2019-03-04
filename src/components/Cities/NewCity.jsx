@@ -22,19 +22,20 @@ export class NewCity extends React.Component {
 		return this.state.showFields ? 'add-fields' : 'add-fields none'
 	};
 
-	checkFields = () => {
-
+	close = () => {
 		const show = !this.state.showFields;
 
 		this.setState({showFields: show})
 	};
 
-	add = (event) => {
-
+	add = async (event) => {
 		const data = { name: this.state.cityName, region: this.state.cityRegion };
 		if (!data.name || !data.region) return false;
 
-		this.props.add(event, data )
+		await this.props.add(event, data );
+
+		this.close();
+
 	};
 
 	updateFieldName = (event) => {
@@ -50,7 +51,7 @@ export class NewCity extends React.Component {
 	render() {
 		return (
 			<div className="add-city">
-				<div className={this.crossClass()} onClick={this.checkFields}> 
+				<div className={this.crossClass()} onClick={this.close}>
 					<InlineSVG src={require('../../includes/cross.svg-js')} />
 				</div>
 				<div className={this.fieldsClass()}>
