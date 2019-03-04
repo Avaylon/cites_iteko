@@ -20,8 +20,8 @@ export class UserAuth extends React.Component {
 			this.props.user.id ? 
 			<div className="user-logged" >
 				<div className="name"><span>{this.props.user.name}</span></div>
-				<div className="region">Регион: <span>{this.props.user.region}</span></div>
-				<div className="exit" onClick={this.props.logout}>Выйти</div>
+				<div className="region"><span>{`Регион: ${this.props.user.region}`}</span></div>
+				<div className="exit"><span onClick={this.props.logout}>Выйти</span></div>
 			</div>
 			: 
 			<Link className={this.customClass()} to={this.customLink().link}>

@@ -38,6 +38,7 @@ button
 	transform rotate(0deg)
 	text-align right
 	display inline-block
+	user-select none
 	&.rotate
 		transform rotate(45deg)
 	svg *
@@ -66,13 +67,11 @@ button
 	font-weight 900
 .main
 	display grid
-	grid-template-columns repeat(5, 1fr)
-	grid-template-rows repeat(2 ,200px) 100px
+	grid-template-columns repeat(3, 1fr)
+	grid-template-rows 51px 200px 200px
 	grid-column-gap 15px
-	grid-row-gap 15px
-	grid-template-areas  "cities detail detail detail user" "cities detail detail detail ." "attrs attrs attrs attrs ."
-	.attrs
-		grid-area attrs
+	//grid-row-gap 15px
+	grid-template-areas  "cities user user " "cities detail detail" "cities detail detail"
 	.cities
 		grid-area cities
 		display flex
@@ -82,7 +81,7 @@ button
 
 	.current-city-main
 		grid-area detail
-	.user-logged, .user
+	.user-logged, .user, .user-auth-link
 		grid-area user
 		border 0
 	>*
@@ -143,7 +142,6 @@ button
 		position rel
 		user-select none
 		text-align right
-		margin-bottom 120px
 		.add-fields
 			display flex
 			justify-content space-between
@@ -353,6 +351,7 @@ button
 		.table-wrapp
 			height calc(415px - 53px)
 			overflow-y auto
+			order 2
 			&::-webkit-scrollbar 
 				display none
 		.table
@@ -376,11 +375,13 @@ button
 		box-sizing border-box
 		padding 15px 10px
 		font-size 13rem
-		border-top 1px solid $color12
+		border-bottom 1px solid $color12
 		position rel
 		justify-self flex-end
 		width 100%
 		background $color2
+		order 1
+
 		label
 			display flex
 			cursor pointer
@@ -398,7 +399,6 @@ button
 				margin-top 1px
 			input
 				order 1
-				
 				display none
 			&:after
 				content ' '
@@ -435,27 +435,49 @@ button
 
 
 	.user-logged
-		padding 10px
+		padding 0 10px
 		text-align center
-		height 50%
 		border 2px solid $color12
-		span:first-letter
-			text-transform uppercase
+		display flex
+		align-items center
+		justify-content: space-between
+		border-bottom 0
+		span
+			display block
 		.name
-			font-size 20rem
-			margin-bottom 5px
+			order 3
+			user-select none
 		.region
 			font-size 15rem
+			order 1
+			justify-self flex-end
+			display flex
+			user-select none
 		.exit
-			font-size 13rem
-			margin-top 10px
-			text-decoration underline
+			order 2
+			flex 1
+			text-align right
+			font-size 11rem
 			cursor pointer
-			
+			color $color12
+			margin-right 5px
+			user-select none
+			&:after
+				content '|'
+			span
+				display inline-block
+				margin-right 5px
+				padding-top 1px
+				text-transform lowercase
+				&:hover
+					color $color1
+
 	.user-auth-link
 		border 0
 		height 40px
-		flex-center()
+		display flex
+		align-items center
+		justify-content flex-end
 	.user-bg
 		xy(fixed)
 		size(100%)
