@@ -5,5 +5,9 @@ export function currentReducer(state = {} , action) {
 		state = { ...action.payload }
 	}
 
+	if (action.type === 'RESET_CITY') {
+		state = {}
+	}
+
 	return state
 }

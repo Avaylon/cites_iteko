@@ -8,7 +8,7 @@ export class UserAuth extends React.Component {
 
 	customLink = () => {
 
-		return location.pathname === '/' ? {link: '/auth', text: 'Войти'} : {link: '/', text: 'Назад'}
+		return location.pathname === '/' ? {link: '/auth', text: 'Вход / Регистрация'} : {link: '/', text: 'Назад'}
 	};
 
 	customClass = () => {

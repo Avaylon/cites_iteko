@@ -2,31 +2,13 @@ import React from 'react'
 import Row from './Row.jsx'
 import {hash3} from '../../utils/utils.js'
 
-
-// Table(Array)
 class Table extends React.Component {
 
-	constructor (props) {
-		super(props);
-
-		this.state = {
-			list: [],
-			attrs: []
-		}
-	}
-
-
-	componentWillReceiveProps = (props) => {
-		this.setState({
-			list: [...props.data].map( ({...elem}) => { delete elem.id; return elem }),
-			attrs: [...props.data].map( ({...elem}) => { return elem.id }),
-		})
-	};
-
 	render() {
-
-		const {list, attrs} = this.state;
 		const {select, focus} = this.props;
+
+		const list = [...this.props.data].map( ({...elem}) => { delete elem.id; return elem });
+		const attrs = [...this.props.data].map( ({...elem}) => { return elem.id });
 
 		return (
 			<div className="table">
@@ -41,6 +23,5 @@ class Table extends React.Component {
 		)
 	}
 }
-
 
 export default Table;

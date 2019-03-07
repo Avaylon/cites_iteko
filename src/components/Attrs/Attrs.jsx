@@ -26,14 +26,14 @@ export class Attrs extends React.Component {
 
 		return (
 			<div className="attrs">
-				<div className="optional required">
-					{/*<Table user={user} focus={focus} select={currCity} data={attrs} />*/}
+				<div className="optional">
+					<div className="title">Основные параметры: </div>
+					<Table user={user} focus={focus} select={currCity} data={attrs} />
 				</div>
 				<div className="optional">
+					<div className="title">Дополнительно: </div>
 					<Table user={user} focus={focus} select={currCity} data={attrs} />
-					{/*{user.role === 'admin' ? <EditTable user={user} currCity={currCity} remove={remove} edit={edit} focus={() => {}} data={attrs}/> : false}*/}
 
-					{/*{user.role === 'admin' ? <NewAttrs  add={add} data={attrs} /> : false}*/}
 				</div>
 			</div>
 		)};

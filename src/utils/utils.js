@@ -7,7 +7,6 @@ export function hash3 (num) {
 }
 
 export function arr (obj) {
-
 	const arr = [];
 
 	arr.push( {...obj} );
@@ -17,7 +16,6 @@ export function arr (obj) {
 }
 
 export function renameKeys ({...obj}, names) {
-
 	for (let key in obj) {
 		if (!!names[key]) {
 			obj[ names[key] ] = obj[key];
@@ -35,10 +33,8 @@ const api = (function () {
 	let permanent_options = {};
 
 	return function (url, options) {
-
 		if (url === 'add') {
 			permanent_options = {...permanent_options, ...options};
-
 			return false;
 		}
 

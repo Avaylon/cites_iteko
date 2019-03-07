@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, browserHistory, Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
+import { Autocomplete } from "../Autocomplete/Autocomplete.jsx";
 
 
 
@@ -9,7 +10,7 @@ export class User extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			needAuth: true, 
+			needAuth: true,
 			butText: ['Войти', 'Создать'],
 			data: {
 				login: null,
@@ -26,7 +27,7 @@ export class User extends React.Component {
 	};
 
 	reStatus = () => {
-		return this.setState( {needAuth: !this.state.needAuth }  );
+		return this.setState( {needAuth: !this.state.needAuth } );
 	};
 
 	titleClass () {
@@ -47,14 +48,15 @@ export class User extends React.Component {
 	}
 
 	send = (event) => {
-
-		return !this.state.needAuth ? this.props.send_registr(event, this.state.data) : this.props.send_auth(event, this.state.data)
+		event.preventDefault();
+		return !this.state.needAuth ? this.props.send_registr(this.state.data) : this.props.send_auth(this.state.data)
 	};
 
 
 	template = () => {
+		const {user, autocomplete} = this.props;
 
-		return !this.props.user.name ?
+		return !user.name ?
 			<div className="user-wrapp">
 			<Link to="/"><div className="user-bg"/> </Link>
 			<form className="user" onSubmit={this.send} >
@@ -69,7 +71,10 @@ export class User extends React.Component {
 				</div>
 				<div className={this.emailClass()}>
 					<span>Регион</span>
-					<input onChange={this.updateForm} name="region" />
+					<div className="autocomplete-wrapp">
+						<input autoComplete="off" onChange={this.updateForm} name="region" />
+						<Autocomplete data={autocomplete} valueChange={this.forceUpdateFieldRegion} value={this.regionField} />
+					</div>
 				</div>
 				<button className="but">{this.state.butText[!this.state.needAuth*1]}</button>
 			</form>
@@ -78,8 +83,6 @@ export class User extends React.Component {
 	};
 
 	render() {
-
-
 		return (
 
 			<Route component={this.template} path="/auth">

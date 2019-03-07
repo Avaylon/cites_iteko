@@ -8,7 +8,9 @@ $color13 = lightness($color1, 70%)
 $color14 = lightness($color1, 55%)
 
 $color2 = #fff
-
+$color3 = #E32636
+$color31 = darken($color3, 20%)
+$color32 = lightness($color3, 70%)
 
 html
 	font-family Arial
@@ -16,7 +18,7 @@ html
 html,body
 	clean()
 	color darken($color1, 40%)
-	font-family Arial
+	font-family Roboto, Arial
 body
 	margin 10px
 a
@@ -48,6 +50,30 @@ button
 		svg *
 			fill $color14
 
+
+input:focus + .ul-autocomplete
+	display block
+.ul-autocomplete
+	xy(0, 100%)
+	max-height 500px
+	display none
+	clean()
+	border 1px solid $color12
+	border-top none
+	list-style none
+	background $color2
+	width 100%
+	box-sizing border-box
+	&:hover
+		display block
+	li
+		padding 15px 0
+		padding-left 10px
+		box-sizing border-box
+		text-align left
+		&:hover
+			background $color11
+
 .but
 	background $color14
 	box-sizing border-box
@@ -61,6 +87,26 @@ button
 	&:hover
 		background $color13
 
+
+
+
+.icons
+	xy(180px, -38px)
+	display flex
+	opacity 0
+	&.active
+		pointer-events auto
+		opacity 1
+	.icon
+		size(18px)
+		cursor pointer
+		&:first-child
+			margin-right 15px
+		i, svg
+			size(100%)
+			fill $color2
+			stroke $color2
+
 .none
 	display none !important
 
@@ -70,7 +116,7 @@ button
 	display grid
 	grid-template-columns 270px 1fr
 	height calc(100vh - 20px)
-	grid-template-rows 50px 1fr
+	grid-template-rows 60px 1fr
 	grid-column-gap 15px
 	grid-template-areas  "cities user user " "cities detail detail" "cities detail detail"
 	.cities
@@ -82,12 +128,58 @@ button
 
 	.current-city-main
 		grid-area detail
+		position rel
+		border-top 0
+		.modal-detail
+			xy(159px, -60px)
+			user-select none
+			size(auto, 60px)
+			min-width 300px
+			display flex
+			box-sizing border-box
+			justify-content space-between
+			align-items center
+			z-index 90
+			color $color2
+			background $color3
+			.title
+				width 160px
+				flex 1
+				padding 0 15px
+			.options
+				display flex
+				flex 1
+				height 100%
+				.option
+					flex 1
+					flex-center()
+					cursor pointer
+					height 100%
+					width 80px
+					&:hover
+						background $color32
+					&:first-child:hover
+						background $color31
+			&.edit
+				background $color14
+				.options
+					.option
+						width 110px
+					.option:hover
+						background $color12
+					.option:first-child:hover
+						background $color13
+
+		.detail-wrapp
+			size(100%)
+			overflow-y auto
 	.header
 		grid-area user
 		border-bottom 0
 		display flex
 		justify-content space-between
 		background $color1
+		user-select none
 		.city-card
 			background $color2
 			box-sizing border-box
@@ -157,7 +249,6 @@ button
 		display flex
 		size(100%)
 		flex-direction column
-		
 		.tr, .th
 			cursor pointer
 			display flex
@@ -176,6 +267,9 @@ button
 	.attrs
 		margin 15px
 		box-sizing border-box
+		.title
+			margin-top 15px
+			margin-bottom 15px
 		.required
 			.table
 				border 0
@@ -200,16 +294,24 @@ button
 		.optional
 			position relative
 			.table
+				border 2px solid $color12
 				height auto
-				border 0
-				.th, .tr
+				box-sizing border-box
+				.tr
 					flex 1
 					height auto
 					min-height 60px
 					background none
 					color inherit
+					//background $color12
+					//&:nth-child(even)
+					//	background $color11
 					.td
 						border 0
+						display flex
+						align-items center
+						box-sizing border-box
+						padding 15px
 			.controls
 				width 100%
 				display flex
@@ -240,28 +342,7 @@ button
 						font-size 17rem
 						flex 1
 						background inherit
-					.icons
-						-xy(0 , 50%)
-						margin-top -10px
-						margin-right 10px
-						display flex
-						opacity 0
-						&.active
-							pointer-events auto
-							opacity 1
-						.icon
-							size(15px)
-							cursor pointer
-							&.focus
-								i, svg
-									fill $color2
-									stroke $color2
-							&:first-child
-								margin-right 10px
-							i, svg
-								size(100%)
-								fill $color1
-								stroke $color1
+
 					&.on, &.delete
 						pointer-events auto
 						input, textarea
@@ -367,7 +448,7 @@ button
 		background $color2
 		order 1
 		display flex
-		min-height 50px
+		min-height 60px
 		.region
 			color $color1
 		label
@@ -400,6 +481,10 @@ button
 		.add-city
 			user-select none
 			text-align right
+			flex 1
+			display flex
+			justify-content flex-end
+			align-items center
 			.add-fields
 				display flex
 				justify-content space-between
@@ -411,6 +496,8 @@ button
 				flex-direction column
 				box-sizing border-box
 				border-bottom 1px solid $color12
+
+
 				xy(0, 100%)
 				.field
 					flex 1
@@ -418,6 +505,12 @@ button
 					justify-content space-between
 				span, input
 					display block
+				.autocomplete-wrapp
+					order 2
+					width 75%
+					position rel
+					input
+						width 100%
 				input
 					outline none
 					padding 5px 0
@@ -426,14 +519,11 @@ button
 					font-size 15rem
 					border 1px solid $color12
 					padding-left 7px
+					box-sizing border-box
 				.but
 					width 100%
 					padding-right 1px
 					margin-top 10px
-	.current-city-main
-		display block
-		overflow auto
-		border-top 0
 	.current-city
 		size(100%, auto)
 		min-width 300px
@@ -460,11 +550,12 @@ button
 		color $color2
 		box-sizing border-box
 		padding 15px
+		&:hover
+			text-decoration underline
 
 	.user-logged
-		padding 0 10px
+		padding 0 15px
 		text-align center
-		border 2px solid $color12
 		display flex
 		align-items center
 		justify-content: space-between
@@ -497,7 +588,6 @@ button
 			span
 				display inline-block
 				margin-right 5px
-				padding-top 1px
 				text-transform lowercase
 				&:hover
 					color $color11
@@ -509,6 +599,7 @@ button
 		align-items center
 		justify-content flex-end
 		max-width 75px
+		white-space nowrap
 	.user-bg
 		xy(fixed)
 		size(100%)

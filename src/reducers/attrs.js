@@ -1,8 +1,11 @@
 export function attrsReducer(state = [] , action) {
 
+
+
 	if (action.type === 'GET_ATTRS_LIST') {
 		state = [ ...action.payload ]
 	}
+
 
 	if (action.type === 'EDIT_ATTRS' || action.type === 'DELETE_ATTRS') {
 		state = [ ...action.payload ]
@@ -12,5 +15,7 @@ export function attrsReducer(state = [] , action) {
 		state = [ ...action.payload ]
 	}
 
-	return state
+
+	// to do: rework
+	return state.map( ( {...currValue} ) => {  delete currValue.type; return currValue   } );
 }

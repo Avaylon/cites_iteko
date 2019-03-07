@@ -3,8 +3,9 @@ import React from 'react'
 class Col extends React.Component {
 	render () {
 
+		const { val } = this.props;
 		return (
-			<div className='td'> {this.props.val} </div>
+			<div className='td'> { typeof val === 'boolean' && val ? 'Да' : typeof val === 'boolean' && !val ? 'Нет' : val } </div>
 		)
 	}
 }

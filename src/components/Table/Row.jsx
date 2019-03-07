@@ -8,9 +8,15 @@ class Row extends React.Component {
 		return this.props.attr === this.props.select.id ? 'tr select' : 'tr'
 	}
 
+	focus = (event) => {
+
+		if (!this.props.focus) return false;
+
+		this.props.focus( event.currentTarget.getAttribute('data-id')*1  )
+	};
 
 	render () {
-		const {val, title, attr, focus} = this.props;
+		const {val, title, attr} = this.props;
 
 		return (
 			title ?
@@ -18,7 +24,7 @@ class Row extends React.Component {
 					{val.map((currValue, index) => <Col key={hash3(index)} index={index} val={currValue}  />)}
 				</div>
 			:
-				<div onClick={focus} data-id={ attr} className={this.selectClass()}>
+				<div onClick={this.focus} data-id={ attr} className={this.selectClass()}>
 					{val.map((currValue, index) => <Col key={hash3(index)} index={index} val={currValue} />)}
 				</div>
 		)

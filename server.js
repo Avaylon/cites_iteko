@@ -11,6 +11,28 @@ app.use(function(req, res, next) {
 	next();
 });
 
+var	cities = [
+	{id: 1, city: 'Москва', region: 'Россия' },
+	{id: 2, city: 'Сочи', region: 'Россия' },
+	{id: 3, city: 'Пекин', region: 'Китай' },
+	{id: 4, city: 'Нью-Йорк', region: 'США' },
+	{id: 5, city: 'Вашингтон', region: 'США' },
+	{id: 6, city: 'Кливленд', region: 'США' },
+	{id: 7, city: 'Питер', region: 'Россия' },
+	{id: 8, city: 'Париж', region: 'Франция' },
+	{id: 9, city: 'Амстердам', region: 'Амстердам'},
+	{id: 10, city: 'Гонконг', region: 'Китай' },
+]
+
+
+var attrs = [
+	{id: 1, name: 'Координаты', value: 3232, type: 'number'},
+	{id: 2, name: 'Население', value: 13932, type: 'number'},
+	{id: 3, name: 'Описание', value: 'merve', type: 'text'},
+ 	{id: 4, name: 'Метро', value: false, type: 'boolean'},
+	{id: 5, name: 'Город-миллионник', value: false, type: 'boolean'},
+	{id: 6, name: 'Портовый', value: true , type: 'boolean'},
+];
 
 app.post('/auth', function (req, res) {
 
@@ -21,32 +43,10 @@ app.post('/auth', function (req, res) {
 		res.status(401).send('User not found')
 	}
 
-	
+
 
 });
 
-var	cities = [
-	{id: 1, city: 'Москва', region: 'Россия' },
-	{id: 2, city: 'Сочи', region: 'Россия' },
-	{id: 3, city: 'Пекин', region: 'Китай' },
-	{id: 4, city: 'Нью-Йорк', region: 'США' },
-	{id: 5, city: 'Вашингтон', region: 'США' },
-	{id: 6, city: 'Кливленд', region: 'США' },
-	{id: 7, city: 'Питер', region: 'Россия' },
-	{id: 8, city: 'Париж', region: 'Франция' },
-	{id: 9, city: 'Амстердам', region: 'Амстердам' },
-	{id: 10, city: 'Гонконг', region: 'Китай' },
-]
-
-
-var attrs = [
-	{id: 1, name: 'Координаты', value: 3232},
-	{id: 2, name: 'Население', value: 13932},
-	{id: 3, name: 'Описание', value: 'merve'},
- 	{id: 4, name: 'Метро', value: false},
-	{id: 5, name: 'Город-миллионник', value: false},
-	{id: 6, name: 'Портовый', value: true },
-];
 
 
 app.put('/city/:uid', function (req, res) {
@@ -90,8 +90,6 @@ app.put('/attributes/:uid', function (req, res) {
 
 	}
 
-	console.log( req.body.name )
-
 	res.send( JSON.stringify( attrs )  )
 });
 
@@ -99,11 +97,11 @@ app.put('/attributes/:uid', function (req, res) {
 app.get('/attributes/', function (req, res) {
 
 
-
-
 	var attrs = [
-		{name: 'насление', required: true},
-		{name: 'коодинаты', required: false},
+		{name: 'Описание', required: true},
+		{name: 'Население', required: true},
+		{name: 'Координаты', required: false},
+
 	]
 
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import InlineSVG from 'svg-inline-react';
+import {Autocomplete} from "../Autocomplete/Autocomplete.jsx";
 
 
 export class NewCity extends React.Component {
@@ -10,8 +11,9 @@ export class NewCity extends React.Component {
 		this.state = {
 			showFields: false,
 			cityName: '',
-			cityRegion: ''
-		}
+			cityRegion: '',
+			regionField: '',
+		};
 	}
 
 	crossClass = () => {
@@ -44,11 +46,20 @@ export class NewCity extends React.Component {
 
 
 	updateFieldRegion = (event) => {
-		this.setState({ cityRegion: event.target.value })
+		const val = event.target.value;
+		this.setState({ cityRegion: val})
+	};
+
+	forceUpdateFieldRegion = (val) => {
+		this.setState({ cityRegion: val })
 	};
 
 
 	render() {
+
+		const {cityName, cityRegion} = this.state;
+		const {autocomplete} = this.props;
+
 		return (
 			<div className="add-city">
 				<div className={this.crossClass()} onClick={this.close}>
@@ -57,11 +68,14 @@ export class NewCity extends React.Component {
 				<div className={this.fieldsClass()}>
 					<label className="field">
 						<span>Город</span>
-						<input value={this.state.cityName} onChange={this.updateFieldName} name="city" />
+						<input autoComplete="off" value={cityName} onChange={this.updateFieldName} name="city" />
 					</label>
 					<label className="field">
 						<span>Регион</span>
-						<input value={this.state.cityRegion} onChange={this.updateFieldRegion} name="region" />
+						<div className="autocomplete-wrapp">
+							<input autoComplete="off" value={cityRegion} onChange={this.updateFieldRegion} name="region" />
+							<Autocomplete data={autocomplete} valueChange={this.forceUpdateFieldRegion} value={cityRegion} />
+						</div>
 					</label>
 					<button onClick={this.add} className="but">Добавить</button>
 				</div>
