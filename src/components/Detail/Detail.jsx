@@ -80,7 +80,7 @@ export class Detail extends React.Component {
 			if (this.state.edit.send) {
 
 				this.props.editCity( { id: this.props.currCity.id, name: this.state.edit.data.cityName, value: this.state.edit.data.cityRegion });
-				this.props.getCity(this.props.currCity.id, true)
+				// this.props.getCity(this.props.currCity.id, true)
 			}
 
 			this.reset();

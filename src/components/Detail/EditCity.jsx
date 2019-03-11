@@ -11,8 +11,7 @@ export class EditCity extends React.Component {
             cityName: this.props.cityName,
             cityRegion: this.props.cityRegion,
         }
-    }
-
+    };
     editFormChangeCity = async (event) => {
         await this.setState( { cityName: event.target.value });
         this.props.send(this.state, 'city');
@@ -21,9 +20,6 @@ export class EditCity extends React.Component {
         await this.setState( { cityRegion: event.target.value });
         this.props.send();
     };
-
-
-
 
     render () {
 

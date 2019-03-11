@@ -15,7 +15,6 @@ export default dispatch => ({
         });
     },
     addCity: (data) => {
-
         api("/city/", {method: 'POST', body: JSON.stringify(data) } ).then( async res => {
             if (res.status < 200 || res.status > 299) return false;
 
@@ -29,14 +28,12 @@ export default dispatch => ({
 
             const json = await res.json();
             dispatch( {type: 'GET_CITY_LIST', payload: json });
+
         });
     },
     getCurrentCity: (id, force) => {
-        if ( store.getState().currCity.id === id && !force ) return false;
-
-        const currCity = store.getState().cities.filter( (currValue) => (currValue.id === id ));
-
-        dispatch( {type: 'GET_CITY_INFO', payload: {...currCity[0], id: id} });
+        if ( store.getState().cities.currCity.id === id && !force ) return false;
+        dispatch( {type: 'GET_CURRENT_CITY', payload: store.getState().cities.list.find( (currValue) => ( currValue.id === id  ) )    });
     },
     editCity: (data) => {
         api(`/city/${data.id}`, {method: 'PUT', body: JSON.stringify({ id: data.id, city: data.name, region: data.value }) } ).then( async res => {
@@ -77,7 +74,6 @@ export default dispatch => ({
         dispatch( {type: 'CLEAR_USER', payload: '' } );
     },
     getAllAttrs: () => {
-
         api("/attributes/", {method: 'GET' } ).then( async res => {
             if (res.status < 200 || res.status > 299) return false;
 
@@ -86,7 +82,7 @@ export default dispatch => ({
         });
     },
     getAttrs: () => {
-        const id = store.getState().currCity.id;
+        const id = store.getState().cities.currCity.id;
 
         api(`/city/attributes/${id}`, {method: 'GET'} ).then( async res => {
             if (res.status < 200 || res.status > 299) return false;

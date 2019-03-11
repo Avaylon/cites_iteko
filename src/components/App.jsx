@@ -1,13 +1,12 @@
 import { api } from '../utils/utils.js'
 import React from 'react'
 import actions from '../actions/actions.js'
-import { store } from '../store/configureStore.jsx'
+import { storeAlias } from '../store/configureStore.jsx'
 import { connect } from 'react-redux'
 import { User } from './User/User.jsx'
 import { Cities } from './Cities/Cities.jsx'
 import { Detail } from './Detail/Detail.jsx'
 import { UserAuth } from './User-auth/User-auth.jsx'
-
 
 
 class App extends React.Component {
@@ -46,8 +45,6 @@ class App extends React.Component {
 }
 
 export default connect(
-	store => (
-		{ currCity: store.currCity, user: store.user, cities: store.cities, detail: store.detail, attrs: store.attrs, regions: store.regions, allAttrs: store.allAttrs }
-	),
+	storeAlias,
 	actions
 )(App)

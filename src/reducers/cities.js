@@ -1,4 +1,4 @@
-export function citiesReducer(state = {} , action) {
+export function citiesReducer(state = {currCity: {}, list: []} , action) {
 
 	if (action.type === 'GET_CITY_LIST') {
 		state = {...state, list: [ ...action.payload ] }
@@ -12,10 +12,13 @@ export function citiesReducer(state = {} , action) {
 	}
 
 	if ( action.type === 'EDIT_CITY') {
-		state = {...state, list: state.list.filter((currValue) => ( currValue.id !== action.payload.id )).concat(action.payload) }
+
+		state = {...state, currCity: action.payload, list: state.list.filter((currValue) => ( currValue.id !== action.payload.id )).concat(action.payload) }
 	}
 
-
+	if (action.type === 'GET_CURRENT_CITY') {
+		state = {...state, currCity: action.payload}
+	}
 
 	return state
 }
