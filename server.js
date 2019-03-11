@@ -52,6 +52,7 @@ app.post('/auth', function (req, res) {
 app.put('/city/:uid', function (req, res) {
 
 
+	var index = null
 
 	for (var i = cities.length - 1; i >= 0; i--) {
 
@@ -59,6 +60,8 @@ app.put('/city/:uid', function (req, res) {
 		if (cities[i].id === req.body.id) {
 			cities[i].city = req.body.city ? req.body.city : cities[i].city
 			cities[i].region = req.body.region ? req.body.region : cities[i].region
+
+			index = i
 			break;
 
 		}
@@ -68,13 +71,15 @@ app.put('/city/:uid', function (req, res) {
 
 
 
-	res.send( JSON.stringify( cities )  )
+	res.send( JSON.stringify( cities[index] )  )
 });
 
 
 app.put('/attributes/:uid', function (req, res) {
 
 
+
+	var index = null
 
 	for (var i = attrs.length - 1; i >= 0; i--) {
 
@@ -84,13 +89,15 @@ app.put('/attributes/:uid', function (req, res) {
 
 			attrs[i].name = req.body.name ? req.body.name: attrs[i].name
 			attrs[i].value = req.body.value ? req.body.value : attrs[i].value
+
+			index = i
 			break;
 
 		}
 
 	}
 
-	res.send( JSON.stringify( attrs )  )
+	res.send( JSON.stringify( attrs[index] )  )
 });
 
 
@@ -126,7 +133,7 @@ app.delete('/attributes/:uid', function (req, res) {
 
 	attrs.splice(id, 1)
 
-	res.send( JSON.stringify( attrs)  )
+	res.send( 'OK'  )
 });
 
 app.delete('/city/:uid', function (req, res) {
@@ -146,7 +153,7 @@ app.delete('/city/:uid', function (req, res) {
 
 	cities.splice(id, 1)
 
-	res.send( JSON.stringify( cities)  )
+	res.send( 'OK' )
 });
 
 app.get('/city/:uid', function (req, res) {
@@ -237,10 +244,10 @@ app.post('/city', function (req, res) {
 
 	id_city++
 
+	var obj = { id: id_city, city: req.body.name, region: req.body.region  }
+	cities.push( obj )
 
-	cities.push( { id: id_city, city: req.body.name, region: req.body.region  } )
-
-	res.send( JSON.stringify(cities)  )
+	res.send( JSON.stringify( obj )  )
 });
 
 app.get('/regions', function (req, res) {

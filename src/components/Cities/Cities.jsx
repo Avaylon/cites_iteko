@@ -30,12 +30,7 @@ export class Cities extends React.Component {
 			<aside className="cities">
 				<div className="table-wrapp">
 					<div className="tables">
-						<Table user={user} notRender={['id', 'type']} focus={focus} select={currCity} data={cities}/>
-						{/*{*/}
-							{/*user.role === 'admin' ?*/}
-								{/*<EditTable remove={remove} edit={edit} focus={currCity.id} data={cities.map( (currValue) => ( renameKeys(currValue, {city: 'name', region: 'value'} ) ) )}/>*/}
-							{/*: false*/}
-						{/*}*/}
+						<Table user={user} notRender={['id', 'type']} focus={focus} select={currCity} data={cities.sort( (a, b) => ( a.city < b.city ? -1 : 1)  )}/>
 					</div>
 
 				</div>

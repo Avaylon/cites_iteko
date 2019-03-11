@@ -30,11 +30,11 @@ export class NewCity extends React.Component {
 		this.setState({showFields: show})
 	};
 
-	add = async (event) => {
+	add = async () => {
 		const data = { name: this.state.cityName, region: this.state.cityRegion };
 		if (!data.name || !data.region) return false;
 
-		await this.props.add(event, data );
+		await this.props.add(data);
 
 		this.close();
 
@@ -51,7 +51,7 @@ export class NewCity extends React.Component {
 	};
 
 	forceUpdateFieldRegion = (val) => {
-		this.setState({ cityRegion: val })
+		this.setState({ cityRegion: val})
 	};
 
 
