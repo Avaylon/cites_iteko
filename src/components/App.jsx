@@ -189,7 +189,6 @@ export default connect(
 				api('add', {headers: {"X-Auth-Token": json.token } });
 				localStorage.setItem('user_token', json.token);
 
-
 				const userData = {name: data.login, region: json.region, id: json.id, token: json.token, role: json.role };
 				dispatch( {type: 'SET_USER', payload: userData });
 			});
