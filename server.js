@@ -28,7 +28,7 @@ var	cities = [
 var attrs = [
 	{id: 1, name: 'Координаты', value: 3232, type: 'number'},
 	{id: 2, name: 'Население', value: 13932, type: 'number'},
-	{id: 3, name: 'Описание', value: 'merve', type: 'text'},
+	// {id: 3, name: 'Описание', value: 'merve', type: 'text'},
  	{id: 4, name: 'Метро', value: false, type: 'boolean'},
 	{id: 5, name: 'Город-миллионник', value: false, type: 'boolean'},
 	{id: 6, name: 'Портовый', value: true , type: 'boolean'},
@@ -108,6 +108,8 @@ app.get('/attributes/', function (req, res) {
 		{name: 'Описание', required: true},
 		{name: 'Население', required: true},
 		{name: 'Координаты', required: false},
+		{name: 'Метро', required: false},
+		{name: 'Портовый', required: false},
 
 	]
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, browserHistory } from 'react-router'
-import { Attrs } from '../Attrs/Attrs.jsx'
+import { EditAttrs } from './EditAttrs.jsx'
 import { EditCity} from "./EditCity.jsx";
 import InlineSVG from 'svg-inline-react';
 import Table from "../Table/Table.jsx";
@@ -19,6 +19,7 @@ export class Detail extends React.Component {
 				}
 			},
 			attrs: {
+				send: {},
 				required: [],
 				optional: [],
 			}
@@ -67,6 +68,9 @@ export class Detail extends React.Component {
 		if (type === 'city') {
 			this.setState({ edit: { ...this.state.edit, send: true, data: data } })
 		}
+		if (type === 'attrs') {
+
+		}
 	};
 
 	modeAction = (event) => {
@@ -78,9 +82,7 @@ export class Detail extends React.Component {
 		}
 		if (this.state.mode === 'edit') {
 			if (this.state.edit.send) {
-
 				this.props.editCity( { id: this.props.currCity.id, name: this.state.edit.data.cityName, value: this.state.edit.data.cityRegion });
-				// this.props.getCity(this.props.currCity.id, true)
 			}
 
 			this.reset();
@@ -104,17 +106,18 @@ export class Detail extends React.Component {
 	template = () => {
 		const {add, remove, edit, user, currCity, region, allAttrs} = this.props;
 		const {mode, attrs, editForm} = this.state;
+		const {modalCustom, modeAction, modeOff, beforeModify, needSend} = this;
 
 		return (
 			<section className="current-city-main">
 
 
 				{ mode ?
-					<div className={`modal-detail ${this.modalCustom().className}`}>
-						<div className="title">{this.modalCustom().title}</div>
+					<div className={`modal-detail ${modalCustom().className}`}>
+						<div className="title">{modalCustom().title}</div>
 						<div className="options">
-							<div onClick={this.modeAction} className="option yes">{this.modalCustom().accept}</div>
-							<div onClick={this.modeOff} className="option no">{this.modalCustom().cancel}</div>
+							<div onClick={modeAction} className="option yes">{modalCustom().accept}</div>
+							<div onClick={modeOff} className="option no">{modalCustom().cancel}</div>
 						</div>
 					</div>
 					: false
@@ -122,10 +125,10 @@ export class Detail extends React.Component {
 
 				{ currCity.id && user.role === 'admin' ?
 					<div className="icons active">
-						<div onClick={this.beforeModify} data-event="edit" className={`icon edit`}>
+						<div onClick={beforeModify} data-event="edit" className={`icon edit`}>
 							<InlineSVG src={require('../../includes/edit.svg-js')}/>
 						</div>
-						<div onClick={this.beforeModify} data-event="delete" className={`icon delete`}>
+						<div onClick={beforeModify} data-event="delete" className={`icon delete`}>
 							<InlineSVG src={require('../../includes/cross.svg-js')}/>
 						</div>
 					</div>
@@ -155,10 +158,9 @@ export class Detail extends React.Component {
 						</div>
 					: mode === 'edit' ?
 						<div className="detail-wrapp edit">
-							<EditCity send={this.needSend} cityName={ currCity.city  } cityRegion={ currCity.region } />
+							<EditCity send={needSend} cityName={ currCity.city  } cityRegion={ currCity.region } />
+							<EditAttrs send={needSend} required={ attrs.required } optional={ attrs.optional } attrsList={allAttrs} />
 						</div>
-
-
 					:
 						<div className="detail-wrapp">
 							<div className="current-city">

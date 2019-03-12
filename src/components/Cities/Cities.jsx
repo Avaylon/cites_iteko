@@ -22,9 +22,9 @@ export class Cities extends React.Component {
 
 	template = () => {
 		const {user, currCity, data, focus, remove, edit, add, autocomplete} = this.props;
-		const cities = this.props.data.filter( (row) => {
-			if (!this.state.filter || row.region === this.props.user.region) return true;
-		});
+		const {filter} = this.state;
+		const {filterCities} = this;
+		const cities = this.props.data.filter( (row) => ( !filter || row.region === this.props.user.region ) );
 
 		return (
 			<aside className="cities">
@@ -38,7 +38,7 @@ export class Cities extends React.Component {
 					user.region ?
 						<div className="region-check">
 							<label>
-								<span>Регион: <span title="Домашний регион запоминается при регистрации" className="region">{user.region}</span>  </span> <input onChange={this.filterCities} type="checkbox"/>
+								<span>Регион: <span title="Домашний регион запоминается при регистрации" className="region">{user.region}</span>  </span> <input onChange={filterCities} type="checkbox"/>
 								<div className="input-checkbox"/>
 							</label>
 							{user.role === 'admin' ? <NewCity autocomplete={autocomplete} add={add} data={data}/> : ''}

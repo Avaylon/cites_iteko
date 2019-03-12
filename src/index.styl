@@ -8,7 +8,7 @@ $color13 = lightness($color1, 70%)
 $color14 = lightness($color1, 55%)
 
 $color2 = #fff
-$color3 = #E32636
+$color3 = #c72828
 $color31 = darken($color3, 20%)
 $color32 = lightness($color3, 70%)
 
@@ -142,6 +142,7 @@ input:focus + .ul-autocomplete
 			z-index 90
 			color $color2
 			background $color3
+			border-top 2px solid $color12
 			.title
 				width 160px
 				flex 1
@@ -157,9 +158,8 @@ input:focus + .ul-autocomplete
 					height 100%
 					width 80px
 					&:hover
-						background $color32
-					&:first-child:hover
 						background $color31
+
 			&.edit
 				background $color14
 				.options
@@ -167,12 +167,23 @@ input:focus + .ul-autocomplete
 						width 110px
 					.option:hover
 						background $color12
-					.option:first-child:hover
-						background $color13
+
 
 		.detail-wrapp
 			size(100%)
 			overflow-y auto
+			&.edit
+				input
+					border 1px solid $color13
+					//color $color2
+					outline none
+					padding 5px
+				.current-city
+					.title
+						display block
+					//.subtitle
+
+
 	.header
 		grid-area user
 		border-bottom 0
@@ -267,6 +278,9 @@ input:focus + .ul-autocomplete
 	.attrs
 		margin 15px
 		box-sizing border-box
+		.fields
+			border 1px solid $color1
+			margin 10px 0
 		.title
 			margin-top 15px
 			margin-bottom 15px

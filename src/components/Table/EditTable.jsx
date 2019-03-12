@@ -78,39 +78,35 @@ export class EditTable extends React.Component {
 
 	}
 
-	selectClass() {
-		return this.props.attr === this.props.select.id ? 'tr select' : 'tr'
-	}
 
 	render () {
-
-
 		const {data} = this.state;
+		const {beforeModify, modify, fieldName, fieldValue, controlClass, focusClass, edit, close } = this;
 
 		return (
 			<div className="controls">
 				{ data.map((currValue, index) =>
-					<div key={hash3(index)} data-id={currValue.id} onClick={this.modify} className={this.controlClass(currValue.id)}>
-						<input className="name-field"  onChange={this.fieldName} defaultValue={currValue.name} />
-						<input className="value-field"  onChange={this.fieldValue} defaultValue={currValue.value} />
+					<div key={hash3(index)} data-id={currValue.id} onClick={modify} className={controlClass(currValue.id)}>
+						<input className="name-field"  onChange={fieldName} defaultValue={currValue.name} />
+						<input className="value-field"  onChange={fieldValue} defaultValue={currValue.value} />
 
 						{/*<TextArea defaultValue={currValue[1]} inputRef={tag => ('')} />*/}
 
 
 						<div className="icons active">
-							<div onClick={this.beforeModify} data-event="edit" className={`icon edit ${this.focusClass(currValue.id)}`}>
+							<div onClick={beforeModify} data-event="edit" className={`icon edit ${focusClass(currValue.id)}`}>
 								<InlineSVG src={require('../../includes/edit.svg-js')} />
 							</div>
-							<div onClick={this.beforeModify} data-event="delete"  className={`icon delete ${this.focusClass(currValue.id)}`}>
+							<div onClick={beforeModify} data-event="delete"  className={`icon delete ${focusClass(currValue.id)}`}>
 								<InlineSVG src={require('../../includes/line.svg-js')} />
 							</div>
 						</div>
 
 						<div className="icons inactive">
-							<div onClick={this.edit} className={`icon checked focus`}>
+							<div onClick={edit} className={`icon checked focus`}>
 								<InlineSVG src={require('../../includes/checked.svg-js')} />
 							</div>
-							<div onClick={this.close}className="icon close focus">
+							<div onClick={close}className="icon close focus">
 								<InlineSVG src={require('../../includes/cross.svg-js')} />
 							</div>
 						</div>

@@ -59,25 +59,26 @@ export class NewCity extends React.Component {
 
 		const {cityName, cityRegion} = this.state;
 		const {autocomplete} = this.props;
+		const {updateFieldName, updateFieldRegion, forceUpdateFieldRegion, close, add, crossClass, fieldsClass } = this;
 
 		return (
 			<div className="add-city">
-				<div className={this.crossClass()} onClick={this.close}>
+				<div className={crossClass()} onClick={close}>
 					<InlineSVG src={require('../../includes/cross.svg-js')} />
 				</div>
-				<div className={this.fieldsClass()}>
+				<div className={fieldsClass()}>
 					<label className="field">
 						<span>Город</span>
-						<input autoComplete="off" value={cityName} onChange={this.updateFieldName} name="city" />
+						<input autoComplete="off" value={cityName} onChange={updateFieldName} name="city" />
 					</label>
 					<label className="field">
 						<span>Регион</span>
 						<div className="autocomplete-wrapp">
-							<input autoComplete="off" value={cityRegion} onChange={this.updateFieldRegion} name="region" />
-							<Autocomplete data={autocomplete} valueChange={this.forceUpdateFieldRegion} value={cityRegion} />
+							<input autoComplete="off" value={cityRegion} onChange={updateFieldRegion} name="region" />
+							<Autocomplete data={autocomplete} valueChange={forceUpdateFieldRegion} value={cityRegion} />
 						</div>
 					</label>
-					<button onClick={this.add} className="but">Добавить</button>
+					<button onClick={add} className="but">Добавить</button>
 				</div>
 
 			</div>

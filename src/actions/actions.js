@@ -122,7 +122,6 @@ export default dispatch => ({
             const json = await res.json();
             dispatch( {type: 'SET_USER', payload: json });
         });
-
     },
     auth: (data) => {
         if (!data.login || !data.password) return false;
