@@ -28,7 +28,8 @@ export class EditCity extends React.Component {
         return (
             <div className="current-city">
                 <input onChange={this.editFormChangeCity} value={ cityName } data-field="city" className="title"  />
-                <input onChange={this.editFormChangeRegion} value={ cityRegion } data-field="region" className="subtitle" />
+                <div>Регион: <input onChange={this.editFormChangeRegion} value={ cityRegion } data-field="region" className="subtitle" /></div>
+
             </div>
         )
     }

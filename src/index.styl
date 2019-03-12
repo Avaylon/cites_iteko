@@ -161,28 +161,99 @@ input:focus + .ul-autocomplete
 						background $color31
 
 			&.edit
-				background $color14
+				background $color1
 				.options
 					.option
 						width 110px
 					.option:hover
-						background $color12
+						background $color14
 
 
 		.detail-wrapp
 			size(100%)
 			overflow-y auto
+			.fields-wrapp
+				border 2px solid $color12
+				box-sizing border-box
+				padding 15px
+				&.new
+					text-align center
+					.field
+						.but
+							width 100%
+							flex 0 100%
+							box-sizing border-box
+							padding 15px
 			&.edit
 				input
 					border 1px solid $color13
-					//color $color2
 					outline none
 					padding 5px
 				.current-city
-					.title
+					.title, .subtitle
 						display block
-					//.subtitle
+						background none
+						padding 0
+						border none
+						text-decoration underline
+					.title
+						font-size 25rem
+					.subtitle
+						font-size 17rem
+						display inline-block
+				.fields
+					box-sizing border-box
+					padding 15px
+					border 2px solid $color11
 
+					.title
+						text-align center
+					.but, field
+						width 70%
+						margin 0 auto
+					.but
+						width 100%
+						flex 0 100%
+						box-sizing border-box
+						padding 15px
+					.field
+						display flex
+						flex-wrap wrap
+
+						input
+							padding 10px
+							font-size 17rem
+							border 2px solid $color12
+							&:nth-child(1)
+								border-right-width 1px
+							&:nth-child(2)
+								border-left-width 1px
+							&:disabled
+								background $color1
+								color $color2
+						>*
+							flex 1
+						.buts
+							flex 0 100%
+							color $color2
+							display flex
+							.edit, .remove
+								background $color14
+								transition background .3s
+								flex 1
+								box-sizing border-box
+								padding 15px
+								text-align center
+								cursor pointer
+								border 2px solid $color1
+							.edit
+								border-right-width 1px
+								&:hover
+									background $color1
+							.remove
+								border-left-width 1px
+								&:hover
+									background $color3
 
 	.header
 		grid-area user

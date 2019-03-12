@@ -22,7 +22,7 @@ export class EditAttrs extends React.Component {
     addRequired = (event) => {
 
         const name = event.currentTarget.getAttribute('data-name');
-        this.setState( { required: this.state.required.concat({ id: hash3(0), name: name, value: '' }) } )
+        this.setState( { required: this.state.required.concat({ id: hash3(0), name: name, value: '', added: true }) } )
 
     };
 
@@ -100,7 +100,7 @@ export class EditAttrs extends React.Component {
 
                             return (
                                 <div className="fields add" key={hash3(index)}>
-                                    <div className="title">{currValue.name}</div>
+                                    <div className="title"><span>Требуется: </span>{currValue.name}</div>
                                     <div onClick={addRequired} className="but" data-name={currValue.name} >Добавить</div>
                                 </div>
                             )
@@ -119,10 +119,15 @@ export class EditAttrs extends React.Component {
                                 <div className="fields" key={hash3(index)}> <div onClick={revive} data-id={currValue.id} > Восстановить </div> </div>
                         ))}
                     </div>
-                    <div className="new-field">
-                        <input onChange={addOptionalName} value={attrsOptionalFields.name } data-field="city" className="title"  />
-                        <input onChange={addOptionalValue} value={attrsOptionalFields.value } data-field="city" className="title"  />
-                        <div onClick={add} className="but">Добавить</div>
+                    <div className="fields-wrapp new">
+                        <div className="fields">
+                            <span>Новый атрибут</span>
+                            <div className="field">
+                                <input onChange={addOptionalName} value={attrsOptionalFields.name } data-field="city" className="title"  />
+                                <input onChange={addOptionalValue} value={attrsOptionalFields.value } data-field="city" className="title"  />
+                                <div onClick={add} className="but">Добавить</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

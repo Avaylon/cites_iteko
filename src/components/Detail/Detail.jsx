@@ -87,14 +87,18 @@ export class Detail extends React.Component {
 
 			if (this.state.attrs.send) {
 				// to do: need think
+				console.log(this.state.attrs.data, 'data')
 
 				for (let elem of this.state.attrs.data) {
-					if (elem.edited) {
-						this.props.editAttr( {id: elem.id, name: elem.name, value: elem.value} )
-					}
+
 					if (elem.edited && elem.added) {
 						this.props.addAttr( {name: elem.name, value: elem.value} )
+
 					}
+					if (elem.edited && !elem.added ) {
+						this.props.editAttr( {id: elem.id, name: elem.name, value: elem.value} )
+					}
+
 					if (elem.deleted) {
 						this.props.removeAttr( {id: elem.id} )
 					}
@@ -112,7 +116,7 @@ export class Detail extends React.Component {
 		const params = {};
 
 		params.title = this.state.mode === 'edit'? 'Редактирование' : 'Удалить город?';
-		params.accept = this.state.mode === 'edit'? 'Применить' : 'Да';
+		params.accept = this.state.mode === 'edit'? 'Сохранить' : 'Да';
 		params.cancel = this.state.mode === 'edit'? 'Отмена' : 'Нет';
 		params.className = this.state.mode === 'edit'? 'edit' : 'delete';
 

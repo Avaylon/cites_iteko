@@ -36,6 +36,7 @@ export default dispatch => ({
         dispatch( {type: 'GET_CURRENT_CITY', payload: store.getState().cities.list.find( (currValue) => ( currValue.id === id  ) )    });
     },
     editCity: (data) => {
+
         api(`/city/${data.id}`, {method: 'PUT', body: JSON.stringify({ id: data.id, city: data.name, region: data.value }) } ).then( async res => {
             if (res.status < 200 || res.status > 299) return false;
 

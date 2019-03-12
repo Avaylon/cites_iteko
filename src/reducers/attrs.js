@@ -14,7 +14,7 @@ export function attrsReducer(state = [] , action) {
 	}
 
 	if (action.type === 'ADD_ATTRS' ) {
-		state = [ ...state, ...action.payload ]
+		state = state.concat(action.payload)
 	}
 
 

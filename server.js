@@ -234,8 +234,7 @@ app.post('/attributes', function (req, res) {
 
 	id_attr++
 
-
-	attrs.push(  )
+	attrs.push( { id: id_attr, name: req.body.name, value: req.body.value  } )
 
 	res.send( JSON.stringify({ id: id_attr, name: req.body.name, value: req.body.value  })  )
 });

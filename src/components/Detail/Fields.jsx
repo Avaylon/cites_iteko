@@ -43,8 +43,10 @@ export class Fields extends React.Component {
             <div className="field">
                 <input onChange={changeName} data-id={id} value={ name } disabled={onlyValue} className={cl}  />
                 <input onChange={changeValue} data-id={id} value={ value } className={cl}  />
-                <div onClick={edit} className={`edit ${disabled}`} >Изменить</div>
-                <div onClick={del} >Удалить</div>
+                <div className="buts">
+                    <div onClick={edit} className={`edit ${disabled()}`} >Применить</div>
+                    <div onClick={del} className="remove">Удалить</div>
+                </div>
             </div>
         )
     }
