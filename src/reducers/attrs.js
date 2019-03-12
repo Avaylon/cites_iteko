@@ -5,17 +5,19 @@ export function attrsReducer(state = [] , action) {
 	if (action.type === 'GET_ATTRS_LIST') {
 		state = [ ...action.payload ]
 	}
-
-
-	if (action.type === 'EDIT_ATTRS' || action.type === 'DELETE_ATTRS') {
-		state = [ ...action.payload ]
+	if (action.type === 'DELETE_ATTRS') {
+		state = state.filter(  (currValue) => (action.payload.id !== currValue.id) )
 	}
 
-	if (action.type === 'ADD_ATTRS') {
-		state = [ ...action.payload ]
+	if (action.type === 'EDIT_ATTRS') {
+		state = state.map(  (currValue) => (action.payload.id !== currValue.id ? currValue : action.payload ) )
+	}
+
+	if (action.type === 'ADD_ATTRS' ) {
+		state = [ ...state, ...action.payload ]
 	}
 
 
-	// to do: rework
-	return state.map( ( {...currValue} ) => {  delete currValue.type; return currValue   } );
+	// to do: add types
+	return state
 }

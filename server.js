@@ -26,12 +26,12 @@ var	cities = [
 
 
 var attrs = [
-	{id: 1, name: 'Координаты', value: 3232, type: 'number'},
-	{id: 2, name: 'Население', value: 13932, type: 'number'},
+	{id: 1, name: 'Координаты', value: 3232},
+	{id: 2, name: 'Население', value: 13932},
 	// {id: 3, name: 'Описание', value: 'merve', type: 'text'},
- 	{id: 4, name: 'Метро', value: false, type: 'boolean'},
-	{id: 5, name: 'Город-миллионник', value: false, type: 'boolean'},
-	{id: 6, name: 'Портовый', value: true , type: 'boolean'},
+ 	{id: 4, name: 'Метро', value: false},
+	{id: 5, name: 'Город-миллионник', value: false},
+	{id: 6, name: 'Портовый', value: true },
 ];
 
 app.post('/auth', function (req, res) {
@@ -235,9 +235,9 @@ app.post('/attributes', function (req, res) {
 	id_attr++
 
 
-	attrs.push( { id: id_attr, name: req.body.name, value: req.body.value  } )
+	attrs.push(  )
 
-	res.send( JSON.stringify(attrs)  )
+	res.send( JSON.stringify({ id: id_attr, name: req.body.name, value: req.body.value  })  )
 });
 
 app.post('/city', function (req, res) {

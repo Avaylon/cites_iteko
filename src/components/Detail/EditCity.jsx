@@ -18,7 +18,7 @@ export class EditCity extends React.Component {
     };
     editFormChangeRegion = async (event) => {
         await this.setState( { cityRegion: event.target.value });
-        this.props.send();
+        this.props.send(this.state, 'city');
     };
 
     render () {

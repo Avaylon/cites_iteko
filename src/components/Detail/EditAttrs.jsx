@@ -19,18 +19,17 @@ export class EditAttrs extends React.Component {
         }
     };
 
-
     addRequired = (event) => {
 
         const name = event.currentTarget.getAttribute('data-name');
         this.setState( { required: this.state.required.concat({ id: hash3(0), name: name, value: '' }) } )
+
     };
 
     delRequired = (id) => {
         this.setState({ required: this.state.required.filter( (currValue) => (currValue.id !== id) )  })
 
     };
-
 
     add = () => {
         const {name, value} = this.state.attrsOptionalFields;
@@ -41,7 +40,6 @@ export class EditAttrs extends React.Component {
         })
 
     };
-
 
     del = (id) => {
         this.setState({ optional: this.state.optional.map( (currValue) => (
@@ -58,7 +56,6 @@ export class EditAttrs extends React.Component {
 
     };
 
-
     addOptionalName = (event) => {
         this.setState( { attrsOptionalFields: {...this.state.attrsOptionalFields, name: event.target.value} })
     };
@@ -67,20 +64,21 @@ export class EditAttrs extends React.Component {
         this.setState( { attrsOptionalFields: {...this.state.attrsOptionalFields, value: event.target.value} })
     };
 
-    editRequired = (name, value, id) => {
-        this.setState({required: this.state.required.map( (currValue) => ( currValue.id !== id ? currValue : {...currValue, name: name, value: value, edited: true} ) ) })
+    editRequired = async (name, value, id) => {
+        await this.setState({required: this.state.required.map( (currValue) => ( currValue.id !== id ? currValue : {...currValue, name: name, value: value, edited: true} ) ) });
+        this.props.send( [ ...this.state.required, ...this.state.optional ], 'attrs')
     };
 
-    editOptional = (name, value, id) => {
-        this.setState({optional: this.state.optional.map( (currValue) => ( currValue.id !== id ? currValue : {...currValue, name: name, value: value, edited: true} ) ) })
+    editOptional = async (name, value, id) => {
+        await this.setState({optional: this.state.optional.map( (currValue) => ( currValue.id !== id ? currValue : {...currValue, name: name, value: value, edited: true} ) ) });
+        this.props.send( [ ...this.state.required, ...this.state.optional ], 'attrs')
     };
-
 
 
     render () {
-        const {attrsList, send } = this.props;
+        const {attrsList } = this.props;
         const {attrsOptionalFields, optional, required } = this.state;
-        const {addOptionalName, addOptionalValue, add, del, editRequired, delRequired, revive, editOptional, addRequired} = this;
+        const {addOptionalName, addOptionalValue, add, del, editRequired, delRequired, revive, editOptional, addRequired } = this;
 
         return (
             <div className="attrs">

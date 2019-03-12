@@ -12,17 +12,17 @@ export class Detail extends React.Component {
 
 		this.state = {
 			mode: false,
-			edit: {
-				city: {
-					send: {},
-					data: {},
-				}
+			city: {
+				send: {},
+				data: {},
 			},
 			attrs: {
 				send: {},
+				data: [],
 				required: [],
 				optional: [],
 			}
+
 		}
 	}
 
@@ -66,14 +66,14 @@ export class Detail extends React.Component {
 
 	needSend = (data, type) => {
 		if (type === 'city') {
-			this.setState({ edit: { ...this.state.edit, send: true, data: data } })
+			this.setState({ city: { ...this.state.city, send: true, data: data } })
 		}
 		if (type === 'attrs') {
-
+			this.setState({ attrs: { ...this.state.attrs, send: true, data: data } })
 		}
 	};
 
-	modeAction = (event) => {
+	modeAction = () => {
 		if (this.state.mode === 'delete') {
 			this.props.removeCity({id: this.props.currCity.id});
 
@@ -81,8 +81,26 @@ export class Detail extends React.Component {
 
 		}
 		if (this.state.mode === 'edit') {
-			if (this.state.edit.send) {
-				this.props.editCity( { id: this.props.currCity.id, name: this.state.edit.data.cityName, value: this.state.edit.data.cityRegion });
+			if (this.state.city.send) {
+				this.props.editCity( { id: this.props.currCity.id, name: this.state.city.data.cityName, value: this.state.city.data.cityRegion });
+			}
+
+			if (this.state.attrs.send) {
+				// to do: need think
+
+				for (let elem of this.state.attrs.data) {
+					if (elem.edited) {
+						this.props.editAttr( {id: elem.id, name: elem.name, value: elem.value} )
+					}
+					if (elem.edited && elem.added) {
+						this.props.addAttr( {name: elem.name, value: elem.value} )
+					}
+					if (elem.deleted) {
+						this.props.removeAttr( {id: elem.id} )
+					}
+				}
+
+
 			}
 
 			this.reset();
@@ -90,7 +108,7 @@ export class Detail extends React.Component {
 		}
 	};
 
-	modalCustom = (event) => {
+	modalCustom = () => {
 		const params = {};
 
 		params.title = this.state.mode === 'edit'? 'Редактирование' : 'Удалить город?';
