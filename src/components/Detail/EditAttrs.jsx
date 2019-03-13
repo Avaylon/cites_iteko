@@ -1,6 +1,5 @@
 import React from 'react'
-import { Route, browserHistory } from 'react-router'
-import { Attrs } from '../Attrs/Attrs.jsx'
+import { browserHistory } from 'react-router'
 import {hash3} from '../../utils/utils.js'
 import {Fields} from './Fields.jsx'
 

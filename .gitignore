@@ -1,4 +1,4 @@
 **/node_modules
-.DS_Store
-
+**/*.bundle
+**/.DS_Store
 **/.idea

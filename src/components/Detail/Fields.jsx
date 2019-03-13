@@ -1,6 +1,6 @@
 import React from 'react'
-import { Route, browserHistory } from 'react-router'
-import { Attrs } from '../Attrs/Attrs.jsx'
+import { browserHistory } from 'react-router'
+
 
 export class Fields extends React.Component {
 

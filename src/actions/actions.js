@@ -26,6 +26,7 @@ export default dispatch => ({
         api('/city', {method: 'GET'} ).then( async res => {
             if (res.status < 200 || res.status > 299) return false;
 
+
             const json = await res.json();
             dispatch( {type: 'GET_CITY_LIST', payload: json });
 

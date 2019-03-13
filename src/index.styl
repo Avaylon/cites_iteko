@@ -499,6 +499,9 @@ input:focus + .ul-autocomplete
 	.cities
 		justify-content flex-start
 		position rel
+		.no-city
+			padding 10px
+			display inline-block
 		.table-wrapp
 			//height calc(415px - 53px)
 			overflow-y auto
@@ -759,5 +762,6 @@ input:focus + .ul-autocomplete
 			outline none
 			color $color2
 			border none
+			transition background .3s
 			&:hover
 				background $color13
