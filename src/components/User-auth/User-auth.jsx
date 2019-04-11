@@ -4,8 +4,6 @@ import { Route, Link } from 'react-router-dom'
 
 export class UserAuth extends React.Component {
 
-
-
 	customLink = () => {
 
 		return location.pathname === '/' ? {link: '/auth', text: 'Вход / Регистрация'} : {link: '/', text: 'Назад'}

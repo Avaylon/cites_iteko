@@ -1,9 +1,8 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
+import {browserHistory} from 'react-router'
 
 
 export class Fields extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -17,7 +16,7 @@ export class Fields extends React.Component {
     changeValue = (event) => {
         this.setState({value: event.target.value})
     };
-    changeName  = (event) => {
+    changeName = (event) => {
         this.setState({name: event.target.value})
     };
 
@@ -25,7 +24,7 @@ export class Fields extends React.Component {
 
     edit = () => {
 
-        if ( this.disabled() ) return false;
+        if (this.disabled()) return false;
 
         this.props.submit(this.state.name, this.state.value, this.props.id)
     };
@@ -33,7 +32,7 @@ export class Fields extends React.Component {
         this.props.del(this.props.id)
     };
 
-    render () {
+    render() {
         const {name, value} = this.state;
         const {cl, id, onlyValue} = this.props;
         const {changeName, changeValue, del, edit, disabled} = this;
@@ -41,10 +40,10 @@ export class Fields extends React.Component {
 
         return (
             <div className="field">
-                <input onChange={changeName} data-id={id} value={ name } disabled={onlyValue} className={cl}  />
-                <input onChange={changeValue} data-id={id} value={ value } className={cl}  />
+                <input onChange={changeName} data-id={id} value={name} disabled={onlyValue} className={cl}/>
+                <input onChange={changeValue} data-id={id} value={value} className={cl}/>
                 <div className="buts">
-                    <div onClick={edit} className={`edit ${disabled()}`} >Применить</div>
+                    <div onClick={edit} className={`edit ${disabled()}`}>Применить</div>
                     <div onClick={del} className="remove">Удалить</div>
                 </div>
             </div>

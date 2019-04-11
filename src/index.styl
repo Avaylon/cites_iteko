@@ -51,6 +51,9 @@ button
 			fill $color14
 
 
+
+.autocomplete-wrapp
+	position rel
 input:focus + .ul-autocomplete
 	display block
 .ul-autocomplete
@@ -84,8 +87,9 @@ input:focus + .ul-autocomplete
 	outline none
 	color $color2
 	border none
+	transition background .3s
 	&:hover
-		background $color13
+		background $color1
 
 
 
@@ -124,8 +128,6 @@ input:focus + .ul-autocomplete
 		display flex
 		flex-direction column
 		justify-content space-between
-		
-
 	.current-city-main
 		grid-area detail
 		position rel
@@ -157,6 +159,7 @@ input:focus + .ul-autocomplete
 					cursor pointer
 					height 100%
 					width 80px
+					transition background .3s
 					&:hover
 						background $color31
 
@@ -167,8 +170,6 @@ input:focus + .ul-autocomplete
 						width 110px
 					.option:hover
 						background $color14
-
-
 		.detail-wrapp
 			size(100%)
 			overflow-y auto
@@ -176,14 +177,6 @@ input:focus + .ul-autocomplete
 				border 2px solid $color12
 				box-sizing border-box
 				padding 15px
-				&.new
-					text-align center
-					.field
-						.but
-							width 100%
-							flex 0 100%
-							box-sizing border-box
-							padding 15px
 			&.edit
 				input
 					border 1px solid $color13
@@ -204,8 +197,34 @@ input:focus + .ul-autocomplete
 				.fields
 					box-sizing border-box
 					padding 15px
-					border 2px solid $color11
-
+					border 0
+					&.add
+						background $color11
+						.field
+							display flex
+							.title
+								text-align left
+								display flex
+								box-sizing border-box
+								align-items center
+							.but
+								max-width 300px
+								padding 10px
+								//border 2px solid $color1
+					&.edited
+						background $color11
+					&.revive
+						background $color14
+						transition background .3s
+						cursor pointer
+						user-select none
+						margin 0 15px
+						color $color2
+						padding 0
+						>*
+							padding 15px
+						&:hover
+							background $color1
 					.title
 						text-align center
 					.but, field
@@ -219,7 +238,17 @@ input:focus + .ul-autocomplete
 					.field
 						display flex
 						flex-wrap wrap
-
+						justify-content space-between
+						&.new
+							.but
+								box-sizing border-box
+								padding 0
+								flex-center()
+								max-width 300px
+								margin-left 30px
+								//border 2px solid $color1
+						.title
+							margin 0
 						input
 							padding 10px
 							font-size 17rem
@@ -231,29 +260,38 @@ input:focus + .ul-autocomplete
 							&:disabled
 								background $color1
 								color $color2
+								border 0
+								user-select none
 						>*
 							flex 1
 						.buts
-							flex 0 100%
 							color $color2
 							display flex
+							margin-left 30px
+							max-width 300px
+							user-select none
 							.edit, .remove
 								background $color14
 								transition background .3s
 								flex 1
 								box-sizing border-box
-								padding 15px
+								padding 10px
 								text-align center
 								cursor pointer
-								border 2px solid $color1
+								flex-center()
+								//border 2px solid $color1
 							.edit
-								border-right-width 1px
+								border-right 1px solid $color1
 								&:hover
 									background $color1
 							.remove
-								border-left-width 1px
+								border-left 1px solid $color1
+								transition background .3s, padding 0s .3s
 								&:hover
+									transition background .3s, padding .3s
 									background $color3
+									border-left 0
+									padding-left 11px
 
 	.header
 		grid-area user
@@ -272,6 +310,7 @@ input:focus + .ul-autocomplete
 	>*
 		box-sizing border-box
 		border 2px solid $color12
+
 
 	
 	.tables
@@ -446,8 +485,6 @@ input:focus + .ul-autocomplete
 						background $color1
 					&.delete
 						background #E32636
-
-
 			.add-attrs
 				display block
 				size( 100%, 100px)
@@ -596,7 +633,6 @@ input:focus + .ul-autocomplete
 				.autocomplete-wrapp
 					order 2
 					width 75%
-					position rel
 					input
 						width 100%
 				input
@@ -737,10 +773,6 @@ input:focus + .ul-autocomplete
 				font-weight 300
 				background $color2
 				color $color14
-			// 	text-decoration initial
-			// &.inverse
-			// 	.select:first-child
-			// 		order 1
 					
 		.field
 			display flex

@@ -4,6 +4,7 @@ import { Route } from 'react-router'
 import { NewCity } from './NewCity.jsx'
 
 export class Cities extends React.Component {
+
 	constructor(props) {
 		super(props);
 

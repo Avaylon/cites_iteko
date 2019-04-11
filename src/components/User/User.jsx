@@ -13,31 +13,32 @@ export class User extends React.Component {
 			needAuth: true,
 			butText: ['Войти', 'Создать'],
 			data: {
-				login: null,
-				password: null,
-				region: null
+				login: '',
+				password: '',
+				region: ''
 			}
 		}
 	}
 
-	updateForm = () => {
-		this.state.data[event.target.name] = event.target.value;
-		return false;
+	updateForm = (event) => {
+		const data = {...this.state.data};
+		data[event.target.name] = event.target.value
 
+		this.setState( {data: data } )
 	};
 
 	reStatus = () => {
 		return this.setState( {needAuth: !this.state.needAuth } );
 	};
 
-	titleClass () {
+	titleClass = () => {
 		return this.state.needAuth ? 'title' : 'title inverse';
-	}
+	};
 
-	emailClass () {
+	emailClass = () => {
 		return this.state.needAuth ? 'field none' : 'field';
-	}
-	selectTitleClass (inverse) {
+	};
+	selectTitleClass = (inverse) => {
 		let needAuth = this.state.needAuth;
 
 		if (inverse) {
@@ -45,39 +46,48 @@ export class User extends React.Component {
 		}
 
 		return needAuth ? 'select bold' : 'select';
-	}
+	};
 
-	send = (event) => {
-		event.preventDefault();
+	forceUpdateFieldRegion = (val) => {
+
+		this.setState({ data: { ...this.state.data, region: val } })
+	};
+
+	send = () => {
 		return !this.state.needAuth ? this.props.send_registr(this.state.data) : this.props.send_auth(this.state.data)
 	};
 
 
 	template = () => {
 		const {user, autocomplete} = this.props;
+		const {butText, needAuth, data} = this.state;
+		const {send, reStatus, titleClass, updateForm, selectTitleClass, emailClass, forceUpdateFieldRegion} = this;
 
 		return !user.name ?
 			<div className="user-wrapp">
-			<Link to="/"><div className="user-bg"/> </Link>
-			<form className="user" onSubmit={this.send} >
-				<div className={this.titleClass()} onClick={this.reStatus}> <span className={this.selectTitleClass()}>Авторизация</span><span className={this.selectTitleClass(true)}>Регистрация</span>  </div>
+			<Link to="/"><div className="user-bg"/></Link>
+			<div className="user">
+				<div className={titleClass()} onClick={reStatus}>
+					<span className={selectTitleClass()}>Авторизация</span>
+					<span className={selectTitleClass(true)}>Регистрация</span>
+				</div>
 				<div className="field">
 					<span>Логин</span>
-					<input onChange={this.updateForm} name="login" />
+					<input onChange={updateForm} value={data.name} name="login" />
 				</div>
 				<div className="field">
 					<span>Пароль</span>
-					<input onChange={this.updateForm}  name="password" />
+					<input onChange={updateForm} value={data.password} name="password" />
 				</div>
-				<div className={this.emailClass()}>
+				<div className={emailClass()}>
 					<span>Регион</span>
-					<div className="autocomplete-wrapp">
-						<input autoComplete="off" onChange={this.updateForm} name="region" />
-						<Autocomplete data={autocomplete} valueChange={this.forceUpdateFieldRegion} value={this.regionField} />
-					</div>
+					<form className="autocomplete-wrapp">
+						<input autoComplete="off" value={data.region} onChange={updateForm} name="region" />
+						<Autocomplete data={autocomplete} valueChange={forceUpdateFieldRegion} value={data.region} />
+					</form>
 				</div>
-				<button className="but">{this.state.butText[!this.state.needAuth*1]}</button>
-			</form>
+				<button onClick={send} className="but">{butText[!needAuth*1]}</button>
+			</div>
 			</div>
 		: <Redirect to="/" />
 	};
