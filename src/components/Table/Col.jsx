@@ -6,8 +6,9 @@ class Col extends React.Component {
 
         const {val} = this.props;
         return (
-            <div
-                className='td'> {typeof val === 'boolean' && val ? 'Да' : typeof val === 'boolean' && !val ? 'Нет' : val} </div>
+            <div className='td'>
+                {typeof val === 'boolean' && val ? 'Да' : typeof val === 'boolean' && !val ? 'Нет' : val}
+            </div>
         )
     }
 }

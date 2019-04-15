@@ -4,7 +4,6 @@ import {hash3} from '../../utils/utils.js'
 import {Fields} from './Fields.jsx'
 
 export class EditAttrs extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -19,7 +18,6 @@ export class EditAttrs extends React.Component {
     };
 
     addRequired = async (event) => {
-
         const name = event.currentTarget.getAttribute('data-name');
         await this.setState({required: this.state.required.concat({id: hash3(0), name: name, value: '', added: true})});
         this.send()
@@ -29,14 +27,12 @@ export class EditAttrs extends React.Component {
         const {name, value} = this.state.attrsOptionalFields;
         const data = {name: name, value: value, added: true, edited: true};
 
-
         await this.setState({
             attrsOptionalFields: {name: '', value: ''},
             optional: [...this.state.optional].concat(data),
         });
 
         this.send()
-
     };
 
     send = () => {
@@ -48,7 +44,6 @@ export class EditAttrs extends React.Component {
 
     };
 
-
     del = async (id) => {
         await this.setState({
             optional: this.state.optional.map((currValue) => (
@@ -56,7 +51,6 @@ export class EditAttrs extends React.Component {
         });
 
         this.send()
-
     };
 
     revive = (event) => {
@@ -65,7 +59,6 @@ export class EditAttrs extends React.Component {
             optional: this.state.optional.map((currValue) => (
                 currValue.id !== id ? currValue : {...currValue, deleted: false}))
         })
-
     };
 
     addOptionalName = (event) => {
@@ -101,7 +94,6 @@ export class EditAttrs extends React.Component {
     };
 
     classNameOptionalFields = (edited) => (edited ? 'fields edited' : 'fields');
-
 
     render() {
         const {attrsList} = this.props;

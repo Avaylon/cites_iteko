@@ -81,8 +81,8 @@ export default dispatch => ({
         const id = store.getState().cities.currCity.id;
 
         api(`/city/attributes/${id}`, {method: 'GET'}).then(async res => {
-            const json = await res.json();
-            dispatch({type: 'GET_ATTRS_LIST', payload: json});
+            const data = res.ok ? await res.json() : [];
+            dispatch({type: 'GET_ATTRS_LIST', payload: data});
         });
     },
     getDetail: () => {

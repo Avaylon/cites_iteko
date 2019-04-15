@@ -27,6 +27,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babylonjs": "^3.1.0-alpha3.6",
+    "bluebird": "^3.5.4",
     "body-parser": "^1.18.3",
     "coffee-loader": "^0.8.0",
     "coffee-script": "^1.12.7",

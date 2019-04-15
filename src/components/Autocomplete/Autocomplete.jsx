@@ -11,8 +11,7 @@ export class Autocomplete extends React.Component {
 
         const data = [...this.props.data.filter((value) => {
 
-            console.log(value)
-            return value.name.indexOf(this.props.value) > -1 && value !== this.props.value
+            return value.indexOf(this.props.value) > -1 && value !== this.props.value
         })];
 
 
@@ -21,7 +20,7 @@ export class Autocomplete extends React.Component {
                 {
                     data.map((currValue, index) => {
                         return (
-                            <li onClick={this.valueChange} data-value={currValue} key={hash3(index)}> {currValue.name} </li>)
+                            <li onClick={this.valueChange} data-value={currValue} key={hash3(index)}> {currValue} </li>)
                     })
                 }
             </ul>

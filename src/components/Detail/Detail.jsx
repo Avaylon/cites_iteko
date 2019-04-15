@@ -91,6 +91,7 @@ export class Detail extends React.Component {
         }
         if (this.state.mode === 'edit') {
             if (this.state.city.send) {
+
                 this.props.editCity({
                     id: this.props.currCity.id,
                     name: this.state.city.data.cityName,
@@ -104,7 +105,9 @@ export class Detail extends React.Component {
                 for (let elem of this.state.attrs.data) {
 
                     if (elem.edited && elem.added) {
-                        this.props.addAttr({name: elem.name, value: elem.value})
+
+
+                        this.props.addAttr({name: elem.name, value: elem.value, id_city: this.props.currCity.id})
 
                     }
                     if (elem.edited && !elem.added) {

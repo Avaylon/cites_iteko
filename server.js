@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -11,41 +12,49 @@ const attrs = [];
 const attrsAll = [];
 const regions = [];
 
+const updateDBInfo = () => {
+    db.many(db_query.selectCites, null)
+        .then((data) => {
+            cites.splice(0, cites.length);
+            cites.push(...data)
+        })
+        .catch((error) => {
+            console.log("ERROR CITES:", error);
+        });
+
+
+    db.many(db_query.selectAttrs, null)
+        .then((data) => {
+            attrsAll.splice(0, attrsAll.length);
+            attrsAll.push(...data)
+        })
+        .catch((error) => {
+            console.log("ERROR ATTRS:", error);
+        });
+
+    db.many(db_query.selectRegions, null)
+        .then((data) => {
+            regions.splice(0, regions.length);
+            for (let elem of data) {
+                regions.push(elem.name)
+            }
+
+        })
+        .catch((error) => {
+            console.log("ERROR REGIONS:", error);
+        });
+};
+
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
-db.many(db_query.selectCites, null)
-    .then(function (data) {
-        cites.push(...data)
-    })
-    .catch(function (error) {
-        console.log("ERROR CITES:", error);
-    });
-
-
-db.many(db_query.selectAttrs, null)
-    .then(function (data) {
-        attrsAll.push(...data)
-    })
-    .catch(function (error) {
-        console.log("ERROR ATTRS:", error);
-    });
-
-db.many(db_query.selectRegions, null)
-    .then(function (data) {
-        regions.push(...data)
-    })
-    .catch(function (error) {
-        console.log("ERROR REGIONS:", error);
-    });
-
-app.post('/auth', function (req, res) {
+app.post('/auth', (req, res) => {
 
     if (req.body.login === 'admin' && req.body.password === 'merve') {
         res.status(200).send(JSON.stringify({region: 'Россия', id: 30, token: 123, role: 'admin'}))
@@ -56,135 +65,101 @@ app.post('/auth', function (req, res) {
 
 });
 
+const changeCity = (id, name, id_region) => db.none(db_query.changeCity( id, name, id_region ), null)
+    .catch((error) => (console.error('change', error)));
+const createRegion = (name) => db.none(db_query.createRegion(name), null)
+    .catch((error) => (console.error('create', error)));
+const searchRegion = (region) => db.oneOrNone(db_query.selectRegion(region), null)
+    .catch((error) => (console.error('search', error)));
 
-app.put('/city/:uid', function (req, res) {
+app.put('/city/:uid', async (req, res) => {
+    const {id, city, region} = req.body;
 
-
-    var index = null
-
-    for (var i = cites.length - 1; i >= 0; i--) {
-
-
-        if (cites[i].id === req.body.id) {
-            cites[i].city = req.body.city ? req.body.city : cites[i].city
-            cites[i].region = req.body.region ? req.body.region : cites[i].region
-
-            index = i
-            break;
-
-        }
-
+    let regionInfo = await searchRegion(region);
+    if (!regionInfo ) {
+        await createRegion(region);
+        regionInfo = await searchRegion(region);
     }
 
-
-    res.send(JSON.stringify(cites[index]))
+    await changeCity( id, city, regionInfo.id) ;
+    updateDBInfo();
+    res.send(JSON.stringify(req.body))
 });
 
 
-app.put('/attributes/:uid', function (req, res) {
-
-
-    var index = null
-
-    for (var i = attrs.length - 1; i >= 0; i--) {
-
-
-        if (attrs[i].id === req.body.id) {
-
-
-            attrs[i].name = req.body.name ? req.body.name : attrs[i].name
-            attrs[i].value = req.body.value ? req.body.value : attrs[i].value
-
-            index = i
-            break;
-
-        }
-
-    }
-
-    res.send(JSON.stringify(attrs[index]))
-});
-
-
-app.get('/attributes/', function (req, res) {
-
-
-    res.send(JSON.stringify(attrsAll))
-
-});
-
-app.delete('/attributes/:uid', function (req, res) {
-
-    var id = false;
-
-
-    for (var i = attrs.length - 1; i >= 0; i--) {
-
-        if (attrs[i].id === req.body.id) {
-            id = i;
-            break;
-        }
-
-    }
-
-    attrs.splice(id, 1)
-
-    res.send('OK')
-});
-
-app.delete('/city/:uid', function (req, res) {
-
-    var id = false;
-
-
-    for (var i = cites.length - 1; i >= 0; i--) {
-
-        if (cites[i].id === req.body.id) {
-            id = i;
-            break;
-        }
-
-    }
-
-    cites.splice(id, 1)
-
-    res.send('OK')
-});
-
-
-app.get('/city/attributes/:uid/', function (req, res) {
-
-
-    db.many(db_query.selectOptions(req.params.uid), null)
-        .then(function (data) {
-            attrsAll.push(...data)
-
-            res.send(JSON.stringify(attrsAll))
+app.put('/attributes/:uid', (req, res) => {
+    db.manyOrNone(db_query.changeAttr(req.params.uid, req.body), null)
+        .then(() => {
+            updateDBInfo();
+            res.send(JSON.stringify(req.body))
         })
-        .catch(function (error) {
-            console.log("ERROR OPTIONS:", error);
+        .catch((error) => {
+            console.log("ERROR UPDATE:", error);
+            res.status(404).end()
         });
-
-
-
-
 });
 
+app.get('/attributes/', (req, res) => {
+    res.send(JSON.stringify(attrsAll))
+});
+
+app.delete('/attributes/:uid', (req, res) => {
+    db.none(db_query.deleteAttr(req.params.uid), null)
+        .then(() => {
+            updateDBInfo();
+            res.send('OK')
+        })
+        .catch((error) => {
+            console.log("ERROR DELETE:", error);
+            res.status(404).end()
+        });
+});
+
+app.delete('/city/:uid', (req, res) => {
+    db.none(db_query.deleteCity(req.params.uid), null)
+        .then( () => {
+            updateDBInfo();
+            res.send('OK');
+        })
+        .catch( (error) => {
+            console.log("ERROR DELETE:", error);
+            res.status(404).end()
+        });
+});
+
+
+app.get('/city/attributes/:uid/', (req, res) => {
+    db.many(db_query.selectOptions(req.params.uid), null)
+        .then( (data) => {
+            res.send(JSON.stringify(data.map((currValue) => (
+                currValue.value === 'false' ? {...currValue, value: false} :
+                    currValue.value === 'true' ? {...currValue, value: true} :
+                        currValue
+            ))))
+        })
+        .catch((error) => {
+            if (error.code === 0) {
+                res.status(404).end();
+            }
+        });
+});
+
+app.post('/attributes', async (req, res) => {
+    const {id_city, name, value} = req.body;
+
+
+    await db.none(db_query.createOptionalOptions(name), null)
+        .catch( (error) => (console.error('createOptions', error)) );
+    const id_option = await db.none(db_query.selectOptionID(name), null)
+        .catch( (error) => (console.error('searchID', error)) );
+    await db.none(db_query.createOptionalOptionsValue(id_city, id_option, value), null)
+        .catch( (error) => (console.error('createOptions_value', error)) );
+
+    res.send(JSON.stringify({...req.body, id_option}))
+});
 
 var id_city = 1000
-var id_attr = 1000
-
-app.post('/attributes', function (req, res) {
-
-
-    id_attr++
-
-    attrs.push({id: id_attr, name: req.body.name, value: req.body.value})
-
-    res.send(JSON.stringify({id: id_attr, name: req.body.name, value: req.body.value}))
-});
-
-app.post('/city', function (req, res) {
+app.post('/city', (req, res) => {
 
 
     id_city++
@@ -195,22 +170,22 @@ app.post('/city', function (req, res) {
     res.send(JSON.stringify(obj))
 });
 
-app.get('/regions', function (req, res) {
+app.get('/regions', (req, res) => {
 
 
     res.send(JSON.stringify(regions))
 });
 
-app.get('/city', function (req, res) {
+app.get('/city', (req, res) => {
 
 
     res.send(JSON.stringify(cites))
 });
-app.post('/registr', function (req, res) {
+app.post('/registr', (req, res) => {
     res.status(201).send(JSON.stringify({id: 40, token: 123, role: 'guest'}))
 });
 
-app.post('/auth_token', function (req, res) {
+app.post('/auth_token', (req, res) => {
     res.status(200).send(JSON.stringify({
         id: 30,
         name: 'admin',
@@ -220,7 +195,7 @@ app.post('/auth_token', function (req, res) {
 
 });
 
-app.listen(3000, function () {
-
+app.listen(3000, () => {
+    updateDBInfo();
     console.log('Done');
 });
