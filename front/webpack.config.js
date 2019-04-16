@@ -19,9 +19,9 @@ const filesBuildArr = []
 const path = require('path');
 
 const route = {
-	src: __dirname + '/src/',
-	pages: __dirname + '/src/',
-	dist: __dirname +'/dist/'
+	src: __dirname + '/',
+	pages: __dirname + '/',
+	dist: __dirname +'/../static/'
 }
 
 // if (NODE_ENV == 'add') throw 'page success created'
@@ -30,7 +30,7 @@ module_ava = {
 	context: __dirname,
 	// entry: (function () {
 	// 	var files = {}
-	// 	fs.readdirSync(__dirname + '/src/').reduce(function (entries, name) {
+	// 	fs.readdirSync(__dirname + '/front/').reduce(function (entries, name) {
 	// 		if (name.indexOf('-build') > 0) {
 	// 			var name_cut = name.replace('-build.js', '')
 	// 			files[name_cut] = './'+name
@@ -57,7 +57,7 @@ module_ava = {
 	    // ["transform-react-jsx"],
 		new HtmlWebpackPlugin({
 			// chunks: ['main', 'perve'],
-			template: './src/index.pug',
+			template: './index.pug',
 			// inject: 'head',
 			environment: 'FURME',
 			filename: 'index.html'
