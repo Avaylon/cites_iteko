@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		title Frameworks
+	body
+		#root
+
+
+		#app
+			main.main
+				List
+				Order
+
+		template#List
+			.list
+				.list-header
+					input.search(autocomplete="off" type="text" value="")
+					.name(@click="sorting('name')")
+						span.text Имя
+						span.symbol(:class="{active: sort === 'name', reverse: reverse}")
+					.price(@click="sorting('price')")
+						span.text Цена
+						span.symbol(:class="{active: sort === 'price', reverse: reverse}")
+					.stock(@click="filterStock = !filterStock")
+						span.elem(:class="{ active: filterStock }") ✓
+						span.text В наличии
+				.item(:class="{active: item.id === currProductID}" v-for="item in list" @click="setCurrProduct(item)")
+					.name {{ item.name }}
+					.price {{ item.price }} $
+					img.picture(:src="item.picture" :alt="item.name")
+
+		template#Order
+			form.order(v-on:submit.prevent="purchase()")
+				input(type="hidden" :value="currProduct.id")
+				button.but(:class="{disabled: !currProduct.id}") Заказать

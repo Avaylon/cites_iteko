@@ -1,0 +1,132 @@
+@import './includes/mixins.styl'
+
+
+$color1 = #5a999b
+$color11 = lightness($color1, 13%)
+$color12 = lightness($color1, 27%)
+$color13 = lightness($color1, 50%)
+$color14 = lightness($color1, 57%)
+
+$color2 = #fff
+$color3 = #c72828
+$color31 = darken($color3, 20%)
+$color32 = lightness($color3, 70%)
+
+
+html
+	font-family Arial
+	font-size 16px
+html,body
+	clean()
+	color darken($color1, 40%)
+	font-family Roboto, Arial
+
+
+body >*
+	display inline-block
+
+.main
+	color $color1
+	display flex
+	flex-direction column
+	.order
+		order 2
+		width 400px
+		padding 15px
+		border-bottom 0
+		box-sizing border-box
+		background $color12
+		input, button
+			clean()
+			width 100%
+			display block
+			box-sizing border-box
+			padding 10px
+			font-size 1rem
+		button
+			background $color1
+			margin-top 10px
+			cursor pointer
+			color $color2
+			user-select none
+			&.disabled
+				pointer-events none
+				color #9d9c9f
+				background $color11
+		input
+			background $color2
+	.list
+		order 1
+		display grid
+		width 400px
+		background $color12
+		grid-auto-columns 100%
+		grid-auto-rows 55px
+		padding 15px
+		padding-top 0
+		box-sizing border-box
+		grid-gap 1px
+		cursor pointer
+		.list-header
+			display grid
+			grid-template-columns 80px 80px 1fr
+			align-items center
+			user-select none
+			grid-row-gap 10px
+			grid-row-start 1
+			grid-row-end 3
+			.search
+				clean()
+				width 100%
+				display block
+				box-sizing border-box
+				padding 10px
+				font-size 1rem
+				grid-column-end 4
+				grid-column-start 1
+			.symbol
+				opacity 0
+				border 7px solid transparent
+				border-bottom 7px solid $color13
+				display inline-block
+				margin-left 7px
+				transform-origin center
+				position rel
+				top 0px
+				cursor pointer
+				&.active
+					opacity 1
+				&.reverse
+					transform rotate(180deg)
+					top 4px
+			.name , .price
+				transition background .3s
+				&:hover
+					background $color12
+			.stock
+				justify-self end
+				.elem
+					opacity 0
+					margin-right 5px
+					&.active
+						opacity 1
+
+		.item
+			background $color11
+			display grid
+			padding 10px
+			transition background .3s, color .3s
+			grid-template-columns 1fr 1fr 100px
+			align-items center
+			justify-items end
+			.name
+				justify-self start
+			.picture
+				size(30px)
+			&:hover
+				color #fff
+				background $color13
+				transition background .2s, color .2s
+			&.active
+				color #fff
+				background $color14
