@@ -1,0 +1,1252 @@
+html {
+  font-family: Arial;
+  font-size: 1px;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  color: #365c5d;
+  font-family: Roboto, Arial;
+}
+body {
+  margin: 10px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+main {
+  font-size: 17rem;
+}
+button {
+  font-size: inherit;
+}
+.logo {
+  width: 120px;
+}
+.add-cross {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  text-align: right;
+  display: inline-block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.add-cross.rotate {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.add-cross svg * {
+  fill: #5a999b;
+}
+.add-cross:hover svg * {
+  fill: #6ea9ab;
+}
+.autocomplete-wrapp {
+  position: relative;
+}
+input:focus + .ul-autocomplete {
+  display: block;
+}
+.ul-autocomplete {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  max-height: 500px;
+  display: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  border: 1px solid #bed9da;
+  border-top: none;
+  list-style: none;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ul-autocomplete:hover {
+  display: block;
+}
+.ul-autocomplete li {
+  padding: 15px 0;
+  padding-left: 10px;
+  box-sizing: border-box;
+  text-align: left;
+}
+.ul-autocomplete li:hover {
+  background: #eff5f6;
+}
+.but {
+  background: #6ea9ab;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  border: none;
+  transition: background 0.3s;
+}
+.but:hover {
+  background: #5a999b;
+}
+.icons {
+  position: absolute;
+  left: 180px;
+  top: -38px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 0;
+}
+.icons.active {
+  pointer-events: auto;
+  opacity: 1;
+}
+.icons .icon {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.icons .icon:first-child {
+  margin-right: 15px;
+}
+.icons .icon i,
+.icons .icon svg {
+  width: 100%;
+  height: 100%;
+  fill: #fff;
+  stroke: #fff;
+}
+.none {
+  display: none !important;
+}
+.bold {
+  font-weight: 900;
+}
+.main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 270px 1fr;
+      grid-template-columns: 270px 1fr;
+  height: calc(100vh - 20px);
+  -ms-grid-rows: 60px 1fr;
+      grid-template-rows: 60px 1fr;
+  grid-column-gap: 15px;
+  grid-template-areas: "cities user user " "cities detail detail" "cities detail detail";
+}
+.main .cities {
+  grid-area: cities;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.main .current-city-main {
+  grid-area: detail;
+  position: relative;
+  border-top: 0;
+}
+.main .current-city-main .modal-detail {
+  position: absolute;
+  left: 159px;
+  top: -60px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: auto;
+  height: 60px;
+  min-width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 90;
+  color: #fff;
+  background: #c72828;
+  border-top: 2px solid #bed9da;
+}
+.main .current-city-main .modal-detail .title {
+  width: 160px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 0 15px;
+}
+.main .current-city-main .modal-detail .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+}
+.main .current-city-main .modal-detail .options .option {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+  height: 100%;
+  width: 80px;
+  transition: background 0.3s;
+}
+.main .current-city-main .modal-detail .options .option:hover {
+  background: #9f2020;
+}
+.main .current-city-main .modal-detail.edit {
+  background: #5a999b;
+}
+.main .current-city-main .modal-detail.edit .options .option {
+  width: 110px;
+}
+.main .current-city-main .modal-detail.edit .options .option:hover {
+  background: #6ea9ab;
+}
+.main .current-city-main .detail-wrapp {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+.main .current-city-main .detail-wrapp .fields-wrapp {
+  border: 2px solid #bed9da;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.main .current-city-main .detail-wrapp.edit input {
+  border: 1px solid #9ec6c7;
+  outline: none;
+  padding: 5px;
+}
+.main .current-city-main .detail-wrapp.edit .current-city .title,
+.main .current-city-main .detail-wrapp.edit .current-city .subtitle {
+  display: block;
+  background: none;
+  padding: 0;
+  border: none;
+  text-decoration: underline;
+}
+.main .current-city-main .detail-wrapp.edit .current-city .title {
+  font-size: 25rem;
+}
+.main .current-city-main .detail-wrapp.edit .current-city .subtitle {
+  font-size: 17rem;
+  display: inline-block;
+}
+.main .current-city-main .detail-wrapp.edit .fields {
+  box-sizing: border-box;
+  padding: 15px;
+  border: 0;
+}
+.main .current-city-main .detail-wrapp.edit .fields.add {
+  background: #eff5f6;
+}
+.main .current-city-main .detail-wrapp.edit .fields.add .field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.main .current-city-main .detail-wrapp.edit .fields.add .field .title {
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.main .current-city-main .detail-wrapp.edit .fields.add .field .but {
+  max-width: 300px;
+  padding: 10px;
+}
+.main .current-city-main .detail-wrapp.edit .fields.edited {
+  background: #eff5f6;
+}
+.main .current-city-main .detail-wrapp.edit .fields.revive {
+  background: #6ea9ab;
+  transition: background 0.3s;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: 0 15px;
+  color: #fff;
+  padding: 0;
+}
+.main .current-city-main .detail-wrapp.edit .fields.revive >* {
+  padding: 15px;
+}
+.main .current-city-main .detail-wrapp.edit .fields.revive:hover {
+  background: #5a999b;
+}
+.main .current-city-main .detail-wrapp.edit .fields .title {
+  text-align: center;
+}
+.main .current-city-main .detail-wrapp.edit .fields .but,
+.main .current-city-main .detail-wrapp.edit .fields field {
+  width: 70%;
+  margin: 0 auto;
+}
+.main .current-city-main .detail-wrapp.edit .fields .but {
+  width: 100%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 100%;
+          flex: 0 100%;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field.new .but {
+  box-sizing: border-box;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  max-width: 300px;
+  margin-left: 30px;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .title {
+  margin: 0;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field input {
+  padding: 10px;
+  font-size: 17rem;
+  border: 2px solid #bed9da;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field input:nth-child(1) {
+  border-right-width: 1px;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field input:nth-child(2) {
+  border-left-width: 1px;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field input:disabled {
+  background: #5a999b;
+  color: #fff;
+  border: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field >* {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .buts {
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 30px;
+  max-width: 300px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .buts .edit,
+.main .current-city-main .detail-wrapp.edit .fields .field .buts .remove {
+  background: #6ea9ab;
+  transition: background 0.3s;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .buts .edit {
+  border-right: 1px solid #5a999b;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .buts .edit:hover {
+  background: #5a999b;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .buts .remove {
+  border-left: 1px solid #5a999b;
+  transition: background 0.3s, padding 0s 0.3s;
+}
+.main .current-city-main .detail-wrapp.edit .fields .field .buts .remove:hover {
+  transition: background 0.3s, padding 0.3s;
+  background: #c72828;
+  border-left: 0;
+  padding-left: 11px;
+}
+.main .header {
+  grid-area: user;
+  border-bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #5a999b;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.main .header .city-card {
+  background: #fff;
+  box-sizing: border-box;
+  padding: 15px;
+  white-space: nowrap;
+}
+.main .header .user-auth-link {
+  height: 100%;
+}
+.main >* {
+  box-sizing: border-box;
+  border: 2px solid #bed9da;
+}
+.main .tables {
+  position: relative;
+}
+.main .tables .controls {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.main .tables .controls .control {
+  height: 60px;
+  box-sizing: border-box;
+  padding: 10px;
+  position: relative;
+  background: none;
+  transition: background 0.3s;
+}
+.main .tables .controls .control.on {
+  left: -100%;
+  background: #5a999b;
+}
+.main .tables .controls .control.delete {
+  background: #e32636;
+}
+.main .tables .controls .control input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: none;
+  display: block;
+  color: #fff;
+}
+.main .tables .controls .control .name-field {
+  font-size: 16rem;
+}
+.main .tables .controls .control .value-field {
+  font-size: 9rem;
+  margin-top: 2px;
+}
+.main .tables .controls .control .icons {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -10px;
+  margin-right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.main .tables .controls .control .icons.active {
+  right: 100%;
+}
+.main .tables .controls .control .icons .icon {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.main .tables .controls .control .icons .icon.focus i,
+.main .tables .controls .control .icons .icon.focus svg {
+  fill: #fff;
+  stroke: #fff;
+}
+.main .tables .controls .control .icons .icon:first-child {
+  margin-right: 10px;
+}
+.main .tables .controls .control .icons .icon i,
+.main .tables .controls .control .icons .icon svg {
+  width: 100%;
+  height: 100%;
+  fill: #5a999b;
+  stroke: #5a999b;
+}
+.main .table {
+  border-collapse: collapse;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.main .table .tr,
+.main .table .th {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 60px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #bed9da;
+  padding: 10px;
+}
+.main .table .tr .td,
+.main .table .th .td {
+  border: 1px solid $color1e;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.main .table .tr:first-child,
+.main .table .th:first-child {
+  background: #6ea9ab;
+}
+.main .attrs {
+  margin: 15px;
+  box-sizing: border-box;
+}
+.main .attrs .fields {
+  border: 1px solid #5a999b;
+  margin: 10px 0;
+}
+.main .attrs .title {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.main .attrs .required .table {
+  border: 0;
+  height: auto;
+  display: -ms-grid;
+  display: grid;
+  grid-template-areas: 'one two';
+  padding-bottom: 15px;
+}
+.main .attrs .required .table .th,
+.main .attrs .required .table .tr {
+  background: none;
+  display: block;
+  height: auto;
+  color: #2d4c4e;
+}
+.main .attrs .required .table .th .td,
+.main .attrs .required .table .tr .td {
+  border: 0;
+  padding-left: 2px;
+}
+.main .attrs .required .table .th .td:nth-child(even),
+.main .attrs .required .table .tr .td:nth-child(even) {
+  grid-area: one;
+}
+.main .attrs .required .table .th .td:nth-child(odd),
+.main .attrs .required .table .tr .td:nth-child(odd) {
+  grid-area: two;
+}
+.main .attrs .optional {
+  position: relative;
+}
+.main .attrs .optional .table {
+  border: 2px solid #bed9da;
+  height: auto;
+  box-sizing: border-box;
+}
+.main .attrs .optional .table .tr {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: auto;
+  min-height: 60px;
+  background: none;
+  color: inherit;
+}
+.main .attrs .optional .table .tr .td {
+  border: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.main .attrs .optional .controls {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  background: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  height: auto;
+}
+.main .attrs .optional .controls.active {
+  pointer-events: auto;
+}
+.main .attrs .optional .controls .control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  position: relative;
+  min-height: 60px;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.main .attrs .optional .controls .control textarea {
+  resize: none;
+}
+.main .attrs .optional .controls .control input,
+.main .attrs .optional .controls .control textarea {
+  outline: none;
+  border: none;
+  font-size: 17rem;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background: inherit;
+}
+.main .attrs .optional .controls .control.on,
+.main .attrs .optional .controls .control.delete {
+  pointer-events: auto;
+}
+.main .attrs .optional .controls .control.on input,
+.main .attrs .optional .controls .control.delete input,
+.main .attrs .optional .controls .control.on textarea,
+.main .attrs .optional .controls .control.delete textarea {
+  color: #fff;
+}
+.main .attrs .optional .controls .control.on .icons.active,
+.main .attrs .optional .controls .control.delete .icons.active {
+  pointer-events: none;
+  opacity: 0;
+}
+.main .attrs .optional .controls .control.on .icons.inactive,
+.main .attrs .optional .controls .control.delete .icons.inactive {
+  opacity: 1;
+}
+.main .attrs .optional .controls .control.on .icons .icon i,
+.main .attrs .optional .controls .control.delete .icons .icon i,
+.main .attrs .optional .controls .control.on .icons .icon svg,
+.main .attrs .optional .controls .control.delete .icons .icon svg {
+  fill: #fff;
+  stroke: #fff;
+}
+.main .attrs .optional .controls .control.on {
+  background: #5a999b;
+}
+.main .attrs .optional .controls .control.delete {
+  background: #e32636;
+}
+.main .attrs .optional .add-attrs {
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin-top: 15px;
+}
+.main .attrs .optional .add-attrs .add-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.main .attrs .optional .add-attrs .add-fields .field {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.main .attrs .optional .add-attrs .add-fields .field:first-child {
+  margin-right: 15px;
+}
+.main .attrs .optional .add-attrs .add-fields .field input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  outline: none;
+  padding-left: 5px;
+  font-size: 15rem;
+}
+.main .attrs .optional .add-attrs .add-fields .but {
+  -webkit-box-flex: 100%;
+      -ms-flex: 100%;
+          flex: 100%;
+  margin-top: 15px;
+}
+.main .attrs .table {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #bed9da;
+}
+.main .attrs .table .th,
+.main .attrs .table .tr {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-bottom: 0;
+}
+.main .attrs .table .th .td,
+.main .attrs .table .tr .td {
+  border: 1px solid #bed9da;
+  border-right: 0;
+}
+.main .attrs .table .tr {
+  padding: 0;
+}
+.main .attrs .table .tr .td:nth-child(2) {
+  border-left: 0;
+}
+.main .attrs .table .th {
+  padding: 0;
+}
+.main .attrs .table .th .td {
+  border-color: #bed9da;
+  border-top: 0;
+}
+.main .attrs .table .th .td:first-child {
+  border-left: 0;
+}
+.main .cities {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: relative;
+}
+.main .cities .no-city {
+  padding: 10px;
+  display: inline-block;
+}
+.main .cities .table-wrapp {
+  overflow-y: auto;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+.main .cities .table-wrapp::-webkit-scrollbar {
+  display: none;
+}
+.main .cities .table {
+  height: auto;
+}
+.main .cities .table .th:hover,
+.main .cities .table .tr:hover {
+  background: #bed9da;
+}
+.main .cities .table .th.select,
+.main .cities .table .tr.select {
+  background: #6ea9ab;
+  color: #fff;
+}
+.main .cities .table .th {
+  display: none;
+}
+.main .cities .table .tr {
+  background: #eff5f6;
+}
+.main .cities .table .td:last-child {
+  font-size: 10rem;
+}
+.main .region-check {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  box-sizing: border-box;
+  padding: 15px 10px;
+  font-size: 13rem;
+  border-bottom: 1px solid #bed9da;
+  position: relative;
+  justify-self: flex-end;
+  width: 100%;
+  background: #fff;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 60px;
+}
+.main .region-check .region {
+  color: #5a999b;
+}
+.main .region-check label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.main .region-check label .input-checkbox {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 2px solid #9ec6c7;
+  margin-right: 10px;
+}
+.main .region-check label input:checked + .input-checkbox {
+  background: #9ec6c7;
+  border: 0;
+}
+.main .region-check label span {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+.main .region-check label input {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  display: none;
+}
+.main .region-check label:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #bed9da;
+  pointer-events: none;
+  opacity: 0;
+}
+.main .region-check .add-city {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-align: right;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.main .region-check .add-city .add-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 10px 15px;
+  height: auto;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  box-sizing: border-box;
+  border-bottom: 1px solid #bed9da;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
+.main .region-check .add-city .add-fields .field {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 50px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.main .region-check .add-city .add-fields span,
+.main .region-check .add-city .add-fields input {
+  display: block;
+}
+.main .region-check .add-city .add-fields .autocomplete-wrapp {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  width: 75%;
+}
+.main .region-check .add-city .add-fields .autocomplete-wrapp input {
+  width: 100%;
+}
+.main .region-check .add-city .add-fields input {
+  outline: none;
+  padding: 5px 0;
+  width: 75%;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  font-size: 15rem;
+  border: 1px solid #bed9da;
+  padding-left: 7px;
+  box-sizing: border-box;
+}
+.main .region-check .add-city .add-fields .but {
+  width: 100%;
+  padding-right: 1px;
+  margin-top: 10px;
+}
+.main .current-city {
+  width: 100%;
+  height: auto;
+  min-width: 300px;
+  display: inline-block;
+  padding: 15px;
+  padding-top: 25px;
+  box-sizing: border-box;
+}
+.main .current-city .title {
+  font-size: 25rem;
+  margin-bottom: 15px;
+}
+.main .current-city .title-min {
+  font-size: 18rem;
+  color: #bed9da;
+}
+.main .user-wrapp {
+  border: 0;
+}
+.main .user-auth {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 250px;
+  height: 40px;
+  cursor: pointer;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.main .user-auth:hover {
+  text-decoration: underline;
+}
+.main .user-logged {
+  padding: 0 15px;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0;
+}
+.main .user-logged span {
+  display: block;
+}
+.main .user-logged .name {
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #fff;
+}
+.main .user-logged .region {
+  font-size: 15rem;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  justify-self: flex-end;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.main .user-logged .exit {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: right;
+  font-size: 11rem;
+  cursor: pointer;
+  color: #bed9da;
+  margin-right: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.main .user-logged .exit:after {
+  content: '|';
+}
+.main .user-logged .exit span {
+  display: inline-block;
+  margin-right: 5px;
+  text-transform: lowercase;
+}
+.main .user-logged .exit span:hover {
+  color: #eff5f6;
+}
+.main .user-auth-link {
+  border: 0;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  max-width: 75px;
+  white-space: nowrap;
+}
+.main .user-bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #5a999b;
+  background: rgba(90,153,155,0.3);
+}
+.main .user {
+  width: 300px;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 2px solid #9ec6c7;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  margin: auto;
+  height: 350px;
+  z-index: 90;
+  background: #fff;
+}
+.main .user >* {
+  width: 100%;
+  margin: 15px 0;
+}
+.main .user .title {
+  white-space: nowrap;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fff;
+  height: 80px;
+  width: calc(100% + 40px);
+  margin-top: -20px;
+  background: #6ea9ab;
+  box-sizing: border-box;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  font-size: 20rem;
+}
+.main .user .title .select {
+  padding: 10px;
+  height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.main .user .title .bold {
+  font-weight: 300;
+  background: #fff;
+  color: #6ea9ab;
+}
+.main .user .field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.main .user .field input {
+  padding: 5px 10px;
+  font-size: 18rem;
+  outline: none;
+}
+.main .user .but {
+  background: #6ea9ab;
+  width: 70%;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  border: none;
+  transition: background 0.3s;
+}
+.main .user .but:hover {
+  background: #9ec6c7;
+}
