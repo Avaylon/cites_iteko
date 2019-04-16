@@ -20,26 +20,27 @@ const attrsAll = [];
 const regions = [];
 
 const DBind = (query, method) => (
-     database[method](query, null).catch((error) => (console.error(`Database Error: ${query} \n`, error)))
+    database[method](query, null).catch((error) => (console.error(`Database Error: ${query} \n`, error)))
 );
 
 const updateDBInfo = async () => {
-    let data;
-
-    data = await DBind(query.selectCites, 'many');
     cites.splice(0, cites.length);
-    cites.push(...data);
-
-    data = await DBind(query.selectAttrs, 'many');
     attrsAll.splice(0, attrsAll.length);
-    attrsAll.push(...data);
-
-    data = await DBind(query.selectRegions, 'many');
     regions.splice(0, regions.length);
-    for (let elem of data) {regions.push(elem.name)}
+
+    cites.push(...await DBind(query.selectCites, 'many'));
+    attrsAll.push(...await DBind(query.selectAttrs, 'many'));
+    const data_regions = await DBind(query.selectRegions, 'many');
+    for (let elem of data_regions) {regions.push(elem.name)}
 };
 
 updateDBInfo();
+
+
+const generateToken = () => {
+    return 123;
+};
+
 
 app.get('/regions', (req, res) => {
     res.send(JSON.stringify(regions))
@@ -48,12 +49,8 @@ app.get('/regions', (req, res) => {
 app.put('/city/:uid', async (req, res) => {
     const {id, city, region} = req.body;
 
-    let regionInfo = await DBind(query.selectRegion(region), 'oneOrNone');
-    if (!regionInfo ) {
-        await DBind(query.createRegion(name), 'none');
-        regionInfo = await DBind(query.selectRegion(region), 'oneOrNone');
-    }
-    await DBind(query.changeCity(id,city,regionInfo.id), 'none');
+    const regionInfo = await DBind(query.selectRegion(region), 'oneOrNone') || await DBind(query.createRegion(region), 'one');
+    await DBind(query.changeCity(id, city, regionInfo.id), 'none');
 
     updateDBInfo();
     res.send(JSON.stringify(req.body))
@@ -62,16 +59,11 @@ app.put('/city/:uid', async (req, res) => {
 app.post('/city', async (req, res) => {
     const {name, region} = req.body;
 
-    let regionInfo = await DBind(query.selectRegion(region), 'oneOrNone');
-    if (!regionInfo ) {
-        await DBind(query.createRegion(name), 'none');
-        regionInfo = await await DBind(query.selectRegion(region), 'oneOrNone');
-    }
-    await DBind(query.createCity(name,regionInfo.id), 'none');
-    const cityID = await DBind(query.selectCity(name), 'one');
+    const regionInfo = await DBind(query.selectRegion(region), 'oneOrNone') || await DBind(query.createRegion(region), 'one');
+    const city = await DBind(query.createCity(name, regionInfo.id), 'one');
 
     updateDBInfo();
-    res.send(JSON.stringify( {id: cityID.id, city: name, region} ))
+    res.send(JSON.stringify({id: city.id, city: name, region}))
 });
 
 app.delete('/city/:uid', async (req, res) => {
@@ -124,11 +116,15 @@ app.post('/attributes', async (req, res) => {
     res.send(JSON.stringify({id: id_option, name, value}))
 });
 
-app.post('/registr', (req, res) => {
-    res.status(201).send(JSON.stringify({id: 40, token: 123, role: 'guest'}))
+app.post('/registr', async (req, res) => {
+    const {login, password, region} = req.body;
+    const user = await DBind(query.createUser(login, password, region), 'one');
+
+    res.status(201).send(JSON.stringify({...user, token: generateToken() }))
 });
 
 app.post('/auth_token', (req, res) => {
+
     res.status(200).send(JSON.stringify({
         id: 30,
         name: 'admin',
@@ -144,8 +140,6 @@ app.post('/auth', (req, res) => {
     } else {
         res.status(401).send('User not found')
     }
-
-
 });
 
 app.listen(port, () => {
